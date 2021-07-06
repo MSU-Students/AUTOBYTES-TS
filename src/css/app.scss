@@ -1,1 +1,18 @@
 // app global css in SCSS form
+// app global css in SCSS form
+@font-face {
+    font-family: 'custom_font';
+    src: url('../css/font/mont_reg.otf');
+    src: url('../css/font/nova_reg.otf');
+    src: url('../css/font/mont_bold.otf');
+}
+
+.font1 {
+    font-family: 'custom_font', 'mont_reg';
+}
+.font2 {
+    font-family: 'custom_font', 'nova_reg';
+}
+.font3 {
+    font-family: 'custom_font' , 'mont_bold';
+}
