@@ -36,27 +36,24 @@
   </q-page>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, prop, Options } from "vue-class-component";
 import loginService from "src/services/login.services.js";
-export default {
-  data() {
-    return {
-      password: "",
-      isPwd: true
-    };
-  },
+
+@Options({})
+export default class Login extends Vue {
+  password = "";
+  isPwd = true;
 
   created() {
     loginService.onLoad();
-  },
-
-  methods: {
-    async googleLogin() {
-      const res = await loginService.signIn();
-      console.log(res);
-    }
   }
-};
+
+  async googleLogin() {
+    const res = await loginService.signIn();
+    console.log(res);
+  }
+}
 </script>
 
 <style></style>
