@@ -7,8 +7,10 @@
 </template>
 
 <script>
+import { Vue, Options, prop } from "vue-class-component";
 
-export default {
+@Options({
   name: "MainLayout",
-};
+})
+export default class MainLayout extends Vue {}
 </script>
