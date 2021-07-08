@@ -12,10 +12,8 @@
 
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
-const Header = () =>
-  import("../../components/layout-component/admin/header.layout.vue");
-const Drawer = () =>
-  import("../../components/layout-component/admin/drawer.layout.vue");
+import Header from "src/components/layout-component/admin/header.layout.vue"
+import Drawer from "src/components/layout-component/admin/drawer.layout.vue"
 
 @Options({
   components: {
