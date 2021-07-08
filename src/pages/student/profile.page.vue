@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-xl">
     <div :class="$q.screen.lt.md ? '' : 'row q-pt-xl'">
-      <div class="col-6 q-pt-xs q-pr-xs ">
+      <div class="col-6 q-pt-xs q-pr-xs">
         <q-card :style="$q.screen.lt.md ? 'height: 400px' : 'height: 600px'">
           <q-img
             class="bg-img"
@@ -80,11 +80,9 @@
               </q-tab-panel>
 
               <q-tab-panel name="qrcode" class="text-center">
-                <div class="text-h4 text-weight-medium">
-                  Qr Code
-                </div>
+                <div class="text-h4 text-weight-medium">Qr Code</div>
                 <q-separator spaced inset />
-                <canvas :class="$q.screen.lt.md ? '':'canva'" id="canvas"/>
+                <canvas :class="$q.screen.lt.md ? '' : 'canva'" id="canvas" />
                 <div>
                   <q-btn
                     class="q-mt-xl"
@@ -104,20 +102,18 @@
 </template>
 
 <script>
+import { Vue, prop, Options} from "vue-class-component";
 import QrCodeWithLogo from "qrcode-with-logos";
 
-export default {
-  data() {
-    return {
-      tab: "info",
-      studentInfo: {
-        firstName: "",
-        lastName: ""
-      }
-    };
-  },
+@Options({})
+export default class profile extends Vue{
 
-  methods: {
+      tab= "info"
+      studentInfo= {
+        firstName= "",
+        lastName= ""
+      }
+
     async generatedQrCode() {
       return new Promise(resolve => {
         let qrcode = new QrCodeWithLogo({
@@ -131,14 +127,14 @@ export default {
         });
         resolve(qrcode);
       });
-    },
+    }
 
     async showQrCode(tab) {
       if (tab == "qrcode") {
         const qrCode = await this.generatedQrCode();
         await qrCode.toCanvas();
       }
-    },
+    }
 
     async downloadQrCode() {
       let img = new Image();
@@ -147,7 +143,6 @@ export default {
       const res = await qrCode.downloadImage("Student QR Code");
       console.log(res);
     }
-  }
 };
 </script>
 

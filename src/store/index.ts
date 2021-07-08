@@ -19,6 +19,8 @@ import { UiStateInterface } from "./ui-module/state";
  */
 
 export interface StateInterface {
+  siteNav: any
+  siteNav: any
   // Define your own store structure, using submodules if needed
   // example: UiStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.

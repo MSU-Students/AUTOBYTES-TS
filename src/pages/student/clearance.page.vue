@@ -7,8 +7,8 @@
           <q-separator spaced inset />
         </q-card-section>
         <q-card-section class="q-pa-none">
-          <q-scroll-area style="height: 500px;">
-            <q-list >
+          <q-scroll-area style="height: 500px">
+            <q-list>
               <template>
                 <q-item clickable @click="dialog = true">
                   <div>
@@ -56,14 +56,12 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      dialog: false
-    };
-  }
-};
+<script lang="ts">
+import { Vue, prop, Options } from "vue-class-component";
+@Options({})
+export default class clearance extends Vue {
+  dialog= false;
+}
 </script>
 
 <style></style>

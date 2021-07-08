@@ -3,7 +3,7 @@
     <div class="q-pa-xs">
       <q-table
         style="height: 750px"
-        :data="data"
+        :data="clearance"
         :columns="columns"
         row-key="name"
         :filter="filter"
@@ -201,57 +201,54 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      name: "",
-      by: "",
-      model: null,
-      models: null,
-      semester: ["1st Semester", "2nd Semester"],
-      date: "",
-      dialog: false,
-      filter: "",
-      shape: ["line"],
-      pagination: {
-        rowsPerPage: 0
-      },
-      multiple: null,
-      options: ["1st Semester", "2nd Semester"],
-      columns: [
-        {
-          name: "title",
-          required: true,
-          label: "TITLE",
-          align: "center",
-          field: row => row.name,
-          format: val => `${val}`,
-          sortable: true
-        },
-        { name: "date", label: "DATE", field: "date", align: "center" },
-        {
-          name: "semester",
-          label: "SEMESTER",
-          field: "semester",
-          align: "center"
-        }
-      ],
-      data: [
-        {
-          name: "Sample 1",
-          date: "05/12/2021",
-          semester: "1st Semester"
-        },
-        {
-          name: "2",
-          date: "05/12/2021",
-          semester: "2nd Semester"
-        }
-      ]
-    };
-  }
-};
+<script lang="ts">
+import { Vue, Options } from "vue-class-component";
+export default class clearance extends Vue {
+  name = "";
+  by = "";
+  model = null;
+  models = null;
+  semester = ["1st Semester", "2nd Semester"];
+  date = "";
+  dialog = false;
+  filter = "";
+  shape = ["line"];
+  pagination = {
+    rowsPerPage: 0,
+  };
+  multiple = null;
+  options = ["1st Semester", "2nd Semester"];
+  columns = [
+    {
+      name: "title",
+      required: true,
+      label: "TITLE",
+      align: "center",
+      field: (row: any) => row.name,
+      format: (val: any) => `${val}`,
+      sortable: true,
+    },
+    { name: "date", label: "DATE", field: "date", align: "center" },
+    {
+      name: "semester",
+      label: "SEMESTER",
+      field: "semester",
+      align: "center",
+    },
+  ];
+  clearance = [
+    {
+      name: "Sample 1",
+      date: "05/12/2021",
+      semester: "1st Semester",
+    },
+    {
+      name: "2",
+      date: "05/12/2021",
+      semester: "2nd Semester",
+    },
+  ];
+}
 </script>
 
 <style scoped></style>

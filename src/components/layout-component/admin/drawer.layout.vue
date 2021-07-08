@@ -77,28 +77,29 @@
 </template>
 
 <script lang="ts">
-import {Vue, Options} from "vue-class-component";
+import { Vue, Options, prop } from "vue-class-component";
+
 const itemList = [
   {
     icon: "event",
     label: "Bulletin",
-    to: "/a/bulletin"
+    to: "/a/bulletin",
   },
   {
     icon: "assignment_turned_in",
     label: "Clearance",
-    to: "/a/clearances"
+    to: "/a/clearances",
   },
   {
     icon: "assignment_ind",
     label: "Attendance",
-    to: "/a/attendance"
+    to: "/a/attendance",
   },
   {
     icon: "person",
     label: "Records",
-    to: "/a/records"
-  }
+    to: "/a/records",
+  },
 ];
 
 @Options({})

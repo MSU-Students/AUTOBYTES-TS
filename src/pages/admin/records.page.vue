@@ -3,7 +3,7 @@
     <div class="q-pa-xs">
       <q-table
         style="height: 750px"
-        :data="data"
+        :data="records"
         :columns="columns"
         row-key="name"
         :filter="filter"
@@ -113,7 +113,14 @@
                         :options="type"
                         label="Record Type"
                       />
-                      <q-file filled v-model="file" label="Attach Image" :style="$q.screen.lt.md ? 'width: 295px' : 'width: 470px'">
+                      <q-file
+                        filled
+                        v-model="file"
+                        label="Attach Image"
+                        :style="
+                          $q.screen.lt.md ? 'width: 295px' : 'width: 470px'
+                        "
+                      >
                         <template v-slot:prepend>
                           <q-icon name="attach_file" />
                         </template>
@@ -174,73 +181,71 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: '',
-      by: '',
-      file: null,
-      model: null,
-      models: null,
-      semester: ["1st Semester", "2nd Semester"],
-      type: ["BILLS", "RECIEPTS", "MINUTES OF MEETINGS"],
-      text: "",
-      date: "",
-      dialog: false,
-      filter: "",
-      pagination: {
-        rowsPerPage: 0
-      },
-      multiple: null,
-      options: [
-        "1st Semester",
-        "2nd Semester",
-        "BILLS",
-        "MINUTES OF MEETINGS",
-        "RECEIPTS"
-      ],
-      columns: [
-        {
-          name: "title",
-          required: true,
-          label: "TITLE",
-          align: "center",
-          field: row => row.name,
-          format: val => `${val}`,
-          sortable: true
-        },
-        { name: "type", label: "TYPE", field: "type", align: "center" }
-      ],
-      data: [
-        {
-          name: "Sample 1",
-          type: "MINUTES OF MEETINGS"
-        },
-        {
-          name: "2",
-          type: "BILLS"
-        },
-        {
-          name: "3",
-          type: "RECEIPTS"
-        },
-        {
-          name: "4",
-          type: "BILLS"
-        },
-        {
-          name: "5",
-          type: "MINUTES OF MEETINGS"
-        },
-        {
-          name: "6",
-          type: "RECEIPTS"
-        }
-      ]
-    };
-  }
-};
+<script lang="ts">
+import { Vue, Options } from "vue-class-component";
+@Options({})
+export default class records extends Vue {
+  title = "";
+  by = "";
+  file = null;
+  model = null;
+  models = null;
+  semester = ["1st Semester", "2nd Semester"];
+  type = ["BILLS", "RECIEPTS", "MINUTES OF MEETINGS"];
+  text = "";
+  date = "";
+  dialog = false;
+  filter = "";
+  pagination = {
+    rowsPerPage: 0,
+  };
+  multiple = null;
+  options = [
+    "1st Semester",
+    "2nd Semester",
+    "BILLS",
+    "MINUTES OF MEETINGS",
+    "RECEIPTS",
+  ];
+  columns = [
+    {
+      name: "title",
+      required: true,
+      label: "TITLE",
+      align: "center",
+      field: (row: any) => row.name,
+      format: (val: any) => `${val}`,
+      sortable: true,
+    },
+    { name: "type", label: "TYPE", field: "type", align: "center" },
+  ];
+  records = [
+    {
+      name: "Sample 1",
+      type: "MINUTES OF MEETINGS",
+    },
+    {
+      name: "2",
+      type: "BILLS",
+    },
+    {
+      name: "3",
+      type: "RECEIPTS",
+    },
+    {
+      name: "4",
+      type: "BILLS",
+    },
+    {
+      name: "5",
+      type: "MINUTES OF MEETINGS",
+    },
+    {
+      name: "6",
+      type: "RECEIPTS",
+    },
+  ];
+}
 </script>
 
 <style scoped></style>
