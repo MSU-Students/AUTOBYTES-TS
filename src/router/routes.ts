@@ -42,7 +42,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import("src/pages/admin/bulletin.page.vue"),
       },
       {
-        path: "clearances",
+        path: "clearance",
         component: () => import("src/pages/admin/clearance.page.vue"),
       },
       {

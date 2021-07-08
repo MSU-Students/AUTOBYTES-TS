@@ -10,10 +10,10 @@
   </q-layout>
 </template>
 
-<script lang="ts">
+<script>
 import { Vue, Options } from "vue-class-component";
-import Header from "src/components/layout-component/admin/header.layout.vue"
-import Drawer from "src/components/layout-component/admin/drawer.layout.vue"
+import Header from "src/components/layout-component/admin/header.layout.vue";
+import Drawer from "src/components/layout-component/admin/drawer.layout.vue";
 
 @Options({
   components: {
@@ -21,5 +21,5 @@ import Drawer from "src/components/layout-component/admin/drawer.layout.vue"
     Drawer,
   },
 })
-export default class AdminLayout extends Vue {}
+export default class StudentLayout extends Vue {}
 </script>

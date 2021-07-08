@@ -8,6 +8,7 @@
     dense
     flat
     round
+    @update:model-value="hideDrawer(...[$event])"
   >
     <!-- BYTES LOGO -->
     <div class="text-center q-pt-xl">
@@ -77,7 +78,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop } from "vue-class-component";
+import { Vue, Options } from "vue-class-component";
+import { mapActions, mapState } from "vuex";
 
 const itemList = [
   {
@@ -88,7 +90,7 @@ const itemList = [
   {
     icon: "assignment_turned_in",
     label: "Clearance",
-    to: "/a/clearances",
+    to: "/a/clearance",
   },
   {
     icon: "assignment_ind",
@@ -102,22 +104,23 @@ const itemList = [
   },
 ];
 
-@Options({})
-export default class AdminDrawerLayout extends Vue {
-  name= "AdminDrawerLayout"
+@Options({
+  computed: {
+    ...mapState("ui", ["leftDrawerState"]),
+  },
+  methods: {
+    ...mapActions("ui", ["leftDrawer"]),
+  },
+})
+export default class StudentDrawerLayout extends Vue {
+  leftDrawerState!: boolean;
+  leftDrawer!: (isShow: boolean) => void;
+  menus = itemList;
 
-      left= false
-      menus= itemList
-
-      get leftDrawerState(){
-        return this.$store.state.uiInterface.leftDrawerState;
-      }
-
-      set leftDrawerState(val) {
-        console.log(val);
-        this.$store.dispatch("siteNav/leftDrawerState", val);
-      }
-    }
+  hideDrawer(val: boolean) {
+    this.leftDrawer(val);
+  }
+}
 </script>
 
 <style></style>

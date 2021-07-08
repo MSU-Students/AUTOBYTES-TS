@@ -7,7 +7,7 @@
         round
         icon="menu"
         color="white"
-        @click="leftDrawerState = !leftDrawerState"
+        @click="leftDrawer((leftDrawerState = !leftDrawerState))"
       />
     </q-toolbar>
   </q-header>
@@ -15,15 +15,18 @@
 
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
+import { mapActions, mapState } from "vuex";
+@Options({
+  computed: {
+    ...mapState("ui", ["leftDrawerState"]),
+  },
+  methods: {
+    ...mapActions("ui", ["leftDrawer"]),
+  },
+})
 export default class AdminHeaderLayout extends Vue {
-  name = "AdminHeaderLayout";
-
-  get leftDrawerState() {
-    return this.$store.state.uiInterface.leftDrawerState;
-  }
-  set leftDrawerState(val) {
-    this.$store.dispatch("siteNav/leftDrawerState", val);
-  }
+  leftDrawerState!: boolean;
+  leftDrawer!: (isShow: boolean) => void;
 }
 </script>
 
