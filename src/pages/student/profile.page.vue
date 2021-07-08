@@ -102,48 +102,47 @@
 </template>
 
 <script>
-import { Vue, prop, Options} from "vue-class-component";
+import { Vue, prop, Options } from "vue-class-component";
 import QrCodeWithLogo from "qrcode-with-logos";
 
 @Options({})
-export default class profile extends Vue{
+export default class profile extends Vue {
+  tab = "info";
+  studentInfo = {
+    firstName: "",
+    lastName: "",
+  };
 
-      tab= "info"
-      studentInfo= {
-        firstName= "",
-        lastName= ""
-      }
-
-    async generatedQrCode() {
-      return new Promise(resolve => {
-        let qrcode = new QrCodeWithLogo({
-          canvas: document.getElementById("canvas"),
-          content: JSON.stringify(this.studentInfo),
-          width: 250,
-          download: true,
-          logo: {
-            src: require("../../assets/citlogo.png")
-          }
-        });
-        resolve(qrcode);
+  async generatedQrCode() {
+    return new Promise((resolve) => {
+      let qrcode = new QrCodeWithLogo({
+        canvas: document.getElementById("canvas"),
+        content: JSON.stringify(this.studentInfo),
+        width: 250,
+        download: true,
+        logo: {
+          src: require("../../assets/citlogo.png"),
+        },
       });
-    }
+      resolve(qrcode);
+    });
+  }
 
-    async showQrCode(tab) {
-      if (tab == "qrcode") {
-        const qrCode = await this.generatedQrCode();
-        await qrCode.toCanvas();
-      }
-    }
-
-    async downloadQrCode() {
-      let img = new Image();
-      img.src = require("../../assets/citlogo.png");
+  async showQrCode(tab) {
+    if (tab == "qrcode") {
       const qrCode = await this.generatedQrCode();
-      const res = await qrCode.downloadImage("Student QR Code");
-      console.log(res);
+      await qrCode.toCanvas();
     }
-};
+  }
+
+  async downloadQrCode() {
+    let img = new Image();
+    img.src = require("../../assets/citlogo.png");
+    const qrCode = await this.generatedQrCode();
+    const res = await qrCode.downloadImage("Student QR Code");
+    console.log(res);
+  }
+}
 </script>
 
 <style scoped>
