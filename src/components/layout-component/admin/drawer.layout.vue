@@ -28,14 +28,12 @@
     <!-- DRAWER LIST -->
     <q-list
       padding
-      class="menu-list q-pt-xl text-h5 text-weight-bold q-gutter-lg q-pb-xl"
+      class="text-primary q-pt-md text-h5 text-weight-bolder q-gutter-lg q-pb-lg"
     >
       <q-item
         v-for="(menu, index) in menus"
         :key="index"
         :to="menu.to"
-        :color="menu.to == $route.fullPath ? 'primary' : 'white'"
-        :text-color="menu.to == $route.fullPath ? 'white' : 'primary'"
         :icon="menu.icon"
         exact-active-class="text-white bg-primary"
         clickable
@@ -52,20 +50,20 @@
       </q-item>
     </q-list>
     <!-- PROFILE PIC -->
-    <div class="text-center q-pt-xl">
+    <div class="text-center q-pt-md">
       <q-btn round style="border-radius: 10px 10px 10px 10px">
         <q-avatar size="80px" style="border-radius: 10px 10px 10px 10px">
           <img src="~assets/Yass.jpg" />
         </q-avatar>
       </q-btn>
       <div
-        class="q-pt-md text-subtitle2 text-grey-8 text-weight-bolder q-mx-md"
+        class="q-pt-lg text-subtitle2 text-grey-8 text-weight-bolder q-mx-sm"
       >
         Mohammad Yassier Bashier
       </div>
     </div>
     <!-- LOGOUT BUTTON -->
-    <div class="text-center q-pt-xl">
+    <div class="text-center q-pt-md">
       <q-btn
         class="text-blue"
         color="white"
@@ -101,6 +99,16 @@ const itemList = [
     icon: "person",
     label: "Records",
     to: "/a/records",
+  },
+  {
+    icon: "person",
+    label: "Masterlist",
+    to: "/a/student",
+  },
+  {
+    icon: "person",
+    label: "Archived",
+    to: "/a/archived",
   },
 ];
 

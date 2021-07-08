@@ -4,7 +4,7 @@
       <q-table
         style="height: 750px"
         :grid="$q.screen.lt.md"
-        :data="bulletin"
+        :rows="bulletin"
         :columns="columns"
         row-key="name"
         :filter="filter"
@@ -184,6 +184,11 @@
 
 <script lang="ts">
 import { Vue, prop, Options } from "vue-class-component";
+interface IBulletin {
+  name: string;
+  type: string;
+}
+
 @Options({})
 export default class Bulletin extends Vue {
   title = "";
@@ -220,7 +225,7 @@ export default class Bulletin extends Vue {
     },
     { name: "type", label: "TYPE", field: "type", align: "center" },
   ];
-  bulletin = [
+  bulletin: IBulletin[] = [
     {
       name: "Sample 1",
       type: "ACHIEVEMENTS",

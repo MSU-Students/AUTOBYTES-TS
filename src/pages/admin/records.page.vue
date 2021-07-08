@@ -3,7 +3,7 @@
     <div class="q-pa-xs">
       <q-table
         style="height: 750px"
-        :data="records"
+        :rows="records"
         :columns="columns"
         row-key="name"
         :filter="filter"
@@ -183,6 +183,8 @@
 
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
+
+
 @Options({})
 export default class records extends Vue {
   title = "";

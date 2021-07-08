@@ -106,39 +106,36 @@
                         :options="semester"
                         label="Semester"
                       />
-                      <q-input filled label="Fines" />
-                      <div class="q-gutter-sm">
-                        <q-checkbox
-                          size="sm"
-                          v-model="shape"
-                          val="doday"
-                          label="Do-Day"
-                        /><q-checkbox
-                          size="sm"
-                          v-model="shape"
-                          val="citparade"
-                          label="CIT Parade"
-                        />
-                        <q-checkbox
-                          size="sm"
-                          v-model="shape"
-                          val="others"
-                          label="Others"
-                        />
+                      <div class="row items-center">
+                        <div class="col-6">
+                          <q-input
+                            v-model="event.eventName"
+                            label="Event Name"
+                          />
+                        </div>
+                        <div class="col-3 q-mx-md">
+                          <q-input
+                            v-model="event.eventAmount"
+                            filled
+                            mask="#####"
+                            label="Amount"
+                          />
+                        </div>
+                        <div class="col text-center">
+                          <q-btn
+                            color="primary"
+                            label="save"
+                            @click="saveEvent()"
+                          />
+                        </div>
                       </div>
-                      <q-input filled label="Fees" />
-                      <div>
-                        <q-checkbox
-                          size="sm"
-                          v-model="shape"
-                          val="bytesfee"
-                          label="Bytes Fees"
-                        />
-                        <q-checkbox
-                          size="sm"
-                          v-model="shape"
-                          val="violations"
-                          label="College Violations"
+
+                      <div v-if="eventList.length != 0">
+                        <q-chip
+                          v-for="(list, index) in eventList"
+                          :key="index"
+                          icon="event"
+                          :label="list.eventName + ' = ' + list.eventAmount + ' Pesos'"
                         />
                       </div>
                       <q-input filled v-model="by" label="Added By" />
@@ -203,7 +200,19 @@
 
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
+
+interface IEvent {
+  eventName: string;
+  eventAmount: number;
+}
+
+@Options({})
 export default class clearance extends Vue {
+  event: IEvent = {
+    eventName: "",
+    eventAmount: 0,
+  };
+  eventList: IEvent[] = [];
   name = "";
   by = "";
   model = null;
@@ -248,6 +257,10 @@ export default class clearance extends Vue {
       semester: "2nd Semester",
     },
   ];
+
+  saveEvent() {
+    this.eventList.push(this.event);
+  }
 }
 </script>
 
