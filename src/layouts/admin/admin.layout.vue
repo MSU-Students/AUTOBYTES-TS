@@ -11,17 +11,17 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop } from "vue-class-component";
+import { Vue, Options } from "vue-class-component";
 const Header = () =>
   import("../../components/layout-component/admin/header.layout.vue");
 const Drawer = () =>
   import("../../components/layout-component/admin/drawer.layout.vue");
-@Options({})
-export default class AdminLayout extends Vue {
-  name = "AdminLayout";
-  components = {
+
+@Options({
+  components: {
     Header,
     Drawer,
-  };
-}
+  },
+})
+export default class AdminLayout extends Vue {}
 </script>

@@ -1,6 +1,5 @@
 <template>
   <q-drawer
-    show-if-above
     v-model="leftDrawerState"
     side="left"
     content-class="bg-white text-primary"
@@ -8,6 +7,7 @@
     dense
     flat
     round
+    @update:model-value="hideDrawer(...[$event])"
   >
     <!-- BYTES LOGO -->
     <div class="text-center q-pt-xl">
@@ -78,6 +78,7 @@
 
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
+import { mapActions, mapState } from "vuex";
 const itemList = [
   {
     icon: "event",
@@ -95,19 +96,21 @@ const itemList = [
     to: "/s/profile",
   },
 ];
-@Options({})
+@Options({
+  computed: {
+    ...mapState("ui", ["leftDrawerState"]),
+  },
+  methods: {
+    ...mapActions("ui", ["leftDrawer"]),
+  },
+})
 export default class StudentDrawerLayout extends Vue {
-  name = "StudentDrawerLayout";
-
-  left = false;
+  leftDrawerState!: boolean;
+  leftDrawer!: (isShow: boolean) => void;
   menus = itemList;
 
-  get leftDrawerState() {
-    return this.$store.state.siteNav.leftDrawerState;
-  }
-  set leftDrawerState(val) {
-    console.log(val);
-    this.$store.dispatch("siteNav/leftDrawerState", val);
+  hideDrawer(val: boolean) {
+    this.leftDrawer(val);
   }
 }
 </script>

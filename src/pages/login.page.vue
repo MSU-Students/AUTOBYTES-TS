@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { Vue, prop, Options } from "vue-class-component";
-import loginService from "src/services/login.services.js";
+import loginService from "src/services/login.services";
 
 @Options({})
 export default class Login extends Vue {

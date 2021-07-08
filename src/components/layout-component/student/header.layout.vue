@@ -7,24 +7,26 @@
         round
         icon="menu"
         color="white"
-        @click="leftDrawerState = !leftDrawerState"
+        @click="leftDrawer((leftDrawerState = !leftDrawerState))"
       />
     </q-toolbar>
   </q-header>
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop } from "vue-class-component";
-@Options({})
-export default class AdminHeader extends Vue {
-  name = "HeaderLayout";
-
-  get leftDrawerState() {
-    return this.$store.state.siteNav.leftDrawerState;
-  }
-  set leftDrawerState(val) {
-    this.$store.dispatch("siteNav/leftDrawerState", val);
-  }
+import { Vue, Options } from "vue-class-component";
+import { mapActions, mapState } from "vuex";
+@Options({
+  computed: {
+    ...mapState("ui", ["leftDrawerState"]),
+  },
+  methods: {
+    ...mapActions("ui", ["leftDrawer"]),
+  },
+})
+export default class StudentHeaderLayout extends Vue {
+  leftDrawerState!: boolean;
+  leftDrawer!: (isShow: boolean) => void;
 }
 </script>
 

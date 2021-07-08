@@ -10,17 +10,16 @@
   </q-layout>
 </template>
 
-<script lang="ts">
-import { Vue, Options, prop } from "vue-class-component";
-const Header = () => import("../../components/layout-component/student/header.layout.vue");
-const Drawer = () => import("../../components/layout-component/student/drawer.layout.vue");
+<script>
+import { Vue, Options } from "vue-class-component";
+import Header from "src/components/layout-component/student/header.layout.vue";
+import Drawer from "src/components/layout-component/student/drawer.layout.vue";
 
-@Options({})
-export default class StudentLayout extends Vue{
-  name= "StudentLayout"
-  components= {
+@Options({
+  components: {
     Header,
-    Drawer
-  }
-};
+    Drawer,
+  },
+})
+export default class StudentLayout extends Vue {}
 </script>

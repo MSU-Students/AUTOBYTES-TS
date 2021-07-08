@@ -82,7 +82,7 @@
           <q-card-section>
             <q-carousel
               class="bg-primary shadow-10"
-              swipeable
+              swipeablepictureList
               animated
               navigation
               :height="$q.screen.lt.md ? '210px' : '850px'"
@@ -95,8 +95,8 @@
               @mouseenter="autoplay = false"
               @mouseleave="autoplay = true"
             >
-              <template v-for="(img, index) in carouselList">
-                <q-carousel-slide :name="img.name" :key="index">
+              <template v-for="(img, index) in carouselList" :key="index">
+                <q-carousel-slide :name="img.name">
                   <q-img
                     :src="require(`src/assets/AUTOBYTES PICS/new/${img.img}`)"
                   />
@@ -181,8 +181,8 @@
               @mouseenter="autoplay = false"
               @mouseleave="autoplay = true"
             >
-              <template v-for="(pics, index) in pictureList">
-                <q-carousel-slide :name="pics.name" :key="index">
+              <template v-for="(pics, index) in pictureList" :key="index">
+                <q-carousel-slide :name="pics.name" >
                   <q-img
                     :src="
                       require(`src/assets/AUTOBYTES PICS/MSU-CIT Faculties/${pics.img}`)

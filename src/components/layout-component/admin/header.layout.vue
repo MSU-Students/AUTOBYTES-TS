@@ -14,13 +14,12 @@
 </template>
 
 <script lang="ts">
-import { Vue, Options, prop } from "vue-class-component";
-@Options({})
-export default class AdminHeader extends Vue {
-  name = "HeaderLayout";
+import { Vue, Options } from "vue-class-component";
+export default class AdminHeaderLayout extends Vue {
+  name = "AdminHeaderLayout";
 
   get leftDrawerState() {
-    return this.$store.state.siteNav.leftDrawerState;
+    return this.$store.state.uiInterface.leftDrawerState;
   }
   set leftDrawerState(val) {
     this.$store.dispatch("siteNav/leftDrawerState", val);

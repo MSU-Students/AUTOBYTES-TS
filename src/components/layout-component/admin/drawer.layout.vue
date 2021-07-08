@@ -101,22 +101,23 @@ const itemList = [
     to: "/a/records",
   },
 ];
+
 @Options({})
-export default class AdminDrawer extends Vue {
-  name = "StudentDrawerLayout";
+export default class AdminDrawerLayout extends Vue {
+  name= "AdminDrawerLayout"
 
-  left = false;
-  menus = itemList;
+      left= false
+      menus= itemList
 
-  get leftDrawerState() {
-    return this.$store.state.siteNav.leftDrawerState;
-  }
+      get leftDrawerState(){
+        return this.$store.state.uiInterface.leftDrawerState;
+      }
 
-  set leftDrawerState(val) {
-    console.log(val);
-    this.$store.dispatch("siteNav/leftDrawerState", val);
-  }
-}
+      set leftDrawerState(val) {
+        console.log(val);
+        this.$store.dispatch("siteNav/leftDrawerState", val);
+      }
+    }
 </script>
 
 <style></style>
