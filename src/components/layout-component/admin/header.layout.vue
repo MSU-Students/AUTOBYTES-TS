@@ -13,29 +13,18 @@
   </q-header>
 </template>
 
-<script>
-export default {
-  name: "HeaderLayout",
+<script lang="ts">
+import { Vue, Options } from "vue-class-component";
+export default class AdminHeaderLayout extends Vue {
+  name = "AdminHeaderLayout";
 
-  data() {
-    return {};
-  },
-
-  created() {
-    console.log(this.$store);
-  },
-
-  computed: {
-    leftDrawerState: {
-      get() {
-        return this.$store.state.siteNav.leftDrawerState;
-      },
-      set(val) {
-        this.$store.dispatch("siteNav/leftDrawerState", val);
-      }
-    }
+  get leftDrawerState() {
+    return this.$store.state.uiInterface.leftDrawerState;
   }
-};
+  set leftDrawerState(val) {
+    this.$store.dispatch("siteNav/leftDrawerState", val);
+  }
+}
 </script>
 
 <style></style>

@@ -9,7 +9,7 @@
     flat
     round
   >
-  <!-- BYTES LOGO -->
+    <!-- BYTES LOGO -->
     <div class="text-center q-pt-xl">
       <div>
         <q-avatar size="80px" style="border-radius: 10px 10px 10px 10px">
@@ -50,7 +50,7 @@
         </q-item-section>
       </q-item>
     </q-list>
-     <!-- PROFILE PIC -->
+    <!-- PROFILE PIC -->
     <div class="text-center q-pt-xl">
       <q-btn round style="border-radius: 10px 10px 10px 10px">
         <q-avatar size="80px" style="border-radius: 10px 10px 10px 10px">
@@ -76,7 +76,8 @@
   </q-drawer>
 </template>
 
-<script>
+<script lang="ts">
+import {Vue, Options} from "vue-class-component";
 const itemList = [
   {
     icon: "event",
@@ -99,28 +100,23 @@ const itemList = [
     to: "/a/records"
   }
 ];
-export default {
-  name: "StudentDrawerLayout",
 
-  data() {
-    return {
-      left: false,
-      menus: itemList
-    };
-  },
+@Options({})
+export default class AdminDrawerLayout extends Vue {
+  name= "AdminDrawerLayout"
 
-  computed: {
-    leftDrawerState: {
-      get() {
-        return this.$store.state.siteNav.leftDrawerState;
-      },
-      set(val) {
+      left= false
+      menus= itemList
+
+      get leftDrawerState(){
+        return this.$store.state.uiInterface.leftDrawerState;
+      }
+
+      set leftDrawerState(val) {
         console.log(val);
         this.$store.dispatch("siteNav/leftDrawerState", val);
       }
     }
-  }
-};
 </script>
 
 <style></style>

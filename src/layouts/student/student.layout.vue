@@ -11,14 +11,15 @@
 </template>
 
 <script>
-const Header = () => import("../../components/layout-component/student/header.layout.vue");
-const Drawer = () => import("../../components/layout-component/student/drawer.layout.vue");
+import { Vue, Options } from "vue-class-component";
+import Header from "src/components/layout-component/student/header.layout.vue";
+import Drawer from "src/components/layout-component/student/drawer.layout.vue";
 
-export default {
-  name: "StudentLayout",
+@Options({
   components: {
     Header,
-    Drawer
-  }
-};
+    Drawer,
+  },
+})
+export default class StudentLayout extends Vue {}
 </script>

@@ -10,15 +10,18 @@
   </q-layout>
 </template>
 
-<script>
-const Header = () => import("../../components/layout-component/admin/header.layout.vue");
-const Drawer = () => import("../../components/layout-component/admin/drawer.layout.vue");
+<script lang="ts">
+import { Vue, Options } from "vue-class-component";
+const Header = () =>
+  import("../../components/layout-component/admin/header.layout.vue");
+const Drawer = () =>
+  import("../../components/layout-component/admin/drawer.layout.vue");
 
-export default {
-  name: "AdminLayout",
+@Options({
   components: {
     Header,
-    Drawer
-  }
-};
+    Drawer,
+  },
+})
+export default class AdminLayout extends Vue {}
 </script>

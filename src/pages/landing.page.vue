@@ -80,7 +80,7 @@
           <q-card-section>
             <q-carousel
               class="bg-primary shadow-10"
-              swipeable
+              swipeablepictureList
               animated
               navigation
               :height="$q.screen.lt.md ? '210px' : '850px'"
@@ -93,8 +93,8 @@
               @mouseenter="autoplay = false"
               @mouseleave="autoplay = true"
             >
-              <template v-for="(img, index) in carouselList">
-                <q-carousel-slide :name="img.name" :key="index">
+              <template v-for="(img, index) in carouselList" :key="index">
+                <q-carousel-slide :name="img.name">
                   <q-img
                     :src="
                       require(`src/assets/AUTOBYTES PICS/new/${img.img}`)
@@ -175,8 +175,8 @@
               @mouseenter="autoplay = false"
               @mouseleave="autoplay = true"
             >
-              <template v-for="(pics, index) in pictureList">
-                <q-carousel-slide :name="pics.name" :key="index">
+              <template v-for="(pics, index) in pictureList" :key="index">
+                <q-carousel-slide :name="pics.name" >
                   <q-img
                     :src="
                       require(`src/assets/AUTOBYTES PICS/MSU-CIT Faculties/${pics.img}`)
@@ -412,58 +412,6 @@ export default {
           name: "2",
           img: "maam_mai.jpg"
         },
-        {
-          name: "3",
-          img: "maam_mudz.jpg"
-        },
-        {
-          name: "4",
-          img: "sir_az.jpg"
-        },
-        {
-          name: "5",
-          img: "sir_al.jpg"
-        },
-        {
-          name: "6",
-          img: "sir_bob.jpg"
-        },
-        {
-          name: "7",
-          img: "sir_domato.jpg"
-        },
-        {
-          name: "8",
-          img: "sir_jeff.jpg"
-        },
-        {
-          name: "9",
-          img: "sir_jojo.jpg"
-        },
-        {
-          name: "10",
-          img: "sir_jong.jpg"
-        },
-        {
-          name: "11",
-          img: "sir_lucs.jpg"
-        },
-        {
-          name: "12",
-          img: "sir_macfire.jpg"
-        },
-        {
-          name: "13",
-          img: "sir_mark.jpg"
-        },
-        {
-          name: "14",
-          img: "sir_peter.jpg"
-        },
-        {
-          name: "15",
-          img: "sir_zac.jpg"
-        }
       ],
       carouselList: [
         {
@@ -474,18 +422,6 @@ export default {
           name: "2",
           img: "carousel_2.jpg"
         },
-        {
-          name: "3",
-          img: "carousel_3.jpg"
-        },
-        {
-          name: "4",
-          img: "carousel_4.jpg"
-        },
-        {
-          name: "5",
-          img: "carousel_5.jpg"
-        }
       ]
     };
   }
