@@ -80,14 +80,12 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      tab: "events"
-    };
-  }
-};
+<script lang="ts">
+import { Vue, prop, Options } from "vue-class-component";
+@Options({})
+export default class bulletin extends Vue {
+  tab = "events";
+}
 </script>
 
 <style></style>

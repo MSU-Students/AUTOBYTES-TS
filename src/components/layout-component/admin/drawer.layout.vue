@@ -9,7 +9,7 @@
     flat
     round
   >
-  <!-- BYTES LOGO -->
+    <!-- BYTES LOGO -->
     <div class="text-center q-pt-xl">
       <div>
         <q-avatar size="80px" style="border-radius: 10px 10px 10px 10px">
@@ -50,7 +50,7 @@
         </q-item-section>
       </q-item>
     </q-list>
-     <!-- PROFILE PIC -->
+    <!-- PROFILE PIC -->
     <div class="text-center q-pt-xl">
       <q-btn round style="border-radius: 10px 10px 10px 10px">
         <q-avatar size="80px" style="border-radius: 10px 10px 10px 10px">
@@ -76,51 +76,47 @@
   </q-drawer>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Options, prop } from "vue-class-component";
+
 const itemList = [
   {
     icon: "event",
     label: "Bulletin",
-    to: "/a/bulletin"
+    to: "/a/bulletin",
   },
   {
     icon: "assignment_turned_in",
     label: "Clearance",
-    to: "/a/clearances"
+    to: "/a/clearances",
   },
   {
     icon: "assignment_ind",
     label: "Attendance",
-    to: "/a/attendance"
+    to: "/a/attendance",
   },
   {
     icon: "person",
     label: "Records",
-    to: "/a/records"
-  }
-];
-export default {
-  name: "StudentDrawerLayout",
-
-  data() {
-    return {
-      left: false,
-      menus: itemList
-    };
+    to: "/a/records",
   },
+];
+@Options({})
+export default class AdminDrawer extends Vue {
+  name = "StudentDrawerLayout";
 
-  computed: {
-    leftDrawerState: {
-      get() {
-        return this.$store.state.siteNav.leftDrawerState;
-      },
-      set(val) {
-        console.log(val);
-        this.$store.dispatch("siteNav/leftDrawerState", val);
-      }
-    }
+  left = false;
+  menus = itemList;
+
+  get leftDrawerState() {
+    return this.$store.state.siteNav.leftDrawerState;
   }
-};
+
+  set leftDrawerState(val) {
+    console.log(val);
+    this.$store.dispatch("siteNav/leftDrawerState", val);
+  }
+}
 </script>
 
 <style></style>

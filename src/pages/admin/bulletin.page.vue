@@ -4,7 +4,7 @@
       <q-table
         style="height: 750px"
         :grid="$q.screen.lt.md"
-        :data="data"
+        :data="bulletin"
         :columns="columns"
         row-key="name"
         :filter="filter"
@@ -114,7 +114,14 @@
                         :options="type"
                         label="Bulletin Type"
                       />
-                      <q-file filled v-model="file" label="Attach Image" :style="$q.screen.lt.md ? 'width: 295px' : 'width: 470px'">
+                      <q-file
+                        filled
+                        v-model="file"
+                        label="Attach Image"
+                        :style="
+                          $q.screen.lt.md ? 'width: 295px' : 'width: 470px'
+                        "
+                      >
                         <template v-slot:prepend>
                           <q-icon name="attach_file" />
                         </template>
@@ -175,73 +182,71 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      title: '',
-      from: '',
-      file: null,
-      model: null,
-      models: null,
-      semester: ["1st Semester", "2nd Semester"],
-      type: ["EVENT", "NEWS AND UPDATES", "ACHIEVEMENTS"],
-      text: "",
-      date: "",
-      dialog: false,
-      filter: "",
-      pagination: {
-        rowsPerPage: 0
-      },
-      multiple: null,
-      options: [
-        "1st Semester",
-        "2nd Semester",
-        "EVENTS",
-        "NEWS AND UPDATES",
-        "ACHIEVEMENTS"
-      ],
-      columns: [
-        {
-          name: "title",
-          required: true,
-          label: "TITLE",
-          align: "center",
-          field: row => row.name,
-          format: val => `${val}`,
-          sortable: true
-        },
-        { name: "type", label: "TYPE", field: "type", align: "center" }
-      ],
-      data: [
-        {
-          name: "Sample 1",
-          type: "ACHIEVEMENTS"
-        },
-        {
-          name: "2",
-          type: "NEWS AND UPDATES"
-        },
-        {
-          name: "3",
-          type: "EVENTS"
-        },
-        {
-          name: "4",
-          type: "ACHIEVEMENTS"
-        },
-        {
-          name: "5",
-          type: "NEWS AND UPDATES"
-        },
-        {
-          name: "6",
-          type: "EVENTS"
-        }
-      ]
-    };
-  }
-};
+<script lang="ts">
+import { Vue, prop, Options } from "vue-class-component";
+@Options({})
+export default class Bulletin extends Vue {
+  title = "";
+  from = "";
+  file = null;
+  model = null;
+  models = null;
+  semester = ["1st Semester", "2nd Semester"];
+  type = ["EVENT", "NEWS AND UPDATES", "ACHIEVEMENTS"];
+  text = "";
+  date = "";
+  dialog = false;
+  filter = "";
+  pagination = {
+    rowsPerPage: 0,
+  };
+  multiple = null;
+  options = [
+    "1st Semester",
+    "2nd Semester",
+    "EVENTS",
+    "NEWS AND UPDATES",
+    "ACHIEVEMENTS",
+  ];
+  columns = [
+    {
+      name: "title",
+      required: true,
+      label: "TITLE",
+      align: "center",
+      field: (row: any) => row.name,
+      format: (val: any) => `${val}`,
+      sortable: true,
+    },
+    { name: "type", label: "TYPE", field: "type", align: "center" },
+  ];
+  bulletin = [
+    {
+      name: "Sample 1",
+      type: "ACHIEVEMENTS",
+    },
+    {
+      name: "2",
+      type: "NEWS AND UPDATES",
+    },
+    {
+      name: "3",
+      type: "EVENTS",
+    },
+    {
+      name: "4",
+      type: "ACHIEVEMENTS",
+    },
+    {
+      name: "5",
+      type: "NEWS AND UPDATES",
+    },
+    {
+      name: "6",
+      type: "EVENTS",
+    },
+  ];
+}
 </script>
 
 <style scoped></style>

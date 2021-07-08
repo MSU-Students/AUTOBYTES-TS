@@ -19,7 +19,9 @@
             </div>
           </div>
           <div>
-            <q-toolbar :class="$q.screen.lt.md ? 'q-pt-xs flex flex-center' : 'q-pt-xl'">
+            <q-toolbar
+              :class="$q.screen.lt.md ? 'q-pt-xs flex flex-center' : 'q-pt-xl'"
+            >
               <div :class="$q.screen.lt.md ? '' : 'row'">
                 <div>
                   <q-btn
@@ -76,7 +78,7 @@
       </q-header>
 
       <div class="q-pa-md">
-        <q-card class="my-card ">
+        <q-card class="my-card">
           <q-card-section>
             <q-carousel
               class="bg-primary shadow-10"
@@ -96,9 +98,7 @@
               <template v-for="(img, index) in carouselList">
                 <q-carousel-slide :name="img.name" :key="index">
                   <q-img
-                    :src="
-                      require(`src/assets/AUTOBYTES PICS/new/${img.img}`)
-                    "
+                    :src="require(`src/assets/AUTOBYTES PICS/new/${img.img}`)"
                   />
                 </q-carousel-slide>
               </template>
@@ -109,7 +109,9 @@
       <div class="text-primary">
         <q-card class="q-ma-md shadow-10">
           <q-card-section>
-            <div class="font3 text-h4 text-center text-weight-bolder">College of Information Technology</div>
+            <div class="font3 text-h4 text-center text-weight-bolder">
+              College of Information Technology
+            </div>
           </q-card-section>
           <q-card-section class="font1 text-h4 text-weight-bold text-center">
             MISSION
@@ -154,7 +156,11 @@
       </div>
       <div>
         <q-card
-          class="text-h4 text-center text-primary text-weight-bolder q-ma-md shadow-10"
+          class="
+            text-h4 text-center text-primary text-weight-bolder
+            q-ma-md
+            shadow-10
+          "
         >
           <q-card-section class="font1">
             College of Information Technology Faculties
@@ -193,7 +199,12 @@
         <q-card class="q-ma-md shadow-10">
           <q-card-section>
             <div
-              class="font1 text-primary q-pt-md text-h4 text-center text-weight-bolder"
+              class="
+                font1
+                text-primary
+                q-pt-md
+                text-h4 text-center text-weight-bolder
+              "
             >
               MEET THE MSU-BYTES OFFICERS
             </div>
@@ -381,115 +392,107 @@
             <q-icon class="q-pr-md" size="30px" name="mail" />
             <q-icon size="30px" name="phone" />
           </div>
-          <div class="flex flex-center q-mt-md">
-            usman12strygwyr@gmail.com
-          </div>
-          <div class="flex flex-center">
-            krystiannemaglipac@gmail.com
-          </div>
-          <div class="flex flex-center">
-            @ 2021 - AUTOBYTES
-          </div>
+          <div class="flex flex-center q-mt-md">usman12strygwyr@gmail.com</div>
+          <div class="flex flex-center">krystiannemaglipac@gmail.com</div>
+          <div class="flex flex-center">@ 2021 - AUTOBYTES</div>
         </q-footer>
       </div>
     </q-page-container>
   </q-layout>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      slide: "1",
-      autoplay: true,
-      expanded: false,
-      pictureList: [
-        {
-          name: "1",
-          img: "first_pic.jpg"
-        },
-        {
-          name: "2",
-          img: "maam_mai.jpg"
-        },
-        {
-          name: "3",
-          img: "maam_mudz.jpg"
-        },
-        {
-          name: "4",
-          img: "sir_az.jpg"
-        },
-        {
-          name: "5",
-          img: "sir_al.jpg"
-        },
-        {
-          name: "6",
-          img: "sir_bob.jpg"
-        },
-        {
-          name: "7",
-          img: "sir_domato.jpg"
-        },
-        {
-          name: "8",
-          img: "sir_jeff.jpg"
-        },
-        {
-          name: "9",
-          img: "sir_jojo.jpg"
-        },
-        {
-          name: "10",
-          img: "sir_jong.jpg"
-        },
-        {
-          name: "11",
-          img: "sir_lucs.jpg"
-        },
-        {
-          name: "12",
-          img: "sir_macfire.jpg"
-        },
-        {
-          name: "13",
-          img: "sir_mark.jpg"
-        },
-        {
-          name: "14",
-          img: "sir_peter.jpg"
-        },
-        {
-          name: "15",
-          img: "sir_zac.jpg"
-        }
-      ],
-      carouselList: [
-        {
-          name: "1",
-          img: "carousel_1.jpg"
-        },
-        {
-          name: "2",
-          img: "carousel_2.jpg"
-        },
-        {
-          name: "3",
-          img: "carousel_3.jpg"
-        },
-        {
-          name: "4",
-          img: "carousel_4.jpg"
-        },
-        {
-          name: "5",
-          img: "carousel_5.jpg"
-        }
-      ]
-    };
-  }
-};
+<script lang="ts">
+import { Vue, prop, Options } from "vue-class-component";
+@Options({})
+export default class landingpage extends Vue {
+  slide = "1";
+  autoplay = true;
+  expanded = false;
+  pictureList = [
+    {
+      name: "1",
+      img: "first_pic.jpg",
+    },
+    {
+      name: "2",
+      img: "maam_mai.jpg",
+    },
+    {
+      name: "3",
+      img: "maam_mudz.jpg",
+    },
+    {
+      name: "4",
+      img: "sir_az.jpg",
+    },
+    {
+      name: "5",
+      img: "sir_al.jpg",
+    },
+    {
+      name: "6",
+      img: "sir_bob.jpg",
+    },
+    {
+      name: "7",
+      img: "sir_domato.jpg",
+    },
+    {
+      name: "8",
+      img: "sir_jeff.jpg",
+    },
+    {
+      name: "9",
+      img: "sir_jojo.jpg",
+    },
+    {
+      name: "10",
+      img: "sir_jong.jpg",
+    },
+    {
+      name: "11",
+      img: "sir_lucs.jpg",
+    },
+    {
+      name: "12",
+      img: "sir_macfire.jpg",
+    },
+    {
+      name: "13",
+      img: "sir_mark.jpg",
+    },
+    {
+      name: "14",
+      img: "sir_peter.jpg",
+    },
+    {
+      name: "15",
+      img: "sir_zac.jpg",
+    },
+  ];
+  carouselList = [
+    {
+      name: "1",
+      img: "carousel_1.jpg",
+    },
+    {
+      name: "2",
+      img: "carousel_2.jpg",
+    },
+    {
+      name: "3",
+      img: "carousel_3.jpg",
+    },
+    {
+      name: "4",
+      img: "carousel_4.jpg",
+    },
+    {
+      name: "5",
+      img: "carousel_5.jpg",
+    },
+  ];
+}
 </script>
 
 <style>
