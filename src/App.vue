@@ -7,7 +7,6 @@ import userService from "src/services/user.service";
 
 export default class App extends Vue {
   async created() {
-    console.log("here");
     await userService.getUsers();
   }
 }

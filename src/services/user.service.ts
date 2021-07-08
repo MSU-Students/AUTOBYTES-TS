@@ -16,7 +16,6 @@ const restApi = new DefaultApi(restConfig);
 class UserService {
   async getUsers(): Promise<User> {
     const response = await restApi.getUsers();
-    console.log(response.data);
     return response.data;
   }
 

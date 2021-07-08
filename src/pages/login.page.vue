@@ -51,7 +51,6 @@ export default class Login extends Vue {
 
   async googleLogin() {
     const res = await loginService.signIn();
-    console.log(res);
   }
 }
 </script>

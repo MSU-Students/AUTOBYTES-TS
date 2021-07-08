@@ -140,7 +140,6 @@ export default class profile extends Vue {
     img.src = require("../../assets/citlogo.png");
     const qrCode = await this.generatedQrCode();
     const res = await qrCode.downloadImage("Student QR Code");
-    console.log(res);
   }
 }
 </script>
