@@ -39,7 +39,14 @@
           "bulletinType"
         ]
       },
-      "Clearance": { "type": "object", "properties": {} },
+      "Clearance": {
+        "type": "object",
+        "properties": {
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" }
+        },
+        "required": ["firstName", "lastName"]
+      },
       "Records": {
         "type": "object",
         "properties": {
@@ -56,6 +63,14 @@
           "recordsSemester",
           "recordsType"
         ]
+      },
+      "Archived": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string" },
+          "file": { "type": "string" }
+        },
+        "required": ["date", "file"]
       }
     }
   },
@@ -189,9 +204,10 @@
         }
       }
     },
-    "/attendance": {
+    "/attendance/create": {
       "post": {
-        "operationId": "AttendanceController_create",
+        "operationId": "AddAttendance",
+        "summary": "Add new Attendance",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -201,17 +217,119 @@
             }
           }
         },
-        "responses": { "201": { "description": "" } }
-      },
-      "get": {
-        "operationId": "AttendanceController_findAll",
-        "parameters": [],
-        "responses": { "200": { "description": "" } }
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Attendance" }
+              }
+            }
+          }
+        }
       }
     },
-    "/bulletin": {
+    "/attendance/all": {
+      "get": {
+        "operationId": "GetAttendance",
+        "summary": "Get all Attendance",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Attendance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendance/id": {
+      "get": {
+        "operationId": "GetAttendance",
+        "summary": "Get Attendance by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Attendance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendance/update": {
+      "put": {
+        "operationId": "UpdateAttendance",
+        "summary": "Update Attendance by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Attendance" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Attendance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/attendance/delete": {
+      "delete": {
+        "operationId": "DeleteAttendance",
+        "summary": "Delete Attendance by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Attendance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bulletin/create": {
       "post": {
-        "operationId": "BulletinController_create",
+        "operationId": "AddBulletin",
+        "summary": "Add new Bulletin",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -221,17 +339,119 @@
             }
           }
         },
-        "responses": { "201": { "description": "" } }
-      },
-      "get": {
-        "operationId": "BulletinController_findAll",
-        "parameters": [],
-        "responses": { "200": { "description": "" } }
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Bulletin" }
+              }
+            }
+          }
+        }
       }
     },
-    "/clearance": {
+    "/bulletin/all": {
+      "get": {
+        "operationId": "GetBulletin",
+        "summary": "Get all Bulletin",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Bulletin" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bulletin/id": {
+      "get": {
+        "operationId": "GetBulletin",
+        "summary": "Get Bulletin by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Bulletin" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bulletin/update": {
+      "put": {
+        "operationId": "UpdateBulletin",
+        "summary": "Update Bulletin by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Bulletin" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Bulletin" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bulletin/delete": {
+      "delete": {
+        "operationId": "DeleteBulletin",
+        "summary": "Delete Bulletin by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Bulletin" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clearance/create": {
       "post": {
-        "operationId": "ClearanceController_create",
+        "operationId": "AddClearance",
+        "summary": "Add new clearance",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -241,17 +461,119 @@
             }
           }
         },
-        "responses": { "201": { "description": "" } }
-      },
-      "get": {
-        "operationId": "ClearanceController_findAll",
-        "parameters": [],
-        "responses": { "200": { "description": "" } }
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Clearance" }
+              }
+            }
+          }
+        }
       }
     },
-    "/records": {
+    "/clearance/all": {
+      "get": {
+        "operationId": "GetClearance",
+        "summary": "Get all clearance",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Clearance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clearance/id": {
+      "get": {
+        "operationId": "GetClearance",
+        "summary": "Get clearance by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Clearance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clearance/update": {
+      "put": {
+        "operationId": "UpdateClearance",
+        "summary": "Update clearance by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Clearance" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Clearance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clearance/delete": {
+      "delete": {
+        "operationId": "DeleteClearance",
+        "summary": "Delete clearance by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Clearance" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/records/create": {
       "post": {
-        "operationId": "RecordsController_create",
+        "operationId": "AddRecords",
+        "summary": "Add new records",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -261,12 +583,235 @@
             }
           }
         },
-        "responses": { "201": { "description": "" } }
-      },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Records" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/records/all": {
       "get": {
-        "operationId": "RecordsController_findAll",
+        "operationId": "GetRecords",
+        "summary": "Get all records",
         "parameters": [],
-        "responses": { "200": { "description": "" } }
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Records" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/records/id": {
+      "get": {
+        "operationId": "GetRecords",
+        "summary": "Get records by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Records" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/records/update": {
+      "put": {
+        "operationId": "UpdateRecords",
+        "summary": "Update records by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Records" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Records" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/records/delete": {
+      "delete": {
+        "operationId": "DeleteRecords",
+        "summary": "Delete records by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Records" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/archived/create": {
+      "post": {
+        "operationId": "AddArchived",
+        "summary": "Add new Archived",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Archived" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Archived" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/archived/all": {
+      "get": {
+        "operationId": "GetArchived",
+        "summary": "Get all Archived",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Archived" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/archived/id": {
+      "get": {
+        "operationId": "GetArchived",
+        "summary": "Get Archived by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Archived" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/archived/update": {
+      "put": {
+        "operationId": "UpdateArchived",
+        "summary": "Update Archived by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Archived" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Archived" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/archived/delete": {
+      "delete": {
+        "operationId": "DeleteArchived",
+        "summary": "Delete Archived by id",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Archived" }
+              }
+            }
+          }
+        }
       }
     }
   }
