@@ -9,6 +9,25 @@ import {
 import ui from "./ui-module";
 import { UiStateInterface } from "./ui-module/state";
 
+import user from "./student-module";
+import { StudentStateInterface } from "./student-module/state";
+
+import record from "./records-module";
+import { RecordsStateInterface } from "./records-module/state";
+
+import clearance from "./clearance-module";
+import { ClearanceStateInterface } from "./clearance-module/state";
+
+import bulletin from "./bulletin-module";
+import { BulletinStateInterface } from "./bulletin-module/state";
+
+import attendance from "./attendance-module";
+import { AttendanceStateInterface } from "./attendance-module/state";
+
+import archived from "./archived-module";
+import { ArchivedStateInterface } from "./archived-module/state";
+
+
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation;
@@ -23,6 +42,12 @@ export interface StateInterface {
   // example: UiStateInterface;
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
   uiInterface: UiStateInterface;
+  studentStateInterface: StudentStateInterface;
+  recordsStateInterface: RecordsStateInterface;
+  clearanceStateInterface: ClearanceStateInterface;
+  bulletinStateInterface: BulletinStateInterface;
+  attendanceStateInterface: AttendanceStateInterface;
+  archivedStateInterface: ArchivedStateInterface;
 }
 
 // provide typings for `this.$store`
@@ -40,6 +65,12 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore<StateInterface>({
     modules: {
       ui,
+      user,
+      record,
+      clearance,
+      bulletin,
+      attendance,
+      archived,
     },
 
     // enable strict mode (adds overhead!)
