@@ -24,6 +24,56 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface Archived
+ */
+export interface Archived {
+    /**
+     * 
+     * @type {string}
+     * @memberof Archived
+     */
+    date: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Archived
+     */
+    file: string;
+}
+/**
+ * 
+ * @export
+ * @interface Attendance
+ */
+export interface Attendance {
+    /**
+     * 
+     * @type {string}
+     * @memberof Attendance
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Attendance
+     */
+    date: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Attendance
+     */
+    semester: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Attendance
+     */
+    file: string;
+}
+/**
+ * 
+ * @export
  * @interface Bulletin
  */
 export interface Bulletin {
@@ -57,6 +107,49 @@ export interface Bulletin {
      * @memberof Bulletin
      */
     bulletinType: string;
+}
+/**
+ * 
+ * @export
+ * @interface Clearance
+ */
+export interface Clearance {
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
+    file: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
+    date: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
+    semester: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
+    eventName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
+    amount: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
+    addedBy: string;
 }
 /**
  * 
@@ -141,6 +234,186 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
+         * @summary Add new Archived
+         * @param {Archived} archived 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addArchived: async (archived: Archived, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'archived' is not null or undefined
+            assertParamExists('addArchived', 'archived', archived)
+            const localVarPath = `/archived/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(archived, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Add new Attendance
+         * @param {Attendance} attendance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addAttendance: async (attendance: Attendance, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'attendance' is not null or undefined
+            assertParamExists('addAttendance', 'attendance', attendance)
+            const localVarPath = `/attendance/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(attendance, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Add new Bulletin
+         * @param {Bulletin} bulletin 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addBulletin: async (bulletin: Bulletin, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'bulletin' is not null or undefined
+            assertParamExists('addBulletin', 'bulletin', bulletin)
+            const localVarPath = `/bulletin/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(bulletin, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Add new clearance
+         * @param {Clearance} clearance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addClearance: async (clearance: Clearance, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'clearance' is not null or undefined
+            assertParamExists('addClearance', 'clearance', clearance)
+            const localVarPath = `/clearance/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(clearance, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Add new records
+         * @param {Records} records 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addRecords: async (records: Records, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'records' is not null or undefined
+            assertParamExists('addRecords', 'records', records)
+            const localVarPath = `/records/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(records, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Add new user
          * @param {User} user 
          * @param {*} [options] Override http request option.
@@ -206,14 +479,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {object} body 
+         * @summary Delete Archived by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attendanceControllerCreate: async (body: object, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('attendanceControllerCreate', 'body', body)
-            const localVarPath = `/attendance`;
+        deleteArchived: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteArchived', 'id', id)
+            const localVarPath = `/archived/delete`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -221,41 +495,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        attendanceControllerFindAll: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/attendance`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
             }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
 
     
@@ -270,14 +516,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {Bulletin} bulletin 
+         * @summary Delete Attendance by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bulletinControllerCreate: async (bulletin: Bulletin, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'bulletin' is not null or undefined
-            assertParamExists('bulletinControllerCreate', 'bulletin', bulletin)
-            const localVarPath = `/bulletin`;
+        deleteAttendance: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteAttendance', 'id', id)
+            const localVarPath = `/attendance/delete`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -285,41 +532,13 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(bulletin, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        bulletinControllerFindAll: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/bulletin`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
             }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
 
     
@@ -334,14 +553,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {object} body 
+         * @summary Delete Bulletin by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clearanceControllerCreate: async (body: object, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('clearanceControllerCreate', 'body', body)
-            const localVarPath = `/clearance`;
+        deleteBulletin: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteBulletin', 'id', id)
+            const localVarPath = `/bulletin/delete`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -349,18 +569,19 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -369,11 +590,15 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Delete clearance by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clearanceControllerFindAll: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/clearance`;
+        deleteClearance: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteClearance', 'id', id)
+            const localVarPath = `/clearance/delete`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -381,9 +606,50 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete records by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteRecords: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteRecords', 'id', id)
+            const localVarPath = `/records/delete`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
 
 
     
@@ -421,6 +687,341 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Archived by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getArchive: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getArchive', 'id', id)
+            const localVarPath = `/archived/id`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all Archived
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getArchives: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/archived/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Attendance by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAttendance: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getAttendance', 'id', id)
+            const localVarPath = `/attendance/id`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all Attendance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAttendances: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/attendance/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get Bulletin by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBulletin: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getBulletin', 'id', id)
+            const localVarPath = `/bulletin/id`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all Bulletin
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBulletins: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/bulletin/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get clearance by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClearance: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getClearance', 'id', id)
+            const localVarPath = `/clearance/id`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all clearance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClearances: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/clearance/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get records by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRecord: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getRecord', 'id', id)
+            const localVarPath = `/records/id`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all records
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRecords: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/records/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -502,14 +1103,18 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @param {Records} records 
+         * @summary Update Archived by id
+         * @param {string} id 
+         * @param {Archived} archived 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        recordsControllerCreate: async (records: Records, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'records' is not null or undefined
-            assertParamExists('recordsControllerCreate', 'records', records)
-            const localVarPath = `/records`;
+        updateArchived: async (id: string, archived: Archived, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateArchived', 'id', id)
+            // verify required parameter 'archived' is not null or undefined
+            assertParamExists('updateArchived', 'archived', archived)
+            const localVarPath = `/archived/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -517,9 +1122,185 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(archived, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update Attendance by id
+         * @param {string} id 
+         * @param {Attendance} attendance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAttendance: async (id: string, attendance: Attendance, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateAttendance', 'id', id)
+            // verify required parameter 'attendance' is not null or undefined
+            assertParamExists('updateAttendance', 'attendance', attendance)
+            const localVarPath = `/attendance/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(attendance, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update Bulletin by id
+         * @param {string} id 
+         * @param {Bulletin} bulletin 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateBulletin: async (id: string, bulletin: Bulletin, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateBulletin', 'id', id)
+            // verify required parameter 'bulletin' is not null or undefined
+            assertParamExists('updateBulletin', 'bulletin', bulletin)
+            const localVarPath = `/bulletin/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(bulletin, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update clearance by id
+         * @param {string} id 
+         * @param {Clearance} clearance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateClearance: async (id: string, clearance: Clearance, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateClearance', 'id', id)
+            // verify required parameter 'clearance' is not null or undefined
+            assertParamExists('updateClearance', 'clearance', clearance)
+            const localVarPath = `/clearance/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(clearance, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update records by id
+         * @param {string} id 
+         * @param {Records} records 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateRecords: async (id: string, records: Records, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateRecords', 'id', id)
+            // verify required parameter 'records' is not null or undefined
+            assertParamExists('updateRecords', 'records', records)
+            const localVarPath = `/records/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
 
 
     
@@ -529,35 +1310,6 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(records, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recordsControllerFindAll: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/records`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -619,6 +1371,61 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Add new Archived
+         * @param {Archived} archived 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addArchived(archived: Archived, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Archived>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addArchived(archived, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Add new Attendance
+         * @param {Attendance} attendance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addAttendance(attendance: Attendance, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attendance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addAttendance(attendance, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Add new Bulletin
+         * @param {Bulletin} bulletin 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addBulletin(bulletin: Bulletin, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bulletin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addBulletin(bulletin, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Add new clearance
+         * @param {Clearance} clearance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addClearance(clearance: Clearance, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Clearance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addClearance(clearance, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Add new records
+         * @param {Records} records 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addRecords(records: Records, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Records>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addRecords(records, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Add new user
          * @param {User} user 
          * @param {*} [options] Override http request option.
@@ -639,59 +1446,57 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {object} body 
+         * @summary Delete Archived by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async attendanceControllerCreate(body: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.attendanceControllerCreate(body, options);
+        async deleteArchived(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Archived>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteArchived(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @summary Delete Attendance by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async attendanceControllerFindAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.attendanceControllerFindAll(options);
+        async deleteAttendance(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attendance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAttendance(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {Bulletin} bulletin 
+         * @summary Delete Bulletin by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async bulletinControllerCreate(bulletin: Bulletin, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.bulletinControllerCreate(bulletin, options);
+        async deleteBulletin(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bulletin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteBulletin(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @summary Delete clearance by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async bulletinControllerFindAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.bulletinControllerFindAll(options);
+        async deleteClearance(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Clearance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteClearance(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {object} body 
+         * @summary Delete records by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async clearanceControllerCreate(body: object, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.clearanceControllerCreate(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async clearanceControllerFindAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.clearanceControllerFindAll(options);
+        async deleteRecords(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Records>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteRecords(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -703,6 +1508,111 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async deleteUser(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get Archived by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getArchive(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Archived>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getArchive(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all Archived
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getArchives(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Archived>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getArchives(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get Attendance by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAttendance(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attendance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAttendance(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all Attendance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAttendances(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attendance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAttendances(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get Bulletin by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBulletin(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bulletin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBulletin(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all Bulletin
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBulletins(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bulletin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBulletins(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get clearance by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getClearance(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Clearance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getClearance(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all clearance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getClearances(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Clearance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getClearances(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get records by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRecord(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Records>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRecord(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get all records
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getRecords(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Records>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getRecords(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -728,21 +1638,62 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {Records} records 
+         * @summary Update Archived by id
+         * @param {string} id 
+         * @param {Archived} archived 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async recordsControllerCreate(records: Records, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.recordsControllerCreate(records, options);
+        async updateArchived(id: string, archived: Archived, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Archived>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateArchived(id, archived, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
+         * @summary Update Attendance by id
+         * @param {string} id 
+         * @param {Attendance} attendance 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async recordsControllerFindAll(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.recordsControllerFindAll(options);
+        async updateAttendance(id: string, attendance: Attendance, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attendance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAttendance(id, attendance, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update Bulletin by id
+         * @param {string} id 
+         * @param {Bulletin} bulletin 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateBulletin(id: string, bulletin: Bulletin, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bulletin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateBulletin(id, bulletin, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update clearance by id
+         * @param {string} id 
+         * @param {Clearance} clearance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateClearance(id: string, clearance: Clearance, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Clearance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateClearance(id, clearance, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update records by id
+         * @param {string} id 
+         * @param {Records} records 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateRecords(id: string, records: Records, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Records>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateRecords(id, records, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -769,6 +1720,56 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
+         * @summary Add new Archived
+         * @param {Archived} archived 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addArchived(archived: Archived, options?: any): AxiosPromise<Archived> {
+            return localVarFp.addArchived(archived, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Add new Attendance
+         * @param {Attendance} attendance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addAttendance(attendance: Attendance, options?: any): AxiosPromise<Attendance> {
+            return localVarFp.addAttendance(attendance, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Add new Bulletin
+         * @param {Bulletin} bulletin 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addBulletin(bulletin: Bulletin, options?: any): AxiosPromise<Bulletin> {
+            return localVarFp.addBulletin(bulletin, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Add new clearance
+         * @param {Clearance} clearance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addClearance(clearance: Clearance, options?: any): AxiosPromise<Clearance> {
+            return localVarFp.addClearance(clearance, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Add new records
+         * @param {Records} records 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addRecords(records: Records, options?: any): AxiosPromise<Records> {
+            return localVarFp.addRecords(records, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Add new user
          * @param {User} user 
          * @param {*} [options] Override http request option.
@@ -787,54 +1788,53 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @param {object} body 
+         * @summary Delete Archived by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attendanceControllerCreate(body: object, options?: any): AxiosPromise<void> {
-            return localVarFp.attendanceControllerCreate(body, options).then((request) => request(axios, basePath));
+        deleteArchived(id: string, options?: any): AxiosPromise<Archived> {
+            return localVarFp.deleteArchived(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @summary Delete Attendance by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        attendanceControllerFindAll(options?: any): AxiosPromise<void> {
-            return localVarFp.attendanceControllerFindAll(options).then((request) => request(axios, basePath));
+        deleteAttendance(id: string, options?: any): AxiosPromise<Attendance> {
+            return localVarFp.deleteAttendance(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {Bulletin} bulletin 
+         * @summary Delete Bulletin by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bulletinControllerCreate(bulletin: Bulletin, options?: any): AxiosPromise<void> {
-            return localVarFp.bulletinControllerCreate(bulletin, options).then((request) => request(axios, basePath));
+        deleteBulletin(id: string, options?: any): AxiosPromise<Bulletin> {
+            return localVarFp.deleteBulletin(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @summary Delete clearance by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        bulletinControllerFindAll(options?: any): AxiosPromise<void> {
-            return localVarFp.bulletinControllerFindAll(options).then((request) => request(axios, basePath));
+        deleteClearance(id: string, options?: any): AxiosPromise<Clearance> {
+            return localVarFp.deleteClearance(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {object} body 
+         * @summary Delete records by id
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        clearanceControllerCreate(body: object, options?: any): AxiosPromise<void> {
-            return localVarFp.clearanceControllerCreate(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        clearanceControllerFindAll(options?: any): AxiosPromise<void> {
-            return localVarFp.clearanceControllerFindAll(options).then((request) => request(axios, basePath));
+        deleteRecords(id: string, options?: any): AxiosPromise<Records> {
+            return localVarFp.deleteRecords(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -845,6 +1845,101 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         deleteUser(id: string, options?: any): AxiosPromise<User> {
             return localVarFp.deleteUser(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Archived by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getArchive(id: string, options?: any): AxiosPromise<Archived> {
+            return localVarFp.getArchive(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all Archived
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getArchives(options?: any): AxiosPromise<Archived> {
+            return localVarFp.getArchives(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Attendance by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAttendance(id: string, options?: any): AxiosPromise<Attendance> {
+            return localVarFp.getAttendance(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all Attendance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAttendances(options?: any): AxiosPromise<Attendance> {
+            return localVarFp.getAttendances(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Bulletin by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBulletin(id: string, options?: any): AxiosPromise<Bulletin> {
+            return localVarFp.getBulletin(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all Bulletin
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBulletins(options?: any): AxiosPromise<Bulletin> {
+            return localVarFp.getBulletins(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get clearance by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClearance(id: string, options?: any): AxiosPromise<Clearance> {
+            return localVarFp.getClearance(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all clearance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getClearances(options?: any): AxiosPromise<Clearance> {
+            return localVarFp.getClearances(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get records by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRecord(id: string, options?: any): AxiosPromise<Records> {
+            return localVarFp.getRecord(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all records
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getRecords(options?: any): AxiosPromise<Records> {
+            return localVarFp.getRecords(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -867,20 +1962,58 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Update Archived by id
+         * @param {string} id 
+         * @param {Archived} archived 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateArchived(id: string, archived: Archived, options?: any): AxiosPromise<Archived> {
+            return localVarFp.updateArchived(id, archived, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Attendance by id
+         * @param {string} id 
+         * @param {Attendance} attendance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAttendance(id: string, attendance: Attendance, options?: any): AxiosPromise<Attendance> {
+            return localVarFp.updateAttendance(id, attendance, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update Bulletin by id
+         * @param {string} id 
+         * @param {Bulletin} bulletin 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateBulletin(id: string, bulletin: Bulletin, options?: any): AxiosPromise<Bulletin> {
+            return localVarFp.updateBulletin(id, bulletin, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update clearance by id
+         * @param {string} id 
+         * @param {Clearance} clearance 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateClearance(id: string, clearance: Clearance, options?: any): AxiosPromise<Clearance> {
+            return localVarFp.updateClearance(id, clearance, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update records by id
+         * @param {string} id 
          * @param {Records} records 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        recordsControllerCreate(records: Records, options?: any): AxiosPromise<void> {
-            return localVarFp.recordsControllerCreate(records, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        recordsControllerFindAll(options?: any): AxiosPromise<void> {
-            return localVarFp.recordsControllerFindAll(options).then((request) => request(axios, basePath));
+        updateRecords(id: string, records: Records, options?: any): AxiosPromise<Records> {
+            return localVarFp.updateRecords(id, records, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -905,6 +2038,66 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
 export class DefaultApi extends BaseAPI {
     /**
      * 
+     * @summary Add new Archived
+     * @param {Archived} archived 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addArchived(archived: Archived, options?: any) {
+        return DefaultApiFp(this.configuration).addArchived(archived, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Add new Attendance
+     * @param {Attendance} attendance 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addAttendance(attendance: Attendance, options?: any) {
+        return DefaultApiFp(this.configuration).addAttendance(attendance, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Add new Bulletin
+     * @param {Bulletin} bulletin 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addBulletin(bulletin: Bulletin, options?: any) {
+        return DefaultApiFp(this.configuration).addBulletin(bulletin, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Add new clearance
+     * @param {Clearance} clearance 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addClearance(clearance: Clearance, options?: any) {
+        return DefaultApiFp(this.configuration).addClearance(clearance, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Add new records
+     * @param {Records} records 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public addRecords(records: Records, options?: any) {
+        return DefaultApiFp(this.configuration).addRecords(records, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Add new user
      * @param {User} user 
      * @param {*} [options] Override http request option.
@@ -927,65 +2120,62 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @param {object} body 
+     * @summary Delete Archived by id
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public attendanceControllerCreate(body: object, options?: any) {
-        return DefaultApiFp(this.configuration).attendanceControllerCreate(body, options).then((request) => request(this.axios, this.basePath));
+    public deleteArchived(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).deleteArchived(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @summary Delete Attendance by id
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public attendanceControllerFindAll(options?: any) {
-        return DefaultApiFp(this.configuration).attendanceControllerFindAll(options).then((request) => request(this.axios, this.basePath));
+    public deleteAttendance(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).deleteAttendance(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {Bulletin} bulletin 
+     * @summary Delete Bulletin by id
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public bulletinControllerCreate(bulletin: Bulletin, options?: any) {
-        return DefaultApiFp(this.configuration).bulletinControllerCreate(bulletin, options).then((request) => request(this.axios, this.basePath));
+    public deleteBulletin(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).deleteBulletin(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @summary Delete clearance by id
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public bulletinControllerFindAll(options?: any) {
-        return DefaultApiFp(this.configuration).bulletinControllerFindAll(options).then((request) => request(this.axios, this.basePath));
+    public deleteClearance(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).deleteClearance(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {object} body 
+     * @summary Delete records by id
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public clearanceControllerCreate(body: object, options?: any) {
-        return DefaultApiFp(this.configuration).clearanceControllerCreate(body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public clearanceControllerFindAll(options?: any) {
-        return DefaultApiFp(this.configuration).clearanceControllerFindAll(options).then((request) => request(this.axios, this.basePath));
+    public deleteRecords(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).deleteRecords(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -998,6 +2188,121 @@ export class DefaultApi extends BaseAPI {
      */
     public deleteUser(id: string, options?: any) {
         return DefaultApiFp(this.configuration).deleteUser(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Archived by id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getArchive(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).getArchive(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all Archived
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getArchives(options?: any) {
+        return DefaultApiFp(this.configuration).getArchives(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Attendance by id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getAttendance(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).getAttendance(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all Attendance
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getAttendances(options?: any) {
+        return DefaultApiFp(this.configuration).getAttendances(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Bulletin by id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getBulletin(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).getBulletin(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all Bulletin
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getBulletins(options?: any) {
+        return DefaultApiFp(this.configuration).getBulletins(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get clearance by id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getClearance(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).getClearance(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all clearance
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getClearances(options?: any) {
+        return DefaultApiFp(this.configuration).getClearances(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get records by id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getRecord(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).getRecord(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all records
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getRecords(options?: any) {
+        return DefaultApiFp(this.configuration).getRecords(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1025,23 +2330,67 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Update Archived by id
+     * @param {string} id 
+     * @param {Archived} archived 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public updateArchived(id: string, archived: Archived, options?: any) {
+        return DefaultApiFp(this.configuration).updateArchived(id, archived, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Attendance by id
+     * @param {string} id 
+     * @param {Attendance} attendance 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public updateAttendance(id: string, attendance: Attendance, options?: any) {
+        return DefaultApiFp(this.configuration).updateAttendance(id, attendance, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update Bulletin by id
+     * @param {string} id 
+     * @param {Bulletin} bulletin 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public updateBulletin(id: string, bulletin: Bulletin, options?: any) {
+        return DefaultApiFp(this.configuration).updateBulletin(id, bulletin, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update clearance by id
+     * @param {string} id 
+     * @param {Clearance} clearance 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public updateClearance(id: string, clearance: Clearance, options?: any) {
+        return DefaultApiFp(this.configuration).updateClearance(id, clearance, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update records by id
+     * @param {string} id 
      * @param {Records} records 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public recordsControllerCreate(records: Records, options?: any) {
-        return DefaultApiFp(this.configuration).recordsControllerCreate(records, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public recordsControllerFindAll(options?: any) {
-        return DefaultApiFp(this.configuration).recordsControllerFindAll(options).then((request) => request(this.axios, this.basePath));
+    public updateRecords(id: string, records: Records, options?: any) {
+        return DefaultApiFp(this.configuration).updateRecords(id, records, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

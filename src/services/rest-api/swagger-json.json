@@ -21,7 +21,16 @@
         },
         "required": ["firstName", "lastName", "email", "course", "idNumber"]
       },
-      "Attendance": { "type": "object", "properties": {} },
+      "Attendance": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "date": { "type": "string" },
+          "semester": { "type": "string" },
+          "file": { "type": "string" }
+        },
+        "required": ["name", "date", "semester", "file"]
+      },
       "Bulletin": {
         "type": "object",
         "properties": {
@@ -42,10 +51,21 @@
       "Clearance": {
         "type": "object",
         "properties": {
-          "firstName": { "type": "string" },
-          "lastName": { "type": "string" }
+          "file": { "type": "string" },
+          "date": { "type": "string" },
+          "semester": { "type": "string" },
+          "eventName": { "type": "string" },
+          "amount": { "type": "string" },
+          "addedBy": { "type": "string" }
         },
-        "required": ["firstName", "lastName"]
+        "required": [
+          "file",
+          "date",
+          "semester",
+          "eventName",
+          "amount",
+          "addedBy"
+        ]
       },
       "Records": {
         "type": "object",
@@ -231,7 +251,7 @@
     },
     "/attendance/all": {
       "get": {
-        "operationId": "GetAttendance",
+        "operationId": "GetAttendances",
         "summary": "Get all Attendance",
         "parameters": [],
         "responses": {
@@ -353,7 +373,7 @@
     },
     "/bulletin/all": {
       "get": {
-        "operationId": "GetBulletin",
+        "operationId": "GetBulletins",
         "summary": "Get all Bulletin",
         "parameters": [],
         "responses": {
@@ -475,7 +495,7 @@
     },
     "/clearance/all": {
       "get": {
-        "operationId": "GetClearance",
+        "operationId": "GetClearances",
         "summary": "Get all clearance",
         "parameters": [],
         "responses": {
@@ -614,7 +634,7 @@
     },
     "/records/id": {
       "get": {
-        "operationId": "GetRecords",
+        "operationId": "GetRecord",
         "summary": "Get records by id",
         "parameters": [
           {
@@ -719,7 +739,7 @@
     },
     "/archived/all": {
       "get": {
-        "operationId": "GetArchived",
+        "operationId": "GetArchives",
         "summary": "Get all Archived",
         "parameters": [],
         "responses": {
@@ -736,7 +756,7 @@
     },
     "/archived/id": {
       "get": {
-        "operationId": "GetArchived",
+        "operationId": "GetArchive",
         "summary": "Get Archived by id",
         "parameters": [
           {
