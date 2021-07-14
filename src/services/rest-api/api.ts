@@ -199,31 +199,43 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    firstName: string;
+    studentName: string;
     /**
      * 
      * @type {string}
      * @memberof User
      */
-    lastName: string;
+    id: string;
     /**
      * 
      * @type {string}
      * @memberof User
      */
-    email: string;
+    gender: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    address: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    level: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    acadAdviser: string;
     /**
      * 
      * @type {string}
      * @memberof User
      */
     course: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof User
-     */
-    idNumber: string;
 }
 
 /**
@@ -414,14 +426,14 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Add new user
-         * @param {User} user 
+         * @summary Add new users
+         * @param {Array<User>} user 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addUser: async (user: User, options: any = {}): Promise<RequestArgs> => {
+        addUsers: async (user: Array<User>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'user' is not null or undefined
-            assertParamExists('addUser', 'user', user)
+            assertParamExists('addUsers', 'user', user)
             const localVarPath = `/user/create`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1426,13 +1438,13 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Add new user
-         * @param {User} user 
+         * @summary Add new users
+         * @param {Array<User>} user 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addUser(user: User, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addUser(user, options);
+        async addUsers(user: Array<User>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addUsers(user, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1632,7 +1644,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUsers(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+        async getUsers(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<User>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUsers(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1770,13 +1782,13 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Add new user
-         * @param {User} user 
+         * @summary Add new users
+         * @param {Array<User>} user 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addUser(user: User, options?: any): AxiosPromise<User> {
-            return localVarFp.addUser(user, options).then((request) => request(axios, basePath));
+        addUsers(user: Array<User>, options?: any): AxiosPromise<Array<User>> {
+            return localVarFp.addUsers(user, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1957,7 +1969,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUsers(options?: any): AxiosPromise<User> {
+        getUsers(options?: any): AxiosPromise<Array<User>> {
             return localVarFp.getUsers(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2098,14 +2110,14 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Add new user
-     * @param {User} user 
+     * @summary Add new users
+     * @param {Array<User>} user 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public addUser(user: User, options?: any) {
-        return DefaultApiFp(this.configuration).addUser(user, options).then((request) => request(this.axios, this.basePath));
+    public addUsers(user: Array<User>, options?: any) {
+        return DefaultApiFp(this.configuration).addUsers(user, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -14,12 +14,12 @@ const restConfig = new Configuration({
 const restApi = new DefaultApi(restConfig);
 
 class BulletinService {
-  async getBulletin(): Promise<Bulletin> {
+  async getBulletins(): Promise<Bulletin> {
     const response = await restApi.getBulletins();
     return response.data;
   }
 
-  async addingBulletin(payload: Bulletin): Promise<Bulletin> {
+  async addBulletin(payload: Bulletin): Promise<Bulletin> {
     const response = await restApi.addBulletin(payload);
     return response.data;
   }

@@ -14,13 +14,13 @@ const restConfig = new Configuration({
 const restApi = new DefaultApi(restConfig);
 
 class UserService {
-  async getUsers(): Promise<User> {
+  async getUsers(): Promise<User[]> {
     const response = await restApi.getUsers();
     return response.data;
   }
 
-  async addUsers(payload: User): Promise<User> {
-    const response = await restApi.addUser(payload);
+  async addUsers(payload: User[]): Promise<User[]> {
+    const response: any = await restApi.addUsers(payload);
     return response.data;
   }
 }
