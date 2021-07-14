@@ -2,11 +2,15 @@
   <q-table
     style="height: 750px"
     :grid="$q.screen.lt.md"
-    :rows="student"
+    :rows="data"
     :columns="columns"
     :row-key="rowKey"
     :filter="filter"
+    :pagination.sync="pagination"
+    :loading="loading"
+    @request="onRequest"
     virtual-scroll
+    binary-state-sort
   >
     <template v-slot:header="props">
       <q-tr :props="props">
@@ -51,39 +55,8 @@
             color="primary"
             icon-right="person_add"
             :label="`ADD ${buttonName}`"
-            @click="dialog = true"
+            @click="showDialog()"
           />
-          <q-dialog v-model="dialog" persistent>
-            <q-card style="width: 500px">
-              <q-card-section class="row items-center q-pb-none">
-                <div class="text-h5">ADD</div>
-                <q-space />
-                <q-btn icon="close" flat round dense @click="dialog = false" />
-              </q-card-section>
-              <q-card-section>
-                <div class="q-gutter-md" style="max-width: 500px">
-                  <q-file
-                    filled
-                    v-model="file"
-                    label="Import File"
-                    :style="$q.screen.lt.md ? 'width: 295px' : 'width: 470px'"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="attach_file" />
-                    </template>
-                  </q-file>
-                </div>
-              </q-card-section>
-              <q-card-section>
-                <q-btn
-                  class="full-width"
-                  size="lg"
-                  color="primary"
-                  label="SAVE"
-                />
-              </q-card-section>
-            </q-card>
-          </q-dialog>
         </div>
       </div>
     </template>
@@ -121,6 +94,7 @@
 
 <script lang="ts">
 import { Vue, Options, prop } from "vue-class-component";
+import { mapState, mapActions } from "vuex";
 
 class Props {
   readonly isBtnShow!: boolean;
@@ -129,13 +103,84 @@ class Props {
   readonly buttonName!: string;
   readonly options!: string[];
   readonly columns!: any[];
-  readonly student!: any[];
+  readonly data!: any[];
 }
 
-@Options({})
+@Options({
+  computed: {
+    ...mapState("ui", [
+      "showBulletin",
+      "showArchived",
+      "showAttendance",
+      "showClearance",
+      "showRecords",
+      "showUser",
+    ]),
+  },
+  methods: {
+    ...mapActions("ui", [
+      "showBulletinDialog",
+      "showArchivedDialog",
+      "showAttendanceDialog",
+      "showClearanceDialog",
+      "showRecordsDialog",
+      "showUserDialog",
+    ]),
+  },
+})
 export default class Table extends Vue.with(Props) {
   filter = "";
   dialog = false;
+  loading = false;
+  newData: any[] = [];
+  pagination = {
+    sortBy: "desc",
+    descending: false,
+    page: 1,
+    rowsPerPage: 15,
+    rowsNumber: 10,
+  };
+
+  showBulletin!: boolean;
+  showArchived!: boolean;
+  showAttendance!: boolean;
+  showClearance!: boolean;
+  showRecords!: boolean;
+  showUser!: boolean;
+  showBulletinDialog!: (isShow: boolean) => void;
+  showArchivedDialog!: (isShow: boolean) => void;
+  showAttendanceDialog!: (isShow: boolean) => void;
+  showClearanceDialog!: (isShow: boolean) => void;
+  showRecordsDialog!: (isShow: boolean) => void;
+  showUserDialog!: (isShow: boolean) => void;
+
+  mounted() {
+    this.onRequest({
+      pagination: this.pagination,
+      filter: undefined,
+    });
+  }
+
+  showDialog() {
+    if (this.$route.name == "admin-bulletin") {
+      this.showBulletinDialog(true);
+    } else if (this.$route.name == "admin-archived") {
+      this.showArchivedDialog(true);
+    } else if (this.$route.name == "admin-attendance") {
+      this.showAttendanceDialog(true);
+    } else if (this.$route.name == "admin-clearance") {
+      this.showClearanceDialog(true);
+    } else if (this.$route.name == "admin-records") {
+      this.showRecordsDialog(true);
+    } else if (this.$route.name == "admin-user") {
+      this.showUserDialog(true);
+    }
+  }
+
+  onRequest(props: any) {
+    const { page, rowsPerPage, sortBy, descending } = props.pagination;
+    const filter = props.filter;
+  }
 }
 </script>
 

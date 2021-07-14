@@ -21,5 +21,5 @@ import Drawer from "src/components/layout-component/admin/drawer.layout.vue";
     Drawer,
   },
 })
-export default class StudentLayout extends Vue {}
+export default class AdminLayout extends Vue {}
 </script>

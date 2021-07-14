@@ -4,9 +4,9 @@
       <q-table
         style="height: 750px"
         :grid="$q.screen.lt.md"
-        :rows="students"
+        :rows="student"
         :columns="columns"
-        row-key="id"
+        row-key="name"
         :filter="filter"
         virtual-scroll
         :pagination.sync="pagination"
@@ -78,7 +78,6 @@
                         :style="
                           $q.screen.lt.md ? 'width: 295px' : 'width: 470px'
                         "
-                        @update:model-value="fileChoose($event)"
                       >
                         <template v-slot:prepend>
                           <q-icon name="attach_file" />
@@ -92,7 +91,6 @@
                       size="lg"
                       color="primary"
                       label="SAVE"
-                      @click="upload()"
                     />
                   </q-card-section>
                 </q-card>
@@ -135,33 +133,23 @@
 </template>
 
 <script lang="ts">
-import { User } from "src/services/rest-api";
 import { Vue, prop, Options } from "vue-class-component";
-import { mapState, mapActions } from "vuex";
-
 interface IStudent {
   name: string;
 }
 
-@Options({
-  computed: {
-    ...mapState("user", ["students"]),
-  },
-  methods: {
-    ...mapActions("user", ["addStudent", "getStudents"]),
-  },
-})
-export default class Bulletin extends Vue {
+@Options({})
+export default class Masterlist extends Vue {
   title = "";
   from = "";
-  file = [];
+  file = null;
   model = null;
+  models = null;
   semester = ["1st Semester", "2nd Semester"];
   type = ["EVENT", "NEWS AND UPDATES", "ACHIEVEMENTS"];
   text = "";
   date = "";
   dialog = false;
-  isUpload = false;
   filter = "";
   pagination = {
     rowsPerPage: 0,
@@ -176,77 +164,23 @@ export default class Bulletin extends Vue {
   ];
   columns = [
     {
-      name: "studentName",
+      name: "title",
       required: true,
-      label: "Student Name",
+      label: "TITLE",
       align: "center",
-      field: (row: any) => row.studentName,
+      field: (row: any) => row.name,
       format: (val: any) => `${val}`,
       sortable: true,
     },
+  ];
+  student: IStudent[] = [
     {
-      name:"id",
-      required: true,
-      field: 'id',
-      label: "ID Number",
-      sortable: true,
+      name: "Sample 1",
     },
     {
-      name:"gender",
-      required: true,
-      field: 'gender',
-      label: "Gender",
-      sortable: true,
-    },
-    {
-      name:"address",
-      required: true,
-      field: 'address',
-      label: "Address",
-      sortable: true,
-    },
-    {
-      name:"level",
-      required: true,
-      field: 'level',
-      label: "Level",
-      sortable: true,
-    },
-    {
-      name:"acadAdvisesr",
-      required: true,
-      field: 'acadAdviser',
-      label: "Academic Adviser",
-      sortable: true,
-    },
-    {
-      name:"course",
-      required: true,
-      field: 'course',
-      label: "Course",
-      sortable: true,
+      name: "2",
     },
   ];
-  studentData: IStudent[] = [];
-  getStudents!: () => Promise<void>;
-  students!: IStudent[];
-
-  async mounted() {
-    await this.getStudents();
-    
-  }
-
-  fileChoose(val: any) {
-    this.file = val;
-  }
-  addStudent!: (file: any[]) => Promise<void>;
-
-  async upload() {
-    this.isUpload = true;
-    await this.addStudent(this.file);
-    this.isUpload = false;
-    this.dialog = false;
-  }
 }
 </script>
 
