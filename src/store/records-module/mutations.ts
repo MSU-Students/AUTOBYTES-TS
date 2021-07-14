@@ -8,6 +8,10 @@ const mutation: MutationTree<RecordsStateInterface> = {
   },
   getRecords(state, result) {
     state.records.push(...result);
+  },
+  getRecordType(state, types) {
+    state.types = [];
+    state.types.push(...types);
   }
 };
 
