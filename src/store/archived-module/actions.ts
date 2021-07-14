@@ -1,7 +1,7 @@
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
 import { ArchivedStateInterface } from './state';
-import archivedService from 'src/services/Archived.service';
+import archivedService from 'src/services/archived.service';
 
 const actions: ActionTree<ArchivedStateInterface, StateInterface> = {
   async addArchived(context, payload: any) {

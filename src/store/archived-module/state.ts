@@ -1,7 +1,8 @@
 
+import IArchived from "src/interfaces/archive.interface"
 export interface ArchivedStateInterface {
-    createArchived: { [key: string]: any }[];
-    archived: { [key: string]: string }[];
+    createArchived: IArchived[];
+    archived: IArchived[];
 }
 
 function state(): ArchivedStateInterface {
