@@ -5,12 +5,12 @@ import bulletinService from 'src/services/bulletin.service';
 
 const actions: ActionTree<BulletinStateInterface, StateInterface> = {
   async addBulletin(context, payload: any) {
-    const result = await bulletinService.addingBulletin(payload);
+    const result = await bulletinService.addBulletin(payload);
     context.commit('addBulletin', result);
   },
-  async getBulletin(context): Promise<any> {
-    const result = await bulletinService.getBulletin();
-    context.commit('getBulletin', result);
+  async getBulletins(context): Promise<any> {
+    const result = await bulletinService.getBulletins();
+    context.commit('getBulletins', result);
   }
 };
 

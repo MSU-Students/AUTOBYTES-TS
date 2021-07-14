@@ -6,7 +6,7 @@ const mutation: MutationTree<BulletinStateInterface> = {
     console.log(result);
     state.bulletin.push(result.data);
   },
-  getBulletin(state, result) {
+  getBulletins(state, result) {
     state.bulletin.push(...result);
   }
 };
