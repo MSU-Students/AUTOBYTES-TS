@@ -35,26 +35,32 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: "attendance",
+        name: "admin-attendance",
         component: () => import("src/pages/admin/attendance.page.vue"),
       },
       {
         path: "bulletin",
+        name: "admin-bulletin",
         component: () => import("src/pages/admin/bulletin.page.vue"),
       },
       {
         path: "clearance",
+        name: "admin-clearance",
         component: () => import("src/pages/admin/clearance.page.vue"),
       },
       {
         path: "records",
+        name: "admin-records",
         component: () => import("src/pages/admin/records.page.vue"),
       },
       {
         path: "student",
+        name: "admin-student",
         component: () => import("src/pages/admin/student.page.vue"),
       },
       {
         path: "archived",
+        name: "admin-archived",
         component: () => import("src/pages/admin/archived.page.vue"),
       },
     ],

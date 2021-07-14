@@ -1,4 +1,7 @@
 export default interface IBulletin {
-    name: string;
-    type: string;
-  }
+  title: string;
+  date: string;
+  bulletinFrom: string;
+  bulletinSemester: string;
+  bulletinType: string;
+}
