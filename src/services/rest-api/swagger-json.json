@@ -13,13 +13,23 @@
       "User": {
         "type": "object",
         "properties": {
-          "firstName": { "type": "string" },
-          "lastName": { "type": "string" },
-          "email": { "type": "string" },
-          "course": { "type": "string" },
-          "idNumber": { "type": "string" }
+          "studentName": { "type": "string" },
+          "id": { "type": "string" },
+          "gender": { "type": "string" },
+          "address": { "type": "string" },
+          "level": { "type": "string" },
+          "acadAdviser": { "type": "string" },
+          "course": { "type": "string" }
         },
-        "required": ["firstName", "lastName", "email", "course", "idNumber"]
+        "required": [
+          "studentName",
+          "id",
+          "gender",
+          "address",
+          "level",
+          "acadAdviser",
+          "course"
+        ]
       },
       "Attendance": {
         "type": "object",
@@ -104,14 +114,17 @@
     },
     "/user/create": {
       "post": {
-        "operationId": "AddUser",
-        "summary": "Add new user",
+        "operationId": "AddUsers",
+        "summary": "Add new users",
         "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/User" }
+              "schema": {
+                "type": "array",
+                "items": { "$ref": "#/components/schemas/User" }
+              }
             }
           }
         },
@@ -120,7 +133,10 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/User" }
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/User" }
+                }
               }
             }
           }
@@ -137,7 +153,10 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/User" }
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/User" }
+                }
               }
             }
           }
