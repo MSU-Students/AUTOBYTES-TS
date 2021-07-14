@@ -1,12 +1,12 @@
 
 export interface StudentStateInterface {
     createStudent: { [key: string]: any }[];
-    student: { [key: string]: string }[];
+    students: { [key: string]: string }[];
 }
 
 function state(): StudentStateInterface {
     return {
-        student: [],
+        students: [],
         createStudent: []
     };
 }
