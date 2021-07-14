@@ -1,7 +1,7 @@
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
 import { ClearanceStateInterface } from './state';
-import clearanceService from 'src/services/Clearance.service';
+import clearanceService from 'src/services/clearance.service';
 
 const actions: ActionTree<ClearanceStateInterface, StateInterface> = {
   async addClearance(context, payload: any) {
