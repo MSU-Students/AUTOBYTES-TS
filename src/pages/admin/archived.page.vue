@@ -34,7 +34,7 @@ import addArchivedDialog from "src/components/layout-component/dialog/addArchive
   },
 })
 export default class Archived extends Vue {
-  isBtnShow = true;
+  isBtnShow = false;
   title = "ARCHIVED List";
   rowKey = "name";
   buttonName = "Archive";

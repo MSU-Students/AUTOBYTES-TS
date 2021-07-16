@@ -32,7 +32,7 @@ import { mapActions, mapState } from "vuex";
     ...mapState("record", ["records"]),
   },
   methods: {
-    ...mapActions("ui", ["showBulletinDialog"]),
+    ...mapActions("ui", ["showRecordDialog"]),
     ...mapActions("record", ["getRecords"]),
   },
 })

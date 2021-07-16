@@ -4,11 +4,12 @@
       <Table
         :title="title"
         :columns="columns"
-        :student="bulletin"
+        :data="bulletins"
         :selectionOptions="options"
         :rowKey="rowKey"
         :isBtnShow="isBtnShow"
         :buttonName="buttonName"
+        :filter="filter"
       />
     </div>
     <addBulletinDialog />
@@ -29,11 +30,11 @@ import Table from "src/components/table.component.vue";
   },
   computed: {
     ...mapState("ui", ["bulletin"]),
-    ...mapState("bulletin", ["bulletin"])
+    ...mapState("bulletin", ["bulletins"])
   },
   methods: {
     ...mapActions("ui", ["showBulletinDialog"]),
-    ...mapActions("bulletin", ["getBulletins"]),
+    ...mapActions("bulletin", ["getBulletins","updateBulletin"]),
   },
 })
 export default class Bulletin extends Vue {
@@ -48,7 +49,7 @@ export default class Bulletin extends Vue {
     "NEWS AND UPDATES",
     "ACHIEVEMENTS",
   ];
-  filter = "";
+  filter = '';
   selectOption = "";
   bulletinOpt: any = [];
   pagination = {
@@ -70,26 +71,18 @@ export default class Bulletin extends Vue {
     { name: "bulletinSemester", label: "SEMESTER", field: "bulletinSemester", align: "center" },
     { name: "bulletinType", label: "TYPE", field: "bulletinType", align: "center" },
   ];
-  bulletins: IBulletin[] = [];
-  bulletin!: IBulletin[];
+  bulletin: IBulletin[] = [];
+  bulletins!: IBulletin[];
+  updateBulletin!: (payload: any) => Promise<void>;
   getBulletins!: () => Promise<void>;
-  // async create() {
-  //   try {
-  //     const bulletinTypes = this.bulletins.map((i) => {
-  //       return i.bulletinType;
-  //     });
-  //     bulletinTypes.unshift("ALL");
-  //     const newInst = [...new Set(bulletinTypes)];
-  //     this.bulletinOpt = newInst;
-  //     await this.getBulletins();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  
+  async bulletinUpdate() {
+
+  }
 
   async created() {
     await this.getBulletins();
-    this.bulletins = this.bulletin;
+    this.bulletin = this.bulletins;
   }
 }
 </script>

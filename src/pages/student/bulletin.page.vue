@@ -20,21 +20,29 @@
         <q-tab-panels v-model="tab" animated swipeable infinite>
           <q-tab-panel name="events">
             <div class="text-h6" style="height: 750px">
+              <q-dialog :model-value="false !== activeImage" @hide="activeImage = false" >
+                  <q-img
+                    :src="`http://localhost:3000/media/id?id=${activeImage}`"
+                  />
+                </q-dialog>
               <q-list padding>
-                <q-item clickable v-ripple dense>
+                <q-item
+                  v-for="(bulletin, index) in bulletins"
+                  :key="index"
+                  :name="bulletin.url"
+                  clickable
+                  v-ripple
+                  dense
+                  @click="activeImage = bulletin.url"
+                >
+                  
                   <q-item-section>
                     <q-item-label class="text-h6"
-                      >05/12/2021 - Memorandum</q-item-label
+                      >{{ bulletin.date }} - {{ bulletin.title }}</q-item-label
                     >
-                    <q-item-label caption>2nd Semester, From OIPP</q-item-label>
-                  </q-item-section>
-                </q-item>
-                <q-item clickable v-ripple dense>
-                  <q-item-section>
-                    <q-item-label class="text-h6"
-                      >05/20/2021 - Holiday</q-item-label
-                    >
-                    <q-item-label caption>2nd Semester, From OIPP</q-item-label>
+                    <q-item-label caption>{{
+                      bulletin.bulletinSemester
+                    }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -81,10 +89,38 @@
 </template>
 
 <script lang="ts">
+import IBulletin from "src/interfaces/bulletin.interface";
 import { Vue, prop, Options } from "vue-class-component";
-@Options({})
+import { mapActions, mapState } from "vuex";
+@Options({
+  computed: {
+    ...mapState("media", ["media"]),
+    ...mapState("bulletin", ["bulletins"]),
+  },
+  methods: {
+    ...mapActions("media", ["getMedia"]),
+    ...mapActions("bulletin", ["getBulletins"]),
+  },
+})
 export default class bulletin extends Vue {
   tab = "events";
+  activeImage:false | string = false;
+  media!: any;
+  bulletins!: IBulletin;
+  getBulletins!: () => Promise<void>;
+  getMedia!: (id: string) => Promise<void>;
+  
+  async created() {
+    await this.getBulletins();
+  }
+
+  async getUrl(bulletin: any) {
+    const res: any = await this.getMedia(bulletin);
+    if (bulletin == res.id) {
+      console.log(res);
+      return res.id;
+    }
+  }
 }
 </script>
 
