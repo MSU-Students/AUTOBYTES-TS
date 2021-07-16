@@ -27,6 +27,9 @@ import { AttendanceStateInterface } from "./attendance-module/state";
 import archived from "./archived-module";
 import { ArchivedStateInterface } from "./archived-module/state";
 
+import media from "./media-module";
+import { MediaStateInterface } from "./media-module/state";
+
 
 /*
  * If not building with SSR mode, you can
@@ -48,6 +51,7 @@ export interface StateInterface {
   bulletinStateInterface: BulletinStateInterface;
   attendanceStateInterface: AttendanceStateInterface;
   archivedStateInterface: ArchivedStateInterface;
+  mediaStateInterface: MediaStateInterface;
 }
 
 // provide typings for `this.$store`
@@ -71,6 +75,7 @@ export default store(function (/* { ssrContext } */) {
       bulletin,
       attendance,
       archived,
+      media
     },
 
     // enable strict mode (adds overhead!)

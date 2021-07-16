@@ -1,12 +1,12 @@
 
 export interface AttendanceStateInterface {
     createAttendance: { [key: string]: any }[];
-    attendance: { [key: string]: string }[];
+    attendances: { [key: string]: string }[];
 }
 
 function state(): AttendanceStateInterface {
     return {
-        attendance: [],
+        attendances: [],
         createAttendance: []
     };
 }
