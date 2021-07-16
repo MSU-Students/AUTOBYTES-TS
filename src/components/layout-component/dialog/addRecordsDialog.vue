@@ -62,6 +62,7 @@
             filled
             use-input
             use-chips
+            multiple
             v-model="records.recordsType"
             :options="types"
             label="Record Type"
@@ -177,7 +178,6 @@ export default class addRecordsDialog extends Vue {
     ) {
       this.formHasError = true;
     } else {
-      console.log(this.records.recordsType);
       const res: any = await this.addRecords(this.records);
       this.isSubmit = false;
       this.showRecordsDialog(false);
