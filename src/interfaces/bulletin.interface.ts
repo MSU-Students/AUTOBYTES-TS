@@ -4,4 +4,5 @@ export default interface IBulletin {
   bulletinFrom: string;
   bulletinSemester: string;
   bulletinType: string;
+  url: string;
 }

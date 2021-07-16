@@ -1,4 +1,7 @@
 export default interface IAttendance {
-    name: string;
-    date: string;
-  }
+  firstName: string
+  lastName: string
+  date: string
+  eventName: string
+  amount: string
+}
