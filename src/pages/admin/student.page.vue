@@ -135,13 +135,9 @@
 </template>
 
 <script lang="ts">
-import { User } from "src/services/rest-api";
 import { Vue, prop, Options } from "vue-class-component";
 import { mapState, mapActions } from "vuex";
-
-interface IStudent {
-  name: string;
-}
+import IUser from "src/interfaces/user.interface"
 
 @Options({
   computed: {
@@ -227,13 +223,11 @@ export default class Bulletin extends Vue {
       sortable: true,
     },
   ];
-  studentData: IStudent[] = [];
   getStudents!: () => Promise<void>;
-  students!: IStudent[];
+  students!: any[];
 
   async mounted() {
     await this.getStudents();
-    
   }
 
   fileChoose(val: any) {
