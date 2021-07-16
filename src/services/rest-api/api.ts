@@ -51,7 +51,13 @@ export interface Attendance {
      * @type {string}
      * @memberof Attendance
      */
-    name: string;
+    firstName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Attendance
+     */
+    lastName: string;
     /**
      * 
      * @type {string}
@@ -63,13 +69,13 @@ export interface Attendance {
      * @type {string}
      * @memberof Attendance
      */
-    semester: string;
+    eventName: string;
     /**
      * 
      * @type {string}
      * @memberof Attendance
      */
-    file: string;
+    amount: string;
 }
 /**
  * 
@@ -107,6 +113,12 @@ export interface Bulletin {
      * @memberof Bulletin
      */
     bulletinType: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Bulletin
+     */
+    url: string;
 }
 /**
  * 
@@ -119,19 +131,13 @@ export interface Clearance {
      * @type {string}
      * @memberof Clearance
      */
-    file: string;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof Clearance
      */
     date: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Clearance
-     */
-    semester: string;
     /**
      * 
      * @type {string}
@@ -144,12 +150,31 @@ export interface Clearance {
      * @memberof Clearance
      */
     amount: string;
+}
+/**
+ * 
+ * @export
+ * @interface Media
+ */
+export interface Media {
     /**
      * 
      * @type {string}
-     * @memberof Clearance
+     * @memberof Media
      */
-    addedBy: string;
+    mimeType: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Media
+     */
+    id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Media
+     */
+    filename?: string;
 }
 /**
  * 
@@ -205,7 +230,7 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    id: string;
+    idNumber: string;
     /**
      * 
      * @type {string}
@@ -282,14 +307,14 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary Add new Attendance
-         * @param {Attendance} attendance 
+         * @summary Add new Attendances
+         * @param {Array<Attendance>} attendance 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addAttendance: async (attendance: Attendance, options: any = {}): Promise<RequestArgs> => {
+        addAttendances: async (attendance: Array<Attendance>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'attendance' is not null or undefined
-            assertParamExists('addAttendance', 'attendance', attendance)
+            assertParamExists('addAttendances', 'attendance', attendance)
             const localVarPath = `/attendance/create`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -981,6 +1006,43 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Get Media by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMedia: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getMedia', 'id', id)
+            const localVarPath = `/media/id`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Get records by id
          * @param {string} id 
          * @param {*} [options] Override http request option.
@@ -1371,6 +1433,45 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Upload some media
+         * @param {any} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadMedia: async (file?: any, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/media/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1394,13 +1495,13 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Add new Attendance
-         * @param {Attendance} attendance 
+         * @summary Add new Attendances
+         * @param {Array<Attendance>} attendance 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addAttendance(attendance: Attendance, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attendance>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addAttendance(attendance, options);
+        async addAttendances(attendance: Array<Attendance>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Attendance>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addAttendances(attendance, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1560,7 +1661,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAttendances(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attendance>> {
+        async getAttendances(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Attendance>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAttendances(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1604,6 +1705,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async getClearances(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Clearance>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getClearances(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get Media by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMedia(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Media>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMedia(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1720,6 +1832,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(id, user, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @summary Upload some media
+         * @param {any} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadMedia(file?: any, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Media>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadMedia(file, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -1742,13 +1865,13 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary Add new Attendance
-         * @param {Attendance} attendance 
+         * @summary Add new Attendances
+         * @param {Array<Attendance>} attendance 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addAttendance(attendance: Attendance, options?: any): AxiosPromise<Attendance> {
-            return localVarFp.addAttendance(attendance, options).then((request) => request(axios, basePath));
+        addAttendances(attendance: Array<Attendance>, options?: any): AxiosPromise<Array<Attendance>> {
+            return localVarFp.addAttendances(attendance, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1893,7 +2016,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAttendances(options?: any): AxiosPromise<Attendance> {
+        getAttendances(options?: any): AxiosPromise<Array<Attendance>> {
             return localVarFp.getAttendances(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1933,6 +2056,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getClearances(options?: any): AxiosPromise<Clearance> {
             return localVarFp.getClearances(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Media by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMedia(id: string, options?: any): AxiosPromise<Media> {
+            return localVarFp.getMedia(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2038,6 +2171,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         updateUser(id: string, user: User, options?: any): AxiosPromise<User> {
             return localVarFp.updateUser(id, user, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary Upload some media
+         * @param {any} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadMedia(file?: any, options?: any): AxiosPromise<Media> {
+            return localVarFp.uploadMedia(file, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -2062,14 +2205,14 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
-     * @summary Add new Attendance
-     * @param {Attendance} attendance 
+     * @summary Add new Attendances
+     * @param {Array<Attendance>} attendance 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DefaultApi
      */
-    public addAttendance(attendance: Attendance, options?: any) {
-        return DefaultApiFp(this.configuration).addAttendance(attendance, options).then((request) => request(this.axios, this.basePath));
+    public addAttendances(attendance: Array<Attendance>, options?: any) {
+        return DefaultApiFp(this.configuration).addAttendances(attendance, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2296,6 +2439,18 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Get Media by id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getMedia(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).getMedia(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Get records by id
      * @param {string} id 
      * @param {*} [options] Override http request option.
@@ -2416,6 +2571,18 @@ export class DefaultApi extends BaseAPI {
      */
     public updateUser(id: string, user: User, options?: any) {
         return DefaultApiFp(this.configuration).updateUser(id, user, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upload some media
+     * @param {any} [file] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public uploadMedia(file?: any, options?: any) {
+        return DefaultApiFp(this.configuration).uploadMedia(file, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

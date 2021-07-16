@@ -98,6 +98,7 @@ import { mapState, mapActions } from "vuex";
 
 class Props {
   readonly isBtnShow!: boolean;
+  readonly filter!: string
   readonly title!: string;
   readonly rowKey!: string;
   readonly buttonName!: string;
@@ -157,7 +158,7 @@ export default class Table extends Vue.with(Props) {
   mounted() {
     this.onRequest({
       pagination: this.pagination,
-      filter: undefined,
+      filter: "",
     });
   }
 
