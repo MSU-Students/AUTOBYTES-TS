@@ -14,13 +14,13 @@ const restConfig = new Configuration({
 const restApi = new DefaultApi(restConfig);
 
 class AttendanceService {
-  async getAttendance(): Promise<Attendance> {
+  async getAttendance(): Promise<Attendance[]> {
     const response = await restApi.getAttendances();
     return response.data;
   }
 
-  async addAttendance(payload: Attendance): Promise<Attendance> {
-    const response = await restApi.addAttendance(payload);
+  async addAttendance(payload: Attendance[]): Promise<Attendance[]> {
+    const response = await restApi.addAttendances(payload);
     return response.data;
   }
 }
