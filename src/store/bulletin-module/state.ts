@@ -1,12 +1,13 @@
+import IBulletin from "src/interfaces/bulletin.interface";
 
 export interface BulletinStateInterface {
-    createBulletin: { [key: string]: any }[];
-    bulletin: { [key: string]: string }[];
+    createBulletin: IBulletin[];
+    bulletins: IBulletin[];
 }
 
 function state(): BulletinStateInterface {
     return {
-        bulletin: [],
+        bulletins: [],
         createBulletin: []
     };
 }
