@@ -71,7 +71,7 @@
             label="Bulletin Type"
             :rules="[(val) => !!val || 'Field is required']"
           />
-          <!-- <q-file
+          <q-file
             filled
             ref="bulletinImage"
             v-model="file"
@@ -84,7 +84,7 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file> -->
+          </q-file>
         </div>
       </q-card-section>
       <q-card-section>
@@ -105,7 +105,8 @@
 <script lang="ts">
 import { Vue, Options } from "vue-class-component";
 import { mapState, mapActions } from "vuex";
-import IBulletin from "src/interfaces/bulletin.interface"
+import IBulletin from "src/interfaces/bulletin.interface";
+import mediaService from "src/services/media.service";
 
 interface RefsVue extends Vue {
   validate(): void;
@@ -115,12 +116,12 @@ interface RefsVue extends Vue {
 
 @Options({
   computed: {
-    ...mapState("ui", ["showBulletin" ]),
-    ...mapState("bulletin",["createBulletin"])
+    ...mapState("ui", ["showBulletin"]),
+    ...mapState("bulletin", ["createBulletin"]),
   },
   methods: {
     ...mapActions("ui", ["showBulletinDialog"]),
-    ...mapActions("bulletin",["addBulletin"])
+    ...mapActions("bulletin", ["addBulletin"]),
   },
 })
 export default class addBulletinDialog extends Vue {
@@ -135,7 +136,9 @@ export default class addBulletinDialog extends Vue {
     bulletinFrom: "",
     bulletinSemester: "",
     bulletinType: "",
+    url: "",
   };
+  file: File[] = [];
 
   declare $refs: {
     title: RefsVue;
@@ -157,8 +160,13 @@ export default class addBulletinDialog extends Vue {
       bulletinFrom: "",
       bulletinSemester: "",
       bulletinType: "",
+      url: "",
     };
     this.showBulletinDialog(false);
+  }
+
+  fileChoose(val: any) {
+    this.file = val;
   }
 
   async saveDocument() {
@@ -179,30 +187,14 @@ export default class addBulletinDialog extends Vue {
     ) {
       this.formHasError = true;
     } else {
-      
-      const res: any = await this.addBulletin(this.bulletin);
+      console.log(this.bulletin, this.file);
+      const media = await mediaService.uploadMedia(this.file);
+      console.log("media: ", media);
+      const res: any = await this.addBulletin({ ...this.bulletin, url: media.id});
       this.isSubmit = false;
+      this.showBulletinDialog(false);
     }
   }
-
-  // async uploadFile() {
-  //   this.isUpload = true;
-  //   if (this.bulletin.bulletinImage.length == 0) {
-  //     console.log("no files selected!");
-  //   } else {
-  //     console.log("file: ", this.bulletin.bulletinImage);
-  //     await this.uploadDocument({
-  //       file: this.bulletin.bulletinImage,
-  //     });
-  //     this.isUpload = false;
-  //     this.showBulletinDialog(false);
-  //     this.$q.notify({
-  //       icon: "done",
-  //       color: "positive",
-  //       message: "Document Uploaded",
-  //     });
-  //   }
-  // }
 }
 </script>
 
