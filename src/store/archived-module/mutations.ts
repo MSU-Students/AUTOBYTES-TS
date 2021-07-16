@@ -7,6 +7,7 @@ const mutation: MutationTree<ArchivedStateInterface> = {
     state.archived.push(result.data);
   },
   getArchived(state, result) {
+    state.archived = [];
     state.archived.push(...result);
   }
 };

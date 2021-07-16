@@ -6,7 +6,7 @@ const mutation: MutationTree<StudentStateInterface> = {
     state.students.push(...students);
   },
   viewStudents(state, result) {
-
+    state.students = [];
     state.students = result;
   }
 };
