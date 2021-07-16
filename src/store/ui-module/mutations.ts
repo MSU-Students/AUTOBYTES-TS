@@ -15,7 +15,7 @@ const mutation: MutationTree<UiStateInterface> = {
   showClearanceDialog(state, payload: boolean) {
     state.showClearance = payload;
   },
-  showAttendaceDialog(state, payload: boolean) {
+  showAttendanceDialog(state, payload: boolean) {
     state.showAttendance = payload;
   },
   showRecordsDialog(state, payload: boolean) {
