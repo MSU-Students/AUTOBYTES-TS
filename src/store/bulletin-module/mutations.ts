@@ -3,11 +3,14 @@ import { BulletinStateInterface } from './state';
 
 const mutation: MutationTree<BulletinStateInterface> = {
   addBulletin(state, result) {
-    console.log(result);
-    state.bulletin.push(result.data);
+    state.bulletins.push(result.data);
   },
   getBulletins(state, result) {
-    state.bulletin.push(...result);
+    state.bulletins = [];
+    state.bulletins.push(...result);
+  },
+  getBulletin(state,result) {
+    state.bulletins.push(result.data)
   }
 };
 
