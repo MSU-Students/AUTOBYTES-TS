@@ -3,5 +3,6 @@ export default interface IRecords {
     date: string;
     recordsFrom: string;
     recordsSemester: string;
-    recordsType: null;
+    recordsType: string;
+    url: string
 }

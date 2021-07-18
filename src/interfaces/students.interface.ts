@@ -1,4 +1,4 @@
-export default interface IUser {
+export default interface IStudents {
     studentName: string;
     idNumber: string;
     gender: string;

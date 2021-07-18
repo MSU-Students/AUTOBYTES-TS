@@ -9,9 +9,10 @@ const mutation: MutationTree<BulletinStateInterface> = {
     state.bulletins = [];
     state.bulletins.push(...result);
   },
-  getBulletin(state,result) {
-    state.bulletins.push(result.data)
-  }
+  // getBulletin(state, result) {
+  //   console.log(result);
+  //   state.getBulletin = result;
+  // }
 };
 
 export default mutation;

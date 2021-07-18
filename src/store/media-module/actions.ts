@@ -10,7 +10,6 @@ const actions: ActionTree<MediaStateInterface, StateInterface> = {
   },
   async getMedia(context, id: string): Promise<any> {
     const result = await mediaService.getMedia(id);
-    console.log("image: ", result);
     context.commit('getMedia', result);
   }
 };
