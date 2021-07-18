@@ -20,7 +20,7 @@ class UserService {
   }
 
   async addUsers(payload: User[]): Promise<User[]> {
-    const response: any = await restApi.addUsers(payload);
+    const response = await restApi.addUsers(payload);
     return response.data;
   }
 }

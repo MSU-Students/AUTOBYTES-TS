@@ -9,7 +9,7 @@ import {
 import ui from "./ui-module";
 import { UiStateInterface } from "./ui-module/state";
 
-import user from "./student-module";
+import student from "./student-module";
 import { StudentStateInterface } from "./student-module/state";
 
 import record from "./records-module";
@@ -29,6 +29,8 @@ import { ArchivedStateInterface } from "./archived-module/state";
 
 import media from "./media-module";
 import { MediaStateInterface } from "./media-module/state";
+
+
 
 
 /*
@@ -69,13 +71,13 @@ export default store(function (/* { ssrContext } */) {
   const Store = createStore<StateInterface>({
     modules: {
       ui,
-      user,
       record,
       clearance,
       bulletin,
       attendance,
       archived,
-      media
+      media,
+      student
     },
 
     // enable strict mode (adds overhead!)
