@@ -1,9 +1,7 @@
 import Papa from 'papaparse';
-import { User } from './rest-api';
-import userService from './user.service';
-import { Attendance } from './rest-api';
+import { Students } from './rest-api';
 import attendanceService from './attendance.service'
-import { eventNames } from 'process';
+import studentsService from './students.service';
 
 
 class HelperService {
@@ -17,7 +15,7 @@ class HelperService {
           header: true,
           skipEmptyLines: true,
           complete: async function (results) {
-            const newStructure: User[] = results.data
+            const newStructure: Students[] = results.data
               .filter((i: any) => (i.studentName && i.id)).map((i: any) => {
                 return {
                   studentName: String(i.studentName),
@@ -29,7 +27,7 @@ class HelperService {
                   course: String(i.course)
                 }
               })
-            const res = await userService.addUsers(
+            const res = await studentsService.addStudents(
               newStructure
             );
 
