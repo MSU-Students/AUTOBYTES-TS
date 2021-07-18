@@ -30,17 +30,17 @@ import Table from "src/components/table.component.vue";
   },
   computed: {
     ...mapState("ui", ["bulletin"]),
-    ...mapState("bulletin", ["bulletins"])
+    ...mapState("bulletin", ["bulletins"]),
   },
   methods: {
     ...mapActions("ui", ["showBulletinDialog"]),
-    ...mapActions("bulletin", ["getBulletins","updateBulletin"]),
+    ...mapActions("bulletin", ["getBulletins", "updateBulletin"]),
   },
 })
 export default class Bulletin extends Vue {
   isBtnShow = true;
   title = "BULLETIN";
-  rowKey = "name";
+  rowKey = "title";
   buttonName = "EVENT";
   options = [
     "1st Semester",
@@ -49,7 +49,6 @@ export default class Bulletin extends Vue {
     "NEWS AND UPDATES",
     "ACHIEVEMENTS",
   ];
-  filter = '';
   selectOption = "";
   bulletinOpt: any = [];
   pagination = {
@@ -67,18 +66,29 @@ export default class Bulletin extends Vue {
       sortable: true,
     },
     { name: "date", label: "DATE", field: "date", align: "center" },
-    { name: "bulletinFrom", label: "FROM", field: "bulletinFrom", align: "center" },
-    { name: "bulletinSemester", label: "SEMESTER", field: "bulletinSemester", align: "center" },
-    { name: "bulletinType", label: "TYPE", field: "bulletinType", align: "center" },
+    {
+      name: "bulletinFrom",
+      label: "FROM",
+      field: "bulletinFrom",
+      align: "center",
+    },
+    {
+      name: "bulletinSemester",
+      label: "SEMESTER",
+      field: "bulletinSemester",
+      align: "center",
+    },
+    {
+      name: "bulletinType",
+      label: "TYPE",
+      field: "bulletinType",
+      align: "center",
+    },
   ];
   bulletin: IBulletin[] = [];
   bulletins!: IBulletin[];
   updateBulletin!: (payload: any) => Promise<void>;
   getBulletins!: () => Promise<void>;
-  
-  async bulletinUpdate() {
-
-  }
 
   async created() {
     await this.getBulletins();

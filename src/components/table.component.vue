@@ -79,6 +79,7 @@
       <q-tr v-show="props.expand" :props="props">
         <q-td colspan="100%">
           <div class="text-left text-subtitle1">
+            {{ props.row.data }}
             <q-btn
               :class="$q.screen.lt.md ? 'q-mr-md' : 'q-mr-xl'"
               color="primary"
@@ -98,7 +99,7 @@ import { mapState, mapActions } from "vuex";
 
 class Props {
   readonly isBtnShow!: boolean;
-  readonly filter!: string
+  readonly filter!: string;
   readonly title!: string;
   readonly rowKey!: string;
   readonly buttonName!: string;
@@ -127,10 +128,10 @@ class Props {
       "showRecordsDialog",
       "showUserDialog",
     ]),
+    ...mapActions("bulletin", ["getBulletin"]),
   },
 })
 export default class Table extends Vue.with(Props) {
-  filter = "";
   dialog = false;
   loading = false;
   newData: any[] = [];
@@ -138,7 +139,7 @@ export default class Table extends Vue.with(Props) {
     sortBy: "desc",
     descending: false,
     page: 1,
-    rowsPerPage: 15,
+    rowsPerPage: 0,
     rowsNumber: 10,
   };
 
@@ -154,15 +155,22 @@ export default class Table extends Vue.with(Props) {
   showClearanceDialog!: (isShow: boolean) => void;
   showRecordsDialog!: (isShow: boolean) => void;
   showUserDialog!: (isShow: boolean) => void;
+  getBulletin!: (id: string) => Promise<void>;
 
-  mounted() {
-    this.onRequest({
-      pagination: this.pagination,
-      filter: "",
-    });
-  }
+  // mounted() {
+  //   this.onRequest({
+  //     pagination: this.pagination,
+  //     filter: "",
+  //   });
+  // }
 
   showDialog() {
+    // console.log(id);
+    // if (this.$route.name == "admin-bulletin") {
+    //   if (typeof id != "undefined") {
+    //     await this.getBulletin(id);
+    //     this.showBulletinDialog(true);
+    //   } else
     if (this.$route.name == "admin-bulletin") {
       this.showBulletinDialog(true);
     } else if (this.$route.name == "admin-archived") {

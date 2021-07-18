@@ -75,7 +75,7 @@ import IAttendance from "src/interfaces/attendance.interface";
 import IUpload from "src/interfaces/upload.interface";
 import IClearance from "src/interfaces/clearance.interface";
 import IBulletin from "src/interfaces/bulletin.interface";
-import IUser from "src/interfaces/user.interface";
+import IStudents from "src/interfaces/students.interface";
 import { date } from "app/node_modules/quasar/dist/types";
 
 interface RefsVue extends Vue {
@@ -141,7 +141,7 @@ export default class addAttendanceDialog extends Vue {
   clearance!: IClearance[];
   bulletin!: IBulletin[];
   attendances!: IAttendance[];
-  students!: IUser[];
+  students!: IStudents[];
 
   getBulletins!: () => Promise<void>;
   getAttendance!: () => Promise<void>;
@@ -154,7 +154,7 @@ export default class addAttendanceDialog extends Vue {
   }
   async upload() {
     await this.addAttendance(this.attendanceItem);
-    const absents: IUser[] = this.students.filter((student) => {
+    const absents: IStudents[] = this.students.filter((student) => {
       return !this.attendances.find((s) => {
         return student.studentName
           .toLowerCase()

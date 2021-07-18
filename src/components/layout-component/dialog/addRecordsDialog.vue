@@ -1,10 +1,5 @@
 <template>
-  <q-dialog
-    v-model="showRecords"
-    persistent
-    @hide="hideDialog()"
-    @show="showDialog()"
-  >
+  <q-dialog v-model="showRecords" persistent @hide="hideDialog()">
     <q-card style="width: 500px">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h5">ADD</div>
@@ -60,24 +55,21 @@
           <q-select
             ref="recordsType"
             filled
-            use-input
-            use-chips
-            multiple
             v-model="records.recordsType"
             :options="types"
             label="Record Type"
-            @new-value="createValue"
           />
-          <!-- <q-file
+          <q-file
             filled
             v-model="file"
             label="Attach Image"
             :style="$q.screen.lt.md ? 'width: 295px' : 'width: 470px'"
+            @update:model-value="fileChoose($event)"
           >
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file> -->
+          </q-file>
         </div>
       </q-card-section>
       <q-card-section>
@@ -97,6 +89,7 @@
 import { Vue, Options } from "vue-class-component";
 import { mapState, mapActions } from "vuex";
 import IRecords from "src/interfaces/records.interface";
+import mediaService from "src/services/media.service";
 
 interface RefsVue extends Vue {
   validate(): void;
@@ -117,14 +110,17 @@ interface RefsVue extends Vue {
 export default class addRecordsDialog extends Vue {
   isSubmit = false;
   isUpload = false;
+  file: File[] = [];
   sem = ["1st Semester", "2nd Semester"];
+  types = ["Minutes of Meetings", "Bills", "Receipt"];
 
   records: IRecords = {
     title: "",
     date: "",
     recordsFrom: "",
     recordsSemester: "",
-    recordsType: null,
+    recordsType: "",
+    url: "",
   };
 
   declare $refs: {
@@ -138,15 +134,19 @@ export default class addRecordsDialog extends Vue {
   formHasError!: boolean;
   createRecords!: boolean;
   showRecords!: boolean;
-  types!: string[];
+  // types!: string[];
   showRecordsDialog!: (show: boolean) => void;
   addRecords!: (payload: any) => Promise<void>;
   getRecordType!: () => void;
 
-  showDialog() {
-    //
-    this.getRecordType();
-    console.log("ui", this.types);
+  // showDialog() {
+  //   //
+  //   this.getRecordType();
+  //   console.log("ui", this.types);
+  // }
+
+  fileChoose(val: any) {
+    this.file = val;
   }
 
   hideDialog() {
@@ -155,7 +155,8 @@ export default class addRecordsDialog extends Vue {
       date: "",
       recordsFrom: "",
       recordsSemester: "",
-      recordsType: null,
+      recordsType: "",
+      url: "",
     };
     this.showRecordsDialog(false);
   }
@@ -178,24 +179,30 @@ export default class addRecordsDialog extends Vue {
     ) {
       this.formHasError = true;
     } else {
-      const res: any = await this.addRecords(this.records);
+      console.log(this.records, this.file);
+      const media = await mediaService.uploadMedia(this.file);
+      console.log("media: ", media);
+      const res: any = await this.addRecords({
+        ...this.records,
+        url: media.id,
+      });
       this.isSubmit = false;
       this.showRecordsDialog(false);
     }
   }
 
-  createValue(val: any, done: any) {
-    // specific logic to eventually call done(...) -- or not
-    this.records.recordsType = val;
-    done(val);
-    // done callback has two optional parameters:
-    //  - the value to be added
-    //  - the behavior (same values of new-value-mode prop,
-    //    and when it is specified it overrides that prop –
-    //    if it is used); default behavior (if not using
-    //    new-value-mode) is to add the value even if it would
-    //    be a duplicate
-  }
+  // createValue(val: any, done: any) {
+  //   // specific logic to eventually call done(...) -- or not
+  //   this.records.recordsType = val;
+  //   done(val);
+  //   // done callback has two optional parameters:
+  //   //  - the value to be added
+  //   //  - the behavior (same values of new-value-mode prop,
+  //   //    and when it is specified it overrides that prop –
+  //   //    if it is used); default behavior (if not using
+  //   //    new-value-mode) is to add the value even if it would
+  //   //    be a duplicate
+  // }
 }
 </script>
 

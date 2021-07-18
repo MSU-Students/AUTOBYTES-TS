@@ -9,6 +9,7 @@
         :rowKey="rowKey"
         :isBtnShow="isBtnShow"
         :buttonName="buttonName"
+        :filter="filter"
       />
     </div>
     <aaddArchivedDialog/>
@@ -36,8 +37,9 @@ import addArchivedDialog from "src/components/layout-component/dialog/addArchive
 export default class Archived extends Vue {
   isBtnShow = false;
   title = "ARCHIVED List";
-  rowKey = "name";
+  rowKey = "title";
   buttonName = "Archive";
+  filter= "";
   options = [
     "1st Semester",
     "2nd Semester",

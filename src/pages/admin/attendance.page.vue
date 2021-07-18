@@ -9,6 +9,7 @@
         :rowKey="rowKey"
         :isBtnShow="isBtnShow"
         :buttonName="buttonName"
+        :filter="filter"
       />
     </div>
     <addAttendanceDialog />
@@ -39,7 +40,7 @@ import IAttendance from "src/interfaces/attendance.interface";
 export default class attendace extends Vue {
   isBtnShow = true;
   title = "Attendace";
-  rowKey = "name";
+  rowKey = "eventName";
   buttonName = "Attendance";
 
   multiple = null;
