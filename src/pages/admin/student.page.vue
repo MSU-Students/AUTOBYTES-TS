@@ -106,8 +106,9 @@
             <q-td auto-width>
               <q-btn
                 size="sm"
-                color="primary"
+                color="accent"
                 round
+                dense
                 @click="props.expand = !props.expand"
                 :icon="props.expand ? 'remove' : 'add'"
               />
@@ -137,14 +138,14 @@
 <script lang="ts">
 import { Vue, prop, Options } from "vue-class-component";
 import { mapState, mapActions } from "vuex";
-import IUser from "src/interfaces/user.interface"
+import IStudents from "src/interfaces/students.interface";
 
 @Options({
   computed: {
-    ...mapState("user", ["students"]),
+    ...mapState("student", ["students"]),
   },
   methods: {
-    ...mapActions("user", ["addStudent", "getStudents"]),
+    ...mapActions("student", ["addStudents", "getStudents"]),
   },
 })
 export default class Bulletin extends Vue {
@@ -181,44 +182,44 @@ export default class Bulletin extends Vue {
       sortable: true,
     },
     {
-      name:"id",
+      name: "id",
       required: true,
-      field: 'id',
+      field: "id",
       label: "ID Number",
       sortable: true,
     },
     {
-      name:"gender",
+      name: "gender",
       required: true,
-      field: 'gender',
+      field: "gender",
       label: "Gender",
       sortable: true,
     },
     {
-      name:"address",
+      name: "address",
       required: true,
-      field: 'address',
+      field: "address",
       label: "Address",
       sortable: true,
     },
     {
-      name:"level",
+      name: "level",
       required: true,
-      field: 'level',
+      field: "level",
       label: "Level",
       sortable: true,
     },
     {
-      name:"acadAdvisesr",
+      name: "acadAdvisesr",
       required: true,
-      field: 'acadAdviser',
+      field: "acadAdviser",
       label: "Academic Adviser",
       sortable: true,
     },
     {
-      name:"course",
+      name: "course",
       required: true,
-      field: 'course',
+      field: "course",
       label: "Course",
       sortable: true,
     },
@@ -233,11 +234,11 @@ export default class Bulletin extends Vue {
   fileChoose(val: any) {
     this.file = val;
   }
-  addStudent!: (file: any[]) => Promise<void>;
+  addStudents!: (file: any[]) => Promise<void>;
 
   async upload() {
     this.isUpload = true;
-    await this.addStudent(this.file);
+    await this.addStudents(this.file);
     this.isUpload = false;
     this.dialog = false;
   }

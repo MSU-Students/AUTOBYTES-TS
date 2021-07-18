@@ -34,7 +34,7 @@ import { mapActions, mapState } from "vuex";
 export default class clearance extends Vue {
   isBtnShow = true;
   title = "RECORDS";
-  rowKey = "title";
+  rowKey = "eventName";
   buttonName = "RECORD";
   options = ["1st Semester", "2nd Semester"];
   columns = [
