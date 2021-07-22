@@ -1,7 +1,8 @@
+import IClearance from "src/interfaces/clearance.interface";
 
 export interface ClearanceStateInterface {
-    createClearance: { [key: string]: any }[];
-    clearance: { [key: string]: string }[];
+    createClearance: IClearance[];
+    clearance: IClearance[];
 }
 
 function state(): ClearanceStateInterface {

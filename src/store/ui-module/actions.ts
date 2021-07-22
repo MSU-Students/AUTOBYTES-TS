@@ -13,7 +13,7 @@ const actions: ActionTree<UiStateInterface, StateInterface> = {
     context.commit('showBulletinDialog', payload);
   },
   showClearanceDialog(context, payload: boolean) {
-    context.commit('addClearancePopups', payload);
+    context.commit('showClearanceDialog', payload);
   },
   sendMessagePopups(context, payload: boolean) {
     context.commit('sendMessagePopups', payload);

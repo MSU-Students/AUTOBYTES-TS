@@ -30,6 +30,9 @@ import { ArchivedStateInterface } from "./archived-module/state";
 import media from "./media-module";
 import { MediaStateInterface } from "./media-module/state";
 
+import users from "./user-module"
+import { UserStateInterface } from "./user-module/state";
+
 
 
 
@@ -54,6 +57,7 @@ export interface StateInterface {
   attendanceStateInterface: AttendanceStateInterface;
   archivedStateInterface: ArchivedStateInterface;
   mediaStateInterface: MediaStateInterface;
+  userStateInterface: UserStateInterface
 }
 
 // provide typings for `this.$store`
@@ -77,7 +81,8 @@ export default store(function (/* { ssrContext } */) {
       attendance,
       archived,
       media,
-      student
+      student,
+      users
     },
 
     // enable strict mode (adds overhead!)

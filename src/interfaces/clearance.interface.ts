@@ -1,6 +1,7 @@
 export default interface IClearance {
-  name: string
+  name: string;
   date: string;
+  amount: string
   eventName: string;
-  amount: string;
+  semester: string;
 }
