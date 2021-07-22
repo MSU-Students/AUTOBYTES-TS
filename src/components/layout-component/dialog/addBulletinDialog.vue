@@ -189,7 +189,6 @@ export default class addBulletinDialog extends Vue {
     } else {
       console.log(this.bulletin, this.file);
       const media = await mediaService.uploadMedia(this.file);
-      console.log("media: ", media);
       const res: any = await this.addBulletin({ ...this.bulletin, url: media.id});
       this.isSubmit = false;
       this.showBulletinDialog(false);
