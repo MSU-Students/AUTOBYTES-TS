@@ -27,14 +27,14 @@
     <!-- DRAWER LIST -->
     <q-list
       padding
-      class="menu-list q-pt-xl text-h5 text-weight-bold q-gutter-lg q-pb-xl"
+      class="menu-list q-pt-xl text-h5 text-primary text-weight-bold q-gutter-lg q-pb-xl"
     >
       <q-item
         v-for="(menu, index) in menus"
         :key="index"
         :to="menu.to"
-        :color="menu.to == $route.fullPath ? 'primary' : 'white'"
-        :text-color="menu.to == $route.fullPath ? 'white' : 'primary'"
+        :color="menu.to == $route.fullPath ? 'primary' : 'primary'"
+        :text-color="menu.to == $route.fullPath ? 'primary' : 'primary'"
         :icon="menu.icon"
         exact-active-class="text-white bg-primary"
         clickable

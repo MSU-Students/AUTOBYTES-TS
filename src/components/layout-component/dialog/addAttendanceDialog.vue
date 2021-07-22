@@ -90,14 +90,14 @@ interface RefsVue extends Vue {
     ...mapState("attendance", ["createAttendance", "attendances"]),
     ...mapState("bulletin", ["bulletin"]),
     ...mapState("clearance", ["clearance"]),
-    ...mapState("user", ["students"]),
+    ...mapState("student", ["students"]),
   },
   methods: {
     ...mapActions("ui", ["showAttendanceDialog"]),
     ...mapActions("attendance", ["addAttendance", "getAttendance"]),
     ...mapActions("bulletin", ["getBulletins"]),
     ...mapActions("clearance", ["addClearance"]),
-    ...mapActions("user", ["getStudents"]),
+    ...mapActions("student", ["getStudents"]),
   },
 })
 export default class addAttendanceDialog extends Vue {
@@ -171,6 +171,7 @@ export default class addAttendanceDialog extends Vue {
         amount: this.attendanceItem.amount,
       });
     });
+    this.showAttendanceDialog(false);
   }
 }
 </script>
