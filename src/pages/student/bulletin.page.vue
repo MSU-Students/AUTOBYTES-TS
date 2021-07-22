@@ -20,14 +20,17 @@
         <q-tab-panels v-model="tab" animated swipeable infinite>
           <q-tab-panel name="events">
             <div class="text-h6" style="height: 750px">
-              <q-dialog :model-value="false !== activeImage" @hide="activeImage = false" >
-                  <q-img
-                    :src="`http://localhost:3000/media/id?id=${activeImage}`"
-                  />
-                </q-dialog>
+              <q-dialog
+                :model-value="false !== activeImage"
+                @hide="activeImage = false"
+              >
+                <q-img
+                  :src="`http://localhost:3000/media/id?id=${activeImage}`"
+                />
+              </q-dialog>
               <q-list padding>
                 <q-item
-                  v-for="(bulletin, index) in bulletins"
+                  v-for="(bulletin, index) in events"
                   :key="index"
                   :name="bulletin.url"
                   clickable
@@ -35,7 +38,6 @@
                   dense
                   @click="activeImage = bulletin.url"
                 >
-                  
                   <q-item-section>
                     <q-item-label class="text-h6"
                       >{{ bulletin.date }} - {{ bulletin.title }}</q-item-label
@@ -51,14 +53,30 @@
 
           <q-tab-panel name="newsandupdates">
             <div class="text-h6" style="height: 750px">
+              <q-dialog
+                :model-value="false !== activeImage"
+                @hide="activeImage = false"
+              >
+                <q-img
+                  :src="`http://localhost:3000/media/id?id=${activeImage}`"
+                />
+              </q-dialog>
               <q-list padding>
-                <q-item clickable v-ripple dense>
+                <q-item
+                  clickable
+                  v-ripple
+                  dense
+                  v-for="(news, index) in news"
+                  :key="index"
+                  :name="news.url"
+                  @click="activeImage = news.url"
+                >
                   <q-item-section>
                     <q-item-label class="text-h6"
-                      >05/12/2021 - CSC 121</q-item-label
+                      >{{ news.url }} - {{ news.title }}</q-item-label
                     >
                     <q-item-label caption
-                      >2nd Semester, From Sir Jojo</q-item-label
+                      >{{news.bulletinSemester}}, From {{news.bulletinFrom}}</q-item-label
                     >
                   </q-item-section>
                 </q-item>
@@ -68,14 +86,27 @@
 
           <q-tab-panel name="achievements">
             <div class="text-h6" style="height: 750px">
+              <q-dialog
+                :model-value="false !== activeImage"
+                @hide="activeImage = false"
+              >
+                <q-img
+                  :src="`http://localhost:3000/media/id?id=${activeImage}`"
+                />
+              </q-dialog>
               <q-list padding>
-                <q-item clickable v-ripple dense>
+                <q-item clickable v-ripple dense
+                v-for="(achivement, index) in achivements"
+                :key="index"
+                :name="achivement.url"
+                @click="activeImage = achivement.url"
+                >
                   <q-item-section>
                     <q-item-label class="text-h6"
-                      >05/12/2021 - Dance Champion</q-item-label
+                      >{{achivement.date}} - {{achivement.title}}</q-item-label
                     >
                     <q-item-label caption
-                      >2nd Semester, From University Foundation</q-item-label
+                      >{{achivement.bulletinSemester}}, From {{achivement.bulletinFrom}}</q-item-label
                     >
                   </q-item-section>
                 </q-item>
@@ -104,14 +135,26 @@ import { mapActions, mapState } from "vuex";
 })
 export default class bulletin extends Vue {
   tab = "events";
-  activeImage:false | string = false;
+  activeImage: false | string = false;
   media!: any;
-  bulletins!: IBulletin;
+  bulletins!: IBulletin[];
+  events: IBulletin[] = [];
+  news: IBulletin[] = [];
+  achivements: IBulletin[] = [];
   getBulletins!: () => Promise<void>;
   getMedia!: (id: string) => Promise<void>;
-  
+
   async created() {
     await this.getBulletins();
+    (this.events = this.bulletins.filter(
+      (bulletin) => bulletin.bulletinType == "Events"
+    )),
+      (this.news = this.bulletins.filter(
+        (bulletin) => bulletin.bulletinType == "News & Updates"
+      ));
+    this.achivements = this.bulletins.filter(
+      (bulletin) => bulletin.bulletinType == "Achievements"
+    );
   }
 
   async getUrl(bulletin: any) {

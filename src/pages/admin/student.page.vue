@@ -182,9 +182,9 @@ export default class Bulletin extends Vue {
       sortable: true,
     },
     {
-      name: "id",
+      name: "idNumber",
       required: true,
-      field: "id",
+      field: "idNumber",
       label: "ID Number",
       sortable: true,
     },
