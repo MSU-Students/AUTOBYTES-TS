@@ -9,7 +9,6 @@ const mutation: MutationTree<UiStateInterface> = {
     state.showUser = payload;
   },
   showBulletinDialog(state, payload: boolean) {
-    console.log(payload)
     state.showBulletin = payload;
   },
   showClearanceDialog(state, payload: boolean) {
