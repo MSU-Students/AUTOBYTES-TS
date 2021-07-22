@@ -9,22 +9,44 @@
           :style="$q.screen.lt.md ? 'width: 400px' : 'width: 450px'"
         >
           <q-card-section class="text-center">
-            <q-img
-              src="~assets/citlogo.png"
-              style="height: 170px; max-width: 190px"
-            />
+            <q-avatar square size="150px">
+              <q-img src="~assets/citlogo1.png" />
+            </q-avatar>
           </q-card-section>
           <q-card-section class="text-center">
-            <div class="text-h3 text-grey-10 text-weight-bold">AutoBytes</div>
+            <div class="text-h3 text-grey-10 text-weight-bold">AUTOBYTES</div>
+            <div class="text-h5 text-grey-7 text-weight-light q-pt-xl">
+              Log in to your account
+            </div>
           </q-card-section>
-          <q-card-actions class="q-mx-sm q-pt-md" align="center">
+          <q-card-section class="q-gutter-md">
+            <q-input v-model="userName" filled label="username">
+              <template v-slot:append>
+                <q-icon name="person" />
+              </template>
+            </q-input>
+            <q-input
+              label="Password"
+              v-model="password"
+              filled
+              :type="isPwd ? 'password' : 'text'"
+            >
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
+          </q-card-section>
+          <q-card-actions class="q-mx-sm q-pt-xl" align="center">
             <q-btn
               class="full-width"
-              label="Login with Google"
+              label="Login"
               color="primary"
-              icon="google"
               size="lg"
-              @click="googleLogin()"
+              @click="login()"
             />
           </q-card-actions>
         </q-card>
@@ -39,18 +61,19 @@
 <script lang="ts">
 import { Vue, prop, Options } from "vue-class-component";
 import loginService from "src/services/login.services";
-
 @Options({})
 export default class Login extends Vue {
-  password = "";
+    userName = "";
+    password =  "";
+    userType = "";
   isPwd = true;
 
-  created() {
-    loginService.onLoad();
-  }
-
-  async googleLogin() {
-    const res = await loginService.signIn();
+  async login() {
+    const res = await loginService.loginUser(this.userName, this.password, this.userType);
+    console.log(res)
+    if (res) { 
+      await this.$router.replace("/s/bulletin");
+    }
   }
 }
 </script>

@@ -35,24 +35,46 @@
               @transition="showQrCode($event)"
             >
               <q-tab-panel name="info">
-                <div class="text-h6 text-center">Personal Information</div>
+                <div class="text-h5 text-weight-bold text-center">
+                  Personal Information
+                </div>
                 <q-separator spaced inset />
                 <q-list dense>
                   <q-item v-ripple>
-                    <q-item-section>
+                    <q-item-section class="text-h6">
                       Name: Atiya Mama Usman asdasdasdsa asdasdasd sdaasdasd
                     </q-item-section>
                   </q-item>
                   <q-separator spaced inset />
                   <q-item v-ripple>
-                    <q-item-section
-                      >Address: 0634 Purok 5, Bo. Marawi Marawi
-                      City</q-item-section
-                    >
+                    <q-item-section class="text-h6">
+                      ID Number: 201249908
+                    </q-item-section>
                   </q-item>
                   <q-separator spaced inset />
                   <q-item v-ripple>
-                    <q-item-section>Address: </q-item-section>
+                    <q-item-section class="text-h6">
+                      Address: 0634 Purok 5, Bo. Marawi Marawi City
+                    </q-item-section>
+                  </q-item>
+                  <q-separator spaced inset />
+                  <q-item v-ripple>
+                    <q-item-section class="text-h6">
+                      Course: Atiya Mama Usman asdasdasdsa asdasdasd sdaasdasd
+                    </q-item-section>
+                  </q-item>
+                  <q-separator spaced inset />
+                  <q-item v-ripple>
+                    <q-item-section class="text-h6">
+                      Year Level:
+                    </q-item-section>
+                  </q-item>
+                  <q-separator spaced inset />
+                  <q-item v-ripple>
+                    <q-item-section class="text-h6">
+                      Academic Adviser: Atiya Mama Usman asdasdasdsa asdasdasd
+                      sdaasdasd
+                    </q-item-section>
                   </q-item>
                   <q-separator spaced inset />
                 </q-list>

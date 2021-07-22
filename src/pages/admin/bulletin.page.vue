@@ -4,9 +4,9 @@
       <Table
         :title="title"
         :columns="columns"
-        :data="bulletins"
-        :selectionOptions="options"
+        :data="bulletin"
         :rowKey="rowKey"
+        :selectionOptions="options"
         :isBtnShow="isBtnShow"
         :buttonName="buttonName"
         :filter="filter"
@@ -42,6 +42,7 @@ export default class Bulletin extends Vue {
   title = "BULLETIN";
   rowKey = "title";
   buttonName = "EVENT";
+  filter= "";
   options = [
     "1st Semester",
     "2nd Semester",

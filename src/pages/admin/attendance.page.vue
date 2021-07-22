@@ -56,19 +56,12 @@ export default class attendace extends Vue {
   option = ["1st Semester", "2nd Semester"];
   columns = [
     {
-      name: "eventName",
-      required: true,
-      label: "EVENT",
-      align: "center",
-      field: (row: IAttendance) => row.eventName,
-      format: (val: any) => `${val}`,
-      sortable: true,
-    },
-    {
       name: "lastName",
+      required: true,
       label: "LAST NAME",
       align: "center",
-      field: "lastName",
+      field: (row: IAttendance) => row.lastName,
+      format: (val: any) => `${val}`,
       sortable: true,
     },
     {
@@ -76,6 +69,13 @@ export default class attendace extends Vue {
       label: "FIRST NAME",
       align: "center",
       field: "firstName",
+      sortable: true,
+    },
+    {
+      name: "eventName",
+      label: "EVENT NAME",
+      align: "center",
+      field: "eventName",
       sortable: true,
     },
     {
@@ -96,7 +96,7 @@ export default class attendace extends Vue {
   attendances!: IAttendance[];
   getAttendance!: () => Promise<void>;
 
-  async mounted() {
+  async created() {
     await this.getAttendance();
   }
 }

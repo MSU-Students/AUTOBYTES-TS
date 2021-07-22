@@ -4,13 +4,14 @@
       <Table
         :title="title"
         :columns="columns"
-        :data="showClearance"
+        :data="clearance"
         :selectionOptions="options"
         :rowKey="rowKey"
         :isBtnShow="isBtnShow"
         :buttonName="buttonName"
       />
     </div>
+    <addClearanceDialog />
   </q-page>
 </template>
 
@@ -19,44 +20,53 @@ import { Vue, Options } from "vue-class-component";
 import Table from "src/components/table.component.vue";
 import IClearance from "src/interfaces/clearance.interface";
 import { mapActions, mapState } from "vuex";
+import addClearanceDialog from "src/components/layout-component/dialog/addClearanceDialog.vue";
 
 @Options({
   components: {
     Table,
+    addClearanceDialog,
   },
   computed: {
     ...mapState("clearance", ["clearance"]),
   },
   methods: {
     ...mapActions("clearance", ["getClearance"]),
+    ...mapActions("ui", ["showClearanceDialog"]),
   },
 })
 export default class clearance extends Vue {
-  isBtnShow = true;
-  title = "RECORDS";
-  rowKey = "eventName";
-  buttonName = "RECORD";
-  options = ["1st Semester", "2nd Semester"];
+  isBtnShow=true;
+  title="LIABILITIES";
+  rowKey="name";
+  buttonName="CLEARANCE";
+  options=["1st Semester", "2nd Semester"];
   columns = [
     {
-      name: "eventName",
+      name: "name",
+      label: "STUDENT NAME",
       required: true,
-      label: "EVENT NAME",
       align: "center",
-      field: (row: any) => row.eventName,
+      field: (row: IClearance) => row.name,
       format: (val: any) => `${val}`,
       sortable: true,
     },
     {
-      name: "name",
-      label: "STUDENT NAME",
-      field: "name",
+      name: "eventName",
+      label: "EVENT NAME",
+      field: "eventName",
       align: "center",
     },
     {
       name: "date",
       label: "DATE",
       field: "date",
+      align: "center",
+    },
+    {
+      name: "semester",
+      label: "semester",
+      field: "semester",
       align: "center",
     },
     {
@@ -67,13 +77,11 @@ export default class clearance extends Vue {
     },
   ];
 
-  showClearance: IClearance[] = [];
   clearance!: IClearance[];
   getClearance!: () => Promise<void>;
 
   async created() {
     await this.getClearance();
-    this.showClearance = this.clearance;
   }
 }
 </script>

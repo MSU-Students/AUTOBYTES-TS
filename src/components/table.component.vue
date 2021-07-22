@@ -4,8 +4,8 @@
     :grid="$q.screen.lt.md"
     :rows="data"
     :columns="columns"
-    :row-key="rowKey"
-    :filter="filter"
+    row-key="id"
+    filter="id"
     :pagination.sync="pagination"
     :loading="loading"
     @request="onRequest"
@@ -99,9 +99,9 @@ import { mapState, mapActions } from "vuex";
 
 class Props {
   readonly isBtnShow!: boolean;
-  readonly filter!: string;
+  filter!: string;
   readonly title!: string;
-  readonly rowKey!: string;
+  rowKey!: string;
   readonly buttonName!: string;
   readonly options!: string[];
   readonly columns!: any[];
