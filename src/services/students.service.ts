@@ -1,17 +1,5 @@
-import { DefaultApi, Configuration, Students } from "./rest-api";
-
-const dev = "http://localhost:3000";
-
-const restConfig = new Configuration({
-  basePath: dev,
-  baseOptions: {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  },
-});
-
-const restApi = new DefaultApi(restConfig);
+import { Students } from "./rest-api";
+import { restApi } from "./rest-api.service";
 
 class StudentsService {
   async getStudents(): Promise<Students[]> {
