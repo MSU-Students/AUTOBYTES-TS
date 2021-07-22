@@ -1,17 +1,5 @@
-import { DefaultApi, Configuration, Records } from "./rest-api";
-
-const dev = "http://localhost:3000";
-
-const restConfig = new Configuration({
-  basePath: dev,
-  baseOptions: {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  },
-});
-
-const restApi = new DefaultApi(restConfig);
+import { Records } from "./rest-api";
+import { restApi } from "./rest-api.service";
 
 class RecordsService {
   async getRecords(): Promise<Records> {

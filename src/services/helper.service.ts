@@ -5,7 +5,7 @@ import studentsService from './students.service';
 
 
 class HelperService {
-  async uploadContacts(file: File): Promise<any> {
+  async uploadMasterlist(file: File): Promise<any> {
     const name = file.name.split('.').find(e => e == 'csv' || e == 'json');
     const type = typeof name === 'string' ? name : '';
     if (type.toLowerCase() == 'csv') {
@@ -15,22 +15,17 @@ class HelperService {
           header: true,
           skipEmptyLines: true,
           complete: async function (results) {
-            const newStructure: Students[] = results.data
-              .filter((i: any) => (i.studentName && i.id)).map((i: any) => {
-                return {
-                  studentName: String(i.studentName),
-                  idNumber: String(i.idNumber),
-                  gender: String(i.gender),
-                  address: String(i.address),
-                  level: String(i.level),
-                  acadAdviser: String(i.acadAdviser),
-                  course: String(i.course)
-                }
-              })
-            const res = await studentsService.addStudents(
-              newStructure
-            );
-
+            const newStructure: Students[] = results.data.map((i: any) => {
+              return {
+                studentName: String(i.studentName),
+                idNumber: String(i.idNumber),
+                gender: String(i.gender),
+                address: String(i.address),
+                level: String(i.level),
+                acadAdviser: String(i.acadAdviser),
+                course: String(i.course),
+              }
+            })
             resolve(newStructure);
           }
         });
@@ -41,6 +36,7 @@ class HelperService {
       return [];
     }
   }
+
 
   async uploadCSV(payload: any): Promise<any> {
     const name = payload.file.name.split('.').find((e: any) => e == 'csv' || e == 'json');
