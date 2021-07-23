@@ -9,7 +9,9 @@
         :selectionOptions="options"
         :isBtnShow="isBtnShow"
         :buttonName="buttonName"
-        :filter="filter"
+        :officerBtn="officerBtn"
+        :editBtn="editBtn"
+        :iconBtn="iconBtn"
       />
     </div>
     <addBulletinDialog />
@@ -39,10 +41,12 @@ import Table from "src/components/table.component.vue";
 })
 export default class Bulletin extends Vue {
   isBtnShow = true;
+  officerBtn = true;
+  editBtn = true;
+  iconBtn = "image"
   title = "BULLETIN";
   rowKey = "title";
   buttonName = "EVENT";
-  filter= "";
   options = [
     "1st Semester",
     "2nd Semester",

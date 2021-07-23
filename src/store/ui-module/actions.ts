@@ -26,6 +26,9 @@ const actions: ActionTree<UiStateInterface, StateInterface> = {
   },
   showArchivedDialog(context, payload: boolean) {
     context.commit('showArchivedDialog', payload);
+  },
+  showMediaDialog(context, payload: boolean) {
+    context.commit('showMediaDialog', payload);
   }
 };
 

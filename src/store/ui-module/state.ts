@@ -7,6 +7,7 @@ export interface UiStateInterface {
   showRecords: boolean;
   showUser: boolean;
   showArchived: boolean;
+  showMedia: boolean;
 }
 
 function state(): UiStateInterface {
@@ -18,7 +19,9 @@ function state(): UiStateInterface {
     showAttendance: false,
     showRecords: false,
     showUser: false,
-    showArchived: false
+    showArchived: false,
+    showMedia: false,
+    
   }
 }
 export default state;

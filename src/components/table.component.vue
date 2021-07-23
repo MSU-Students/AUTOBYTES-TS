@@ -5,7 +5,7 @@
     :rows="data"
     :columns="columns"
     row-key="id"
-    filter="id"
+    :filter="filter"
     :pagination.sync="pagination"
     :loading="loading"
     @request="onRequest"
@@ -14,10 +14,10 @@
   >
     <template v-slot:header="props">
       <q-tr :props="props">
-        <q-th auto-width />
         <q-th v-for="col in props.cols" :key="col.name" :props="props">
           {{ col.label }}
         </q-th>
+        <q-th auto-width />
       </q-tr>
     </template>
 
@@ -58,35 +58,38 @@
             @click="showDialog()"
           />
         </div>
+        <div>
+          <q-btn
+            v-if="isBtnShow"
+            color="primary"
+            icon-right="person_add"
+            :label="`ADD ${buttonName2}`"
+            @click=""
+          />
+        </div>
       </div>
     </template>
 
     <template v-slot:body="props">
       <q-tr :props="props">
-        <q-td auto-width>
-          <q-btn
-            size="sm"
-            color="primary"
-            round
-            @click="props.expand = !props.expand"
-            :icon="props.expand ? 'remove' : 'add'"
-          />
-        </q-td>
         <q-td v-for="col in props.cols" :key="col.name" :props="props">
           {{ col.value }}
         </q-td>
-      </q-tr>
-      <q-tr v-show="props.expand" :props="props">
-        <q-td colspan="100%">
-          <div class="text-left text-subtitle1">
-            {{ props.row.data }}
-            <q-btn
-              :class="$q.screen.lt.md ? 'q-mr-md' : 'q-mr-xl'"
-              color="primary"
-              label="Edit"
-            />
-            <q-btn color="primary" label="Archive" />
-          </div>
+        <q-td class="q-gutter-x-sm" auto-width>
+          <q-btn
+            v-if="editBtn"
+            icon="edit"
+            color="orange"
+            round
+            @click="onClick"
+          />
+          <q-btn
+            v-if="officerBtn"
+            color="green"
+            round
+            :icon="`${iconBtn}`"
+            @click="activeOfficer(props.row)"
+          />
         </q-td>
       </q-tr>
     </template>
@@ -99,13 +102,17 @@ import { mapState, mapActions } from "vuex";
 
 class Props {
   readonly isBtnShow!: boolean;
-  filter!: string;
+  readonly officerBtn!: boolean;
+  readonly editBtn!: boolean;
+  readonly iconBtn!: string;
   readonly title!: string;
   rowKey!: string;
   readonly buttonName!: string;
+  readonly buttonName2!: string;
   readonly options!: string[];
   readonly columns!: any[];
   readonly data!: any[];
+  filter = "";
 }
 
 @Options({
@@ -118,6 +125,7 @@ class Props {
       "showRecords",
       "showUser",
     ]),
+    ...mapState("users", ["users"]),
   },
   methods: {
     ...mapActions("ui", [
@@ -127,8 +135,10 @@ class Props {
       "showClearanceDialog",
       "showRecordsDialog",
       "showUserDialog",
+      "showMediaDialog",
     ]),
     ...mapActions("bulletin", ["getBulletin"]),
+    ...mapActions("users", ["updateID"]),
   },
 })
 export default class Table extends Vue.with(Props) {
@@ -149,6 +159,7 @@ export default class Table extends Vue.with(Props) {
   showClearance!: boolean;
   showRecords!: boolean;
   showUser!: boolean;
+  showMedia!: boolean;
   showBulletinDialog!: (isShow: boolean) => void;
   showArchivedDialog!: (isShow: boolean) => void;
   showAttendanceDialog!: (isShow: boolean) => void;
@@ -156,21 +167,10 @@ export default class Table extends Vue.with(Props) {
   showRecordsDialog!: (isShow: boolean) => void;
   showUserDialog!: (isShow: boolean) => void;
   getBulletin!: (id: string) => Promise<void>;
-
-  // mounted() {
-  //   this.onRequest({
-  //     pagination: this.pagination,
-  //     filter: "",
-  //   });
-  // }
+  updateID!: (payload: any) => Promise<void>;
+  showMediaDialog!: (isShow: boolean) => void;
 
   showDialog() {
-    // console.log(id);
-    // if (this.$route.name == "admin-bulletin") {
-    //   if (typeof id != "undefined") {
-    //     await this.getBulletin(id);
-    //     this.showBulletinDialog(true);
-    //   } else
     if (this.$route.name == "admin-bulletin") {
       this.showBulletinDialog(true);
     } else if (this.$route.name == "admin-archived") {
@@ -181,14 +181,27 @@ export default class Table extends Vue.with(Props) {
       this.showClearanceDialog(true);
     } else if (this.$route.name == "admin-records") {
       this.showRecordsDialog(true);
-    } else if (this.$route.name == "admin-user") {
+    } else if (this.$route.name == "admin-student") {
       this.showUserDialog(true);
     }
   }
 
-  onRequest(props: any) {
-    const { page, rowsPerPage, sortBy, descending } = props.pagination;
-    const filter = props.filter;
+  activeOfficer(data: any) {
+    const res = data.userType;
+
+    if (this.$route.name == "admin-accounts") {
+      if (res == "student") {
+        const payload = { ...data, userType: "officer" };
+        this.updateID(payload);
+      } else if (res == "officer") {
+        const payload = { ...data, disabled: true };
+        this.updateID(payload);
+        console.log("res: ", payload);
+      }
+    } else if (this.$route.name == "admin-records") {
+      this.showMediaDialog(true);
+      this.$emit("viewRecord", data);
+    }
   }
 }
 </script>

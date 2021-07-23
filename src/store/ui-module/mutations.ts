@@ -22,6 +22,9 @@ const mutation: MutationTree<UiStateInterface> = {
   },
   showArchivedDialog(state, payload: boolean) {
     state.showRecords = payload;
+  },
+  showMediaDialog(state, payload: boolean) {
+    state.showMedia = payload;
   }
 };
 
