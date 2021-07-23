@@ -9,6 +9,9 @@ const mutation: MutationTree<UserStateInterface> = {
   getUsers(state, result: IUser[]) {
     state.users = [];
     state.users.push(...result);
+  },
+  updateID(state, result) {
+    state.users.push(result.data);
   }
 };
 

@@ -23,8 +23,10 @@
             :columns="columns1"
             :data="officers"
             :selectionOptions="options"
+            :officerBtn="officerBtn"
+            :buttonName="officerBtnName"
             :isBtnShow="isBtnShow1"
-            :buttonName="buttonName1"
+            :iconBtn="iconBtn"
           />
         </q-tab-panel>
 
@@ -36,6 +38,8 @@
             :selectionOptions="options"
             :isBtnShow="isBtnShow2"
             :buttonName="buttonName2"
+            :officerBtn="officerBtn2"
+            :iconBtn="iconBtn"
           />
         </q-tab-panel>
       </q-tab-panels>
@@ -65,8 +69,9 @@ import IUser from "src/interfaces/users.interface";
 export default class userPage extends Vue {
   tab = "officers";
   title1 = "Officers";
+  iconBtn = "person"
+  officerBtn = true;
   isBtnShow1 = true;
-  buttonName1 = "RECORD";
   columns1 = [
     {
       name: "lastName",
@@ -88,6 +93,8 @@ export default class userPage extends Vue {
   title2 = "Students";
   isBtnShow2 = true;
   buttonName2 = "RECORD";
+  officerBtn2 = true;
+  officerBtnName2 = "RECORD";
   columns2 = [
     {
       name: "lastName",
@@ -115,7 +122,7 @@ export default class userPage extends Vue {
 
   async created() {
     await this.getUsers();
-    this.officers = this.users.filter((user) => user.userType == "admin");
+    this.officers = this.users.filter((user) => user.userType == "admin" || "officer");
     this.students = this.users.filter((user) => user.userType == "student");
   }
 }
