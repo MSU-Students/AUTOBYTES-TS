@@ -4,6 +4,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/",
     component: () => import("src/layouts/main.layout.vue"),
+    meta: { requiresGuest: true },
     children: [
       { path: "", component: () => import("src/pages/landing.page.vue") },
       { path: "login", component: () => import("src/pages/login.page.vue") },
@@ -11,18 +12,22 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/s/",
+    meta: { requiresStudent: true },
     component: () => import("src/layouts/student/student.layout.vue"),
     children: [
       {
         path: "bulletin",
+        name: "student-bulletin",
         component: () => import("src/pages/student/bulletin.page.vue"),
       },
       {
         path: "clearance",
+        name: "student-clearance",
         component: () => import("src/pages/student/clearance.page.vue"),
       },
       {
         path: "profile",
+        name: "student-profile",
         component: () => import("src/pages/student/profile.page.vue"),
       },
     ],
@@ -30,8 +35,8 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/a/",
     name: "admin",
+    meta: { requiresAdmin: true },
     component: () => import("src/layouts/admin/admin.layout.vue"),
-    meta: { isAdmin: true },
     children: [
       {
         path: "attendance",
@@ -59,9 +64,9 @@ const routes: RouteRecordRaw[] = [
         component: () => import("src/pages/admin/student.page.vue"),
       },
       {
-        path: "archived",
-        name: "admin-archived",
-        component: () => import("src/pages/admin/archived.page.vue"),
+        path: "accounts",
+        name: "admin-accounts",
+        component: () => import("src/pages/admin/users.page.vue"),
       },
     ],
   },

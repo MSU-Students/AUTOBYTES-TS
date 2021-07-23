@@ -10,6 +10,16 @@ class UserService {
     const response = await restApi.addUser(payload);
     return response.data;
   }
+  
+  async getProfile(): Promise<any> {
+    const response = await restApi.getProfile();
+    return response.data;
+  } 
+
+  async updateID(id: string, payload: User): Promise<User> {
+    const response = await restApi.updateUser(id,payload)
+    return response.data
+  }
 }
 
 let userService = new UserService();

@@ -13,6 +13,14 @@ const actions: ActionTree<UserStateInterface, StateInterface> = {
   async getUsers(context): Promise<any> {
     const result = await userService.getUsers();
     context.commit('getUsers', result);
+  },
+  async getProfile(context): Promise<any> {
+    const result = await userService.getProfile()
+    context.commit('getProfile',result)
+  },
+  async updateID(context, payload: any): Promise<any> { // { id: id, payload: payload }
+    const result = await userService.updateID(payload._id, payload);
+    context.commit('updateID', result);
   }
 };
 

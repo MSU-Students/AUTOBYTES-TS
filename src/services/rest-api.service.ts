@@ -32,7 +32,7 @@ function getAxiosInstance() {
     },
     async (error: AxiosError2) => {
       const originalRequest = error.config;
-      if (error.response?.status === 401 && !originalRequest._retry) {
+      if (error.response?.status === 402 && !originalRequest._retry) {
         originalRequest._retry = true;
         const response = await restApi.refreshToken({
           refresh_token:
