@@ -9,9 +9,13 @@
         :rowKey="rowKey"
         :isBtnShow="isBtnShow"
         :buttonName="buttonName"
+        :iconBtn="iconBtn"
+        :officerBtn="officerBtn"
+        @viewRecord="viewRecord"
       />
     </div>
     <addRecordsDialog />
+    <mediaDialog :url="url" />
   </q-page>
 </template>
 
@@ -19,12 +23,14 @@
 import IRecords from "src/interfaces/records.interface";
 import { Vue, Options } from "vue-class-component";
 import addRecordsDialog from "src/components/layout-component/dialog/addRecordsDialog.vue";
+import mediaDialog from "src/components/layout-component/dialog/mediaDialog.vue";
 import Table from "src/components/table.component.vue";
 import { mapActions, mapState } from "vuex";
 
 @Options({
   components: {
     addRecordsDialog,
+    mediaDialog,
     Table,
   },
   computed: {
@@ -38,6 +44,8 @@ import { mapActions, mapState } from "vuex";
 })
 export default class records extends Vue {
   isBtnShow = true;
+  officerBtn = true;
+  iconBtn = "image";
   title = "RECORDS";
   rowKey = "title";
   buttonName = "RECORD";
@@ -50,6 +58,7 @@ export default class records extends Vue {
   ];
   filter = "";
   selectOption = "";
+  url = "";
   recordOpt: any = [];
   pagination = {
     rowsPerPage: 0,
@@ -65,9 +74,24 @@ export default class records extends Vue {
       sortable: true,
     },
     { name: "date", label: "DATE", field: "date", align: "center" },
-    { name: "recordsFrom", label: "FROM", field: "recordsFrom", align: "center" },
-    { name: "recordsSemester", label: "SEMESTER", field: "recordsSemester", align: "center" },
-    { name: "recordsType", label: "TYPE", field: "recordsType", align: "center" },
+    {
+      name: "recordsFrom",
+      label: "FROM",
+      field: "recordsFrom",
+      align: "center",
+    },
+    {
+      name: "recordsSemester",
+      label: "SEMESTER",
+      field: "recordsSemester",
+      align: "center",
+    },
+    {
+      name: "recordsType",
+      label: "TYPE",
+      field: "recordsType",
+      align: "center",
+    },
   ];
   showRecords: IRecords[] = [];
   records!: IRecords[];
@@ -77,6 +101,10 @@ export default class records extends Vue {
   async created() {
     await this.getRecords();
     this.showRecords = this.records;
+  }
+
+  viewRecord(val: any) {
+    this.url = val.url;
   }
 }
 </script>

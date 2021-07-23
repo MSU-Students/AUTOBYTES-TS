@@ -27,7 +27,12 @@
     <!-- DRAWER LIST -->
     <q-list
       padding
-      class="menu-list q-pt-xl text-h5 text-primary text-weight-bold q-gutter-lg q-pb-xl"
+      class="
+        menu-list
+        q-pt-xl
+        text-h5 text-primary text-weight-bold
+        q-gutter-lg q-pb-xl
+      "
     >
       <q-item
         v-for="(menu, index) in menus"
@@ -70,13 +75,14 @@
         color="white"
         icon="power_settings_new"
         label="Logout"
-        to="/login"
+        @click="logout()"
       />
     </div>
   </q-drawer>
 </template>
 
 <script lang="ts">
+import loginService from "src/services/login.services";
 import { Vue, Options } from "vue-class-component";
 import { mapActions, mapState } from "vuex";
 const itemList = [
@@ -111,6 +117,13 @@ export default class StudentDrawerLayout extends Vue {
 
   hideDrawer(val: boolean) {
     this.leftDrawer(val);
+  }
+
+  async logout() {
+    const res = await loginService.logoutUser();
+    if (res.status == 201) {
+      await this.$router.replace("/login");
+    }
   }
 }
 </script>

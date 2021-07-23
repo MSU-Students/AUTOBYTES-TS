@@ -4,6 +4,7 @@ import {
   createStore,
   Store as VuexStore,
   useStore as vuexUseStore,
+  Store
 } from "vuex";
 
 import ui from "./ui-module";
@@ -33,6 +34,11 @@ import { MediaStateInterface } from "./media-module/state";
 import users from "./user-module"
 import { UserStateInterface } from "./user-module/state";
 
+import auth from './auth';
+import { IAuthState } from './auth/state';
+
+
+
 
 
 
@@ -58,7 +64,12 @@ export interface StateInterface {
   archivedStateInterface: ArchivedStateInterface;
   mediaStateInterface: MediaStateInterface;
   userStateInterface: UserStateInterface
+  auth: IAuthState;
 }
+
+export const $store: { ref?: Store<StateInterface> } = {
+  ref: undefined
+};
 
 // provide typings for `this.$store`
 declare module "@vue/runtime-core" {
@@ -82,7 +93,8 @@ export default store(function (/* { ssrContext } */) {
       archived,
       media,
       student,
-      users
+      users,
+      auth
     },
 
     // enable strict mode (adds overhead!)

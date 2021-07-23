@@ -20,14 +20,14 @@
             </div>
           </q-card-section>
           <q-card-section class="q-gutter-md">
-            <q-input v-model="userName" filled label="username">
+            <q-input v-model="username" filled label="ID Number">
               <template v-slot:append>
                 <q-icon name="person" />
               </template>
             </q-input>
             <q-input
               label="Password"
-              v-model="password"
+              v-model="pass"
               filled
               :type="isPwd ? 'password' : 'text'"
             >
@@ -46,7 +46,7 @@
               label="Login"
               color="primary"
               size="lg"
-              @click="login()"
+              @click="loginUser()"
             />
           </q-card-actions>
         </q-card>
@@ -60,19 +60,43 @@
 
 <script lang="ts">
 import { Vue, prop, Options } from "vue-class-component";
-import loginService from "src/services/login.services";
-@Options({})
+import { AUser } from "src/store/auth/state";
+import { mapActions } from "vuex";
+
+@Options({
+  methods: {
+    ...mapActions("auth", ["login"]),
+  },
+})
 export default class Login extends Vue {
-    userName = "";
-    password =  "";
-    userType = "";
+  username = "";
+  pass = "";
+  usertype = "";
   isPwd = true;
 
-  async login() {
-    const res = await loginService.loginUser(this.userName, this.password, this.userType);
-    console.log(res)
-    if (res) { 
-      await this.$router.replace("/s/bulletin");
+  login!: (auth: {
+    userName: string;
+    password: string;
+    userType: any;
+  }) => Promise<AUser>;
+  async loginUser() {
+    try {
+      const res = await this.login({
+        userName: this.username,
+        password: this.pass,
+        userType: this.usertype,
+      });
+      if (res.userType == "admin" || res.userType == "officer") {
+        await this.$router.replace("/a/bulletin");
+      } else {
+        await this.$router.replace("/s/bulletin");
+      }
+    } catch (error) {
+      this.$q.notify({
+        type: "negative",
+        message: "Wrong Username or Password!",
+        caption: `${error.message}`,
+      });
     }
   }
 }

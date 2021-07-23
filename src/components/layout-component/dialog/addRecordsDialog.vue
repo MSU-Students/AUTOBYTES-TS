@@ -62,6 +62,7 @@
           <q-file
             filled
             v-model="file"
+            multiple
             label="Attach Image"
             :style="$q.screen.lt.md ? 'width: 295px' : 'width: 470px'"
             @update:model-value="fileChoose($event)"
