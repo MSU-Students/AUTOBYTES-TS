@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="showMedia" @update:model-value="showMediaDialog(false)">
-    <q-img :src="`http://localhost:3000/media/id?id=${url}`" />
+    <q-img :src="`http://localhost:3000/media/id?id=${payload.data.url}`" />
   </q-dialog>
 </template>
 
@@ -9,7 +9,7 @@ import { Vue, Options } from "vue-class-component";
 import { mapActions, mapState } from "vuex";
 
 class Props {
-  readonly url!: string;
+  readonly payload!: string;
 }
 
 @Options({

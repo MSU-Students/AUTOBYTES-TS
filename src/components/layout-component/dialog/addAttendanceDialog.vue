@@ -169,6 +169,7 @@ export default class addAttendanceDialog extends Vue {
         date: this.attendanceItem.date,
         eventName: this.attendanceItem.eventName,
         amount: this.attendanceItem.amount,
+        clearanceType: "Fines"
       });
     });
     this.showAttendanceDialog(false);

@@ -69,7 +69,7 @@ import IUser from "src/interfaces/users.interface";
 export default class userPage extends Vue {
   tab = "officers";
   title1 = "Officers";
-  iconBtn = "person"
+  iconBtn = "person";
   officerBtn = true;
   isBtnShow1 = true;
   columns1 = [
@@ -118,12 +118,16 @@ export default class userPage extends Vue {
   students: IUser[] = [];
   getStudents!: () => Promise<void>;
   addUsers!: (payload: IUser) => Promise<IUser>;
-  getUsers!: () => Promise<void>;
+  getUsers!: () => Promise<IUser>;
 
   async created() {
-    await this.getUsers();
-    this.officers = this.users.filter((user) => user.userType == "admin" || "officer");
+    await this.getUsers()
+    
     this.students = this.users.filter((user) => user.userType == "student");
+    this.officers = this.users.filter(
+      (user) => user.userType == "officer"
+    );
+    console.log("officers:",this.officers)
   }
 }
 </script>

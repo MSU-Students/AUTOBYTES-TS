@@ -1,8 +1,14 @@
 <template>
-  <q-dialog v-model="showBulletin" persistent @hide="hideDialog()">
+  <q-dialog
+    v-model="showBulletin"
+    persistent
+    @hide="hideDialog()"
+    @show="showDialog()"
+  >
     <q-card style="width: 500px">
       <q-card-section class="row items-center q-pb-none">
-        <div class="text-h5">ADD</div>
+        <div v-if="payload.onUpdate" class="text-h5">UPDATE</div>
+        <div v-else class="text-h5">ADD</div>
         <q-space />
         <q-btn
           icon="close"
@@ -92,10 +98,10 @@
           class="full-width"
           size="lg"
           color="primary"
-          label="SAVE"
+          :label="payload.onUpdate ? 'UPDATE' : 'SAVE'"
           :loading="isUpload"
           :disable="isUpload"
-          @click="saveDocument()"
+          @click="payload.onUpdate ? updateDocument() : saveDocument()"
         />
       </q-card-section>
     </q-card>
@@ -107,6 +113,10 @@ import { Vue, Options } from "vue-class-component";
 import { mapState, mapActions } from "vuex";
 import IBulletin from "src/interfaces/bulletin.interface";
 import mediaService from "src/services/media.service";
+
+class Props {
+  readonly payload!: any;
+}
 
 interface RefsVue extends Vue {
   validate(): void;
@@ -121,16 +131,16 @@ interface RefsVue extends Vue {
   },
   methods: {
     ...mapActions("ui", ["showBulletinDialog"]),
-    ...mapActions("bulletin", ["addBulletin"]),
+    ...mapActions("bulletin", ["addBulletin", "updateBulletin"]),
   },
 })
-export default class addBulletinDialog extends Vue {
+export default class addBulletinDialog extends Vue.with(Props) {
   isSubmit = false;
   isUpload = false;
   option = ["Events", "News & Updates", "Achievements"];
   sem = ["1st Semester", "2nd Semester"];
 
-  bulletin: IBulletin = {
+  bulletin: any = {
     title: "",
     date: "",
     bulletinFrom: "",
@@ -152,6 +162,12 @@ export default class addBulletinDialog extends Vue {
   showBulletin!: boolean;
   showBulletinDialog!: (show: boolean) => void;
   addBulletin!: (payload: any) => Promise<void>;
+  updateBulletin!: (payload: any) => Promise<void>;
+
+  showDialog() {
+    console.log(this.payload);
+    this.bulletin = { ...this.payload.data };
+  }
 
   hideDialog() {
     this.bulletin = {
@@ -187,12 +203,28 @@ export default class addBulletinDialog extends Vue {
     ) {
       this.formHasError = true;
     } else {
-      console.log(this.bulletin, this.file);
       const media = await mediaService.uploadMedia(this.file);
-      const res: any = await this.addBulletin({ ...this.bulletin, url: media.id});
+      const res: any = await this.addBulletin({
+        ...this.bulletin,
+        url: media.id,
+      });
       this.isSubmit = false;
       this.showBulletinDialog(false);
     }
+  }
+
+  async updateDocument() {
+    if (this.file.length != 0) {
+      const media = await mediaService.uploadMedia(this.file);
+      const res: any = await this.updateBulletin({
+        ...this.bulletin,
+        url: media.id,
+      });
+    } else {
+      const res: any = await this.updateBulletin(this.bulletin);
+    }
+    this.isSubmit = false;
+    this.showBulletinDialog(false);
   }
 }
 </script>

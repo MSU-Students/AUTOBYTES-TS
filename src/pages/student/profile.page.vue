@@ -10,7 +10,7 @@
           />
           <div class="absolute-full text-subtitle2 flex flex-center">
             <q-avatar :size="$q.screen.lt.md ? '150px' : '300px'">
-              <img src="~assets/Yass.jpg" />
+              <img src="~assets/autobytes_logo.png" />
             </q-avatar>
           </div>
         </q-card>
@@ -126,8 +126,20 @@
 <script>
 import { Vue, prop, Options } from "vue-class-component";
 import QrCodeWithLogo from "qrcode-with-logos";
+import { mapActions, mapState } from "vuex";
+import IStudents from "src/interfaces/students.interface"
+import IUser from "src/interfaces/users.interface"
 
-@Options({})
+@Options({
+  computed: {
+    ...mapState("users",["users"]),
+    ...mapState("students",["students"])
+  },
+  methods: {
+    ...mapActions("users", ["getUsers"]),
+    ...mapActions("students", ["getStudents"]),
+  },
+})
 export default class profile extends Vue {
   tab = "info";
   studentInfo = {

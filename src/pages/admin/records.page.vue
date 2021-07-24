@@ -11,11 +11,11 @@
         :buttonName="buttonName"
         :iconBtn="iconBtn"
         :officerBtn="officerBtn"
-        @viewRecord="viewRecord"
+        @view="view"
       />
     </div>
     <addRecordsDialog />
-    <mediaDialog :url="url" />
+    <mediaDialog :payload="payload" />
   </q-page>
 </template>
 
@@ -59,6 +59,7 @@ export default class records extends Vue {
   filter = "";
   selectOption = "";
   url = "";
+  payload = {};
   recordOpt: any = [];
   pagination = {
     rowsPerPage: 0,
@@ -103,8 +104,9 @@ export default class records extends Vue {
     this.showRecords = this.records;
   }
 
-  viewRecord(val: any) {
-    this.url = val.url;
+  view(val: any) {
+    console.log(val);
+    this.payload = val;
   }
 }
 </script>

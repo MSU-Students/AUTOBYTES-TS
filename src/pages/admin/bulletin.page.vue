@@ -12,9 +12,11 @@
         :officerBtn="officerBtn"
         :editBtn="editBtn"
         :iconBtn="iconBtn"
+        @view="view"
       />
     </div>
-    <addBulletinDialog />
+    <addBulletinDialog :payload="payload" />
+    <mediaDialog :payload="payload" />
   </q-page>
 </template>
 
@@ -22,16 +24,18 @@
 import { Vue, prop, Options } from "vue-class-component";
 import IBulletin from "src/interfaces/bulletin.interface";
 import addBulletinDialog from "src/components/layout-component/dialog/addBulletinDialog.vue";
+import mediaDialog from "src/components/layout-component/dialog/mediaDialog.vue";
 import { mapActions, mapState } from "vuex";
 import Table from "src/components/table.component.vue";
 
 @Options({
   components: {
     addBulletinDialog,
+    mediaDialog,
     Table,
   },
   computed: {
-    ...mapState("ui", ["bulletin"]),
+    ...mapState("ui", ["showBulletin"]),
     ...mapState("bulletin", ["bulletins"]),
   },
   methods: {
@@ -43,7 +47,7 @@ export default class Bulletin extends Vue {
   isBtnShow = true;
   officerBtn = true;
   editBtn = true;
-  iconBtn = "image"
+  iconBtn = "image";
   title = "BULLETIN";
   rowKey = "title";
   buttonName = "EVENT";
@@ -55,6 +59,7 @@ export default class Bulletin extends Vue {
     "ACHIEVEMENTS",
   ];
   selectOption = "";
+  payload = {};
   bulletinOpt: any = [];
   pagination = {
     rowsPerPage: 0,
@@ -93,11 +98,16 @@ export default class Bulletin extends Vue {
   bulletin: IBulletin[] = [];
   bulletins!: IBulletin[];
   updateBulletin!: (payload: any) => Promise<void>;
-  getBulletins!: () => Promise<void>;
+  getBulletins!: () => Promise<IBulletin[]>;
 
   async created() {
-    await this.getBulletins();
-    this.bulletin = this.bulletins;
+    const result: IBulletin[] = await this.getBulletins();
+    this.bulletin = result;
+  }
+
+  view(val: any) {
+    console.log(val);
+    this.payload = val;
   }
 }
 </script>

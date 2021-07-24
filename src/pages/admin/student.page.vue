@@ -1,137 +1,21 @@
 <template>
   <q-page padding>
     <div class="q-pa-xs">
-      <q-table
-        style="height: 750px"
-        :grid="$q.screen.lt.md"
-        :rows="students"
+      <Table
+        :title="title"
         :columns="columns"
-        row-key="id"
-        :filter="filter"
-        virtual-scroll
-        :pagination.sync="pagination"
-        :rows-per-page-options="[0]"
-      >
-        <template v-slot:header="props">
-          <q-tr :props="props">
-            <q-th auto-width />
-            <q-th v-for="col in props.cols" :key="col.name" :props="props">
-              {{ col.label }}
-            </q-th>
-          </q-tr>
-        </template>
-
-        <template v-slot:top="props">
-          <div class="col q-table__title q-mr-lg">Masterlist</div>
-          <div class="row q-gutter-sm q-mb-md">
-            <div>
-              <q-select
-                class="q-mr-md"
-                v-model="multiple"
-                multiple
-                :options="options"
-                style="width: 200px"
-              />
-            </div>
-
-            <div class="q-search">
-              <q-input
-                outlined
-                dense
-                debounce="300"
-                v-model="filter"
-                placeholder="Search"
-                style="width: 200px"
-              >
-                <template v-slot:append>
-                  <q-icon name="search" />
-                </template>
-              </q-input>
-            </div>
-
-            <div>
-              <q-btn
-                color="primary"
-                icon-right="person_add"
-                label="ADD STUDENT"
-                @click="dialog = true"
-              />
-              <q-dialog v-model="dialog" persistent>
-                <q-card style="width: 500px">
-                  <q-card-section class="row items-center q-pb-none">
-                    <div class="text-h5">ADD</div>
-                    <q-space />
-                    <q-btn
-                      icon="close"
-                      flat
-                      round
-                      dense
-                      @click="dialog = false"
-                    />
-                  </q-card-section>
-                  <q-card-section>
-                    <div class="q-gutter-md" style="max-width: 500px">
-                      <q-file
-                        filled
-                        v-model="file"
-                        label="Import File"
-                        :style="
-                          $q.screen.lt.md ? 'width: 295px' : 'width: 470px'
-                        "
-                        @update:model-value="fileChoose($event)"
-                      >
-                        <template v-slot:prepend>
-                          <q-icon name="attach_file" />
-                        </template>
-                      </q-file>
-                    </div>
-                  </q-card-section>
-                  <q-card-section>
-                    <q-btn
-                      class="full-width"
-                      size="lg"
-                      color="primary"
-                      label="SAVE"
-                      @click="upload()"
-                    />
-                  </q-card-section>
-                </q-card>
-              </q-dialog>
-            </div>
-          </div>
-        </template>
-
-        <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td auto-width>
-              <q-btn
-                size="sm"
-                color="accent"
-                round
-                dense
-                @click="props.expand = !props.expand"
-                :icon="props.expand ? 'remove' : 'add'"
-              />
-            </q-td>
-            <q-td v-for="col in props.cols" :key="col.name" :props="props">
-              {{ col.value }}
-            </q-td>
-          </q-tr>
-          <q-tr v-show="props.expand" :props="props">
-            <q-td colspan="100%">
-              <div class="text-left text-subtitle1">
-                <q-btn
-                  :class="$q.screen.lt.md ? 'q-mr-md' : 'q-mr-xl'"
-                  color="primary"
-                  label="Edit"
-                />
-                <q-btn color="primary" label="Archive" />
-              </div>
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
+        :data="students"
+        :rowKey="rowKey"
+        :selectionOptions="options"
+        :isBtnShow="isBtnShow"
+        :buttonName="buttonName"
+        :editBtn="editBtn"
+        :iconBtn="iconBtn"
+        @view="view"
+      />
     </div>
+    <addAccountDialog/>
+    <showEditStudent :payload="payload"/>
   </q-page>
 </template>
 
@@ -139,26 +23,35 @@
 import { Vue, prop, Options } from "vue-class-component";
 import { mapState, mapActions } from "vuex";
 import IStudents from "src/interfaces/students.interface";
+import Table from "src/components/table.component.vue";
+import addAccountDialog from "src/components/layout-component/dialog/addStudentDialog.vue";
+import showEditStudent from "src/components/layout-component/dialog/editStudentDialog.vue"
 
 @Options({
+  components: {
+    Table,
+    addAccountDialog,
+    showEditStudent
+  },
   computed: {
     ...mapState("student", ["students"]),
+    ...mapState("ui", ["showAccount","showEditStudent"]),
   },
   methods: {
     ...mapActions("student", ["addStudents", "getStudents"]),
+    ...mapActions("ui", ["showAccountDialog","showEditStudentDialog"]),
   },
 })
 export default class Bulletin extends Vue {
-  title = "";
-  from = "";
+  isBtnShow = true;
+  editBtn = true;
+  title = "MASTERLIST";
+  rowKey = "title";
+  buttonName = "STUDENT";
+
   file = [];
-  model = null;
   semester = ["1st Semester", "2nd Semester"];
   type = ["EVENT", "NEWS AND UPDATES", "ACHIEVEMENTS"];
-  text = "";
-  date = "";
-  dialog = false;
-  isUpload = false;
   filter = "";
   pagination = {
     rowsPerPage: 0,
@@ -225,22 +118,21 @@ export default class Bulletin extends Vue {
     },
   ];
   getStudents!: () => Promise<void>;
-  students!: any[];
+  students!: IStudents[];
 
   async mounted() {
     await this.getStudents();
   }
 
-  fileChoose(val: any) {
-    this.file = val;
-  }
-  addStudents!: (file: any[]) => Promise<void>;
+  // fileChoose(val: any) {
+  //   this.file = val;
+  // }
+  // addStudents!: (file: any[]) => Promise<void>;
 
-  async upload() {
-    this.isUpload = true;
-    await this.addStudents(this.file);
-    this.isUpload = false;
-    this.dialog = false;
+  payload = {};
+  view(val: any) {
+    console.log(val);
+    this.payload = val;
   }
 }
 </script>

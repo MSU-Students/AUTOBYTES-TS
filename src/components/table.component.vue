@@ -81,7 +81,7 @@
             icon="edit"
             color="orange"
             round
-            @click="onClick"
+            @click="editItem(props.row)"
           />
           <q-btn
             v-if="officerBtn"
@@ -111,7 +111,7 @@ class Props {
   readonly buttonName2!: string;
   readonly options!: string[];
   readonly columns!: any[];
-  readonly data!: any[];
+  data!: any[];
   filter = "";
 }
 
@@ -123,7 +123,8 @@ class Props {
       "showAttendance",
       "showClearance",
       "showRecords",
-      "showUser",
+      "showAccount",
+      "showEditStudent",
     ]),
     ...mapState("users", ["users"]),
   },
@@ -134,8 +135,9 @@ class Props {
       "showAttendanceDialog",
       "showClearanceDialog",
       "showRecordsDialog",
-      "showUserDialog",
+      "showAccountDialog",
       "showMediaDialog",
+      "showEditStudentDialog",
     ]),
     ...mapActions("bulletin", ["getBulletin"]),
     ...mapActions("users", ["updateID"]),
@@ -158,17 +160,19 @@ export default class Table extends Vue.with(Props) {
   showAttendance!: boolean;
   showClearance!: boolean;
   showRecords!: boolean;
-  showUser!: boolean;
+  showAccount!: boolean;
   showMedia!: boolean;
+  showEditStudent!: boolean;
   showBulletinDialog!: (isShow: boolean) => void;
   showArchivedDialog!: (isShow: boolean) => void;
   showAttendanceDialog!: (isShow: boolean) => void;
   showClearanceDialog!: (isShow: boolean) => void;
   showRecordsDialog!: (isShow: boolean) => void;
-  showUserDialog!: (isShow: boolean) => void;
+  showAccountDialog!: (isShow: boolean) => void;
   getBulletin!: (id: string) => Promise<void>;
   updateID!: (payload: any) => Promise<void>;
   showMediaDialog!: (isShow: boolean) => void;
+  showEditStudentDialog!: (isShow: boolean) => void;
 
   showDialog() {
     if (this.$route.name == "admin-bulletin") {
@@ -182,7 +186,8 @@ export default class Table extends Vue.with(Props) {
     } else if (this.$route.name == "admin-records") {
       this.showRecordsDialog(true);
     } else if (this.$route.name == "admin-student") {
-      this.showUserDialog(true);
+      this.showAccountDialog(true);
+    } else {
     }
   }
 
@@ -193,14 +198,34 @@ export default class Table extends Vue.with(Props) {
       if (res == "student") {
         const payload = { ...data, userType: "officer" };
         this.updateID(payload);
+        this.$q.notify({
+        type: "positive",
+        message: "Successfully Added as Officer",
+      });
       } else if (res == "officer") {
         const payload = { ...data, disabled: true };
         this.updateID(payload);
-        console.log("res: ", payload);
+        this.$q.notify({
+        type: "negative",
+        message: "The Account has successfully DISABLED",
+      });
       }
     } else if (this.$route.name == "admin-records") {
       this.showMediaDialog(true);
-      this.$emit("viewRecord", data);
+      this.$emit("view", { data: data });
+    } else if (this.$route.name == "admin-bulletin") {
+      this.showMediaDialog(true);
+      this.$emit("view", { data: data });
+    }
+  }
+
+  editItem(data: any) {
+    if (this.$route.name == "admin-bulletin") {
+      this.$emit("view", { data: data, onUpdate: true });
+      this.showBulletinDialog(true);
+    } else if (this.$route.name == "admin-student") {
+      this.$emit("view", { data: data });
+      this.showEditStudentDialog(true);
     }
   }
 }
