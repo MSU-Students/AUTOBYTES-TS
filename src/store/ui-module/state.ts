@@ -5,9 +5,10 @@ export interface UiStateInterface {
   showSendMessageDialog: boolean;
   showAttendance: boolean;
   showRecords: boolean;
-  showUser: boolean;
+  showAccount: boolean;
   showArchived: boolean;
   showMedia: boolean;
+  showEditStudent: boolean;
 }
 
 function state(): UiStateInterface {
@@ -18,9 +19,10 @@ function state(): UiStateInterface {
     showSendMessageDialog: false,
     showAttendance: false,
     showRecords: false,
-    showUser: false,
+    showAccount: false,
     showArchived: false,
     showMedia: false,
+    showEditStudent: false,
     
   }
 }

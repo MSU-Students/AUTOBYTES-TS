@@ -32,7 +32,7 @@ export interface AccessTokenDto {
      * @type {string}
      * @memberof AccessTokenDto
      */
-    accessToken: string;
+    accessToken?: string;
     /**
      * 
      * @type {string}

@@ -6,7 +6,7 @@ const mutation: MutationTree<UiStateInterface> = {
     state.leftDrawerState = opened;
   },
   showAccountDialog(state, payload: boolean) {
-    state.showUser = payload;
+    state.showAccount = payload;
   },
   showBulletinDialog(state, payload: boolean) {
     state.showBulletin = payload;
@@ -25,6 +25,9 @@ const mutation: MutationTree<UiStateInterface> = {
   },
   showMediaDialog(state, payload: boolean) {
     state.showMedia = payload;
+  },
+  showEditStudentDialog(state,payload: boolean) {
+    state.showEditStudent = payload;
   }
 };
 

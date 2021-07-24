@@ -28,6 +28,11 @@ const actions: ActionTree<StudentStateInterface, StateInterface> = {
   async getStudents(context): Promise<any> {
     const result = await studentsService.getStudents();
     context.commit('viewStudents', result);
+  },
+  async updateStudent(context, payload: any): Promise<any> { // { id: id, payload: payload }
+    console.log("payload: ", payload)
+    const result = await studentsService.updateStudent(payload._id, payload);
+    context.commit('updateStudent', result);
   }
 };
 

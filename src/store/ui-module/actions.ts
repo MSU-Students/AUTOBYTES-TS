@@ -29,6 +29,9 @@ const actions: ActionTree<UiStateInterface, StateInterface> = {
   },
   showMediaDialog(context, payload: boolean) {
     context.commit('showMediaDialog', payload);
+  },
+  showEditStudentDialog(context, payload: boolean) {
+    context.commit('showEditStudentDialog', payload);
   }
 };
 

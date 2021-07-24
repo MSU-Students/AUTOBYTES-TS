@@ -11,13 +11,15 @@ const actions: ActionTree<BulletinStateInterface, StateInterface> = {
   async getBulletins(context): Promise<any> {
     const result = await bulletinService.getBulletins();
     context.commit('getBulletins', result);
+    return result;
   },
   async getBulletin(context, id: string): Promise<any> {
     const result = await bulletinService.getBulletin(id);
     context.commit('getBulletin', result);
   },
   async updateBulletin(context, payload: any): Promise<any> { // { id: id, payload: payload }
-    const result = await bulletinService.updateBulletin(payload.id, payload);
+    console.log("payload: ", payload)
+    const result = await bulletinService.updateBulletin(payload._id, payload);
     context.commit('updateBulletin', result);
   }
 };

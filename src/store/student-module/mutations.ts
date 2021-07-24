@@ -8,6 +8,9 @@ const mutation: MutationTree<StudentStateInterface> = {
   viewStudents(state, result) {
     state.students = [];
     state.students = result;
+  },
+  updateStudent(state,result) {
+    state.students = result
   }
 };
 
