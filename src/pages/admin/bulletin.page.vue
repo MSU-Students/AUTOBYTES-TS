@@ -45,6 +45,7 @@ import Table from "src/components/table.component.vue";
 })
 export default class Bulletin extends Vue {
   isBtnShow = true;
+  filters = "";
   officerBtn = true;
   editBtn = true;
   iconBtn = "image";

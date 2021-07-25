@@ -95,6 +95,12 @@ export interface Attendance {
      * @memberof Attendance
      */
     amount: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Attendance
+     */
+    semester: string;
 }
 /**
  * 
@@ -150,6 +156,12 @@ export interface Clearance {
      * @type {string}
      * @memberof Clearance
      */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
     name: string;
     /**
      * 
@@ -175,6 +187,12 @@ export interface Clearance {
      * @memberof Clearance
      */
     semester: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
+    idNumber: string;
 }
 /**
  * 
@@ -1211,6 +1229,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // authentication bearer required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get clearance by ID Number
+         * @param {string} idNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLiability: async (idNumber: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idNumber' is not null or undefined
+            assertParamExists('getLiability', 'idNumber', idNumber)
+            const localVarPath = `/clearance/idNumber`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (idNumber !== undefined) {
+                localVarQueryParameter['idNumber'] = idNumber;
+            }
 
 
     
@@ -2293,6 +2352,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Get clearance by ID Number
+         * @param {string} idNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLiability(idNumber: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Clearance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLiability(idNumber, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Get Media by id
          * @param {string} id 
          * @param {*} [options] Override http request option.
@@ -2737,6 +2807,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         getClearances(options?: any): AxiosPromise<Clearance> {
             return localVarFp.getClearances(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get clearance by ID Number
+         * @param {string} idNumber 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLiability(idNumber: string, options?: any): AxiosPromise<Clearance> {
+            return localVarFp.getLiability(idNumber, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3207,6 +3287,18 @@ export class DefaultApi extends BaseAPI {
      */
     public getClearances(options?: any) {
         return DefaultApiFp(this.configuration).getClearances(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get clearance by ID Number
+     * @param {string} idNumber 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public getLiability(idNumber: string, options?: any) {
+        return DefaultApiFp(this.configuration).getLiability(idNumber, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

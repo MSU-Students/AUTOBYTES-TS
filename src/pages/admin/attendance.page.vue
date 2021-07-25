@@ -19,7 +19,7 @@
 <script lang="ts">
 import { Vue, prop, Options } from "vue-class-component";
 import Table from "components/table.component.vue";
-import addAttendanceDialog from "src/components/layout-component/dialog/addAttendanceDialog.vue"
+import addAttendanceDialog from "src/components/layout-component/dialog/addAttendanceDialog.vue";
 import { mapState, mapActions } from "vuex";
 import IAttendance from "src/interfaces/attendance.interface";
 
@@ -86,8 +86,14 @@ export default class attendace extends Vue {
       sortable: true,
     },
     {
+      name: "semester",
+      label: "SEMESTER",
+      field: "semester",
+      align: "center",
+    },
+    {
       name: "amount",
-      label: "LAST NAME",
+      label: "AMOUNT",
       align: "center",
       field: "amount",
       sortable: true,

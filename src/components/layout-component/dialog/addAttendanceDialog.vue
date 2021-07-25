@@ -36,6 +36,12 @@
               </q-icon>
             </template>
           </q-input>
+          <q-select
+            filled
+            v-model="attendanceItem.semester"
+            :options="semester"
+            label="Semester"
+          />
           <q-input
             filled
             v-model="attendanceItem.amount"
@@ -76,7 +82,6 @@ import IUpload from "src/interfaces/upload.interface";
 import IClearance from "src/interfaces/clearance.interface";
 import IBulletin from "src/interfaces/bulletin.interface";
 import IStudents from "src/interfaces/students.interface";
-import { date } from "app/node_modules/quasar/dist/types";
 
 interface RefsVue extends Vue {
   validate(): void;
@@ -101,6 +106,7 @@ interface RefsVue extends Vue {
   },
 })
 export default class addAttendanceDialog extends Vue {
+  semester = ["1st Semester", "2nd Semester"];
   file: File[] = [];
   isUpload = false;
   isSubmit = false;
@@ -110,6 +116,7 @@ export default class addAttendanceDialog extends Vue {
     date: "",
     eventName: "",
     amount: "",
+    semester: "",
   };
 
   declare $refs: {
@@ -124,6 +131,7 @@ export default class addAttendanceDialog extends Vue {
       date: "",
       eventName: "",
       amount: "",
+      semester: "",
     };
     this.showAttendanceDialog(false);
   }
@@ -152,6 +160,7 @@ export default class addAttendanceDialog extends Vue {
     await this.getAttendance();
     await this.getStudents();
   }
+
   async upload() {
     await this.addAttendance(this.attendanceItem);
     const absents: IStudents[] = this.students.filter((student) => {
@@ -169,7 +178,7 @@ export default class addAttendanceDialog extends Vue {
         date: this.attendanceItem.date,
         eventName: this.attendanceItem.eventName,
         amount: this.attendanceItem.amount,
-        clearanceType: "Fines"
+        semester: this.attendanceItem.semester
       });
     });
     this.showAttendanceDialog(false);

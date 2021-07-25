@@ -1,16 +1,12 @@
 <template>
   <q-table
+    class="my-sticky-header-table"
     style="height: 750px"
     :grid="$q.screen.lt.md"
     :rows="data"
     :columns="columns"
     row-key="id"
     :filter="filter"
-    :pagination.sync="pagination"
-    :loading="loading"
-    @request="onRequest"
-    virtual-scroll
-    binary-state-sort
   >
     <template v-slot:header="props">
       <q-tr :props="props">
@@ -62,9 +58,9 @@
           <q-btn
             v-if="isBtnShow"
             color="primary"
-            icon-right="person_add"
-            :label="`ADD ${buttonName2}`"
-            @click=""
+            icon-right="archive"
+            label="EXPORT TO CSV"
+            @click="exportTable()"
           />
         </div>
       </div>
@@ -99,6 +95,7 @@
 <script lang="ts">
 import { Vue, Options, prop } from "vue-class-component";
 import { mapState, mapActions } from "vuex";
+import { exportFile } from "quasar";
 
 class Props {
   readonly isBtnShow!: boolean;
@@ -112,7 +109,6 @@ class Props {
   readonly options!: string[];
   readonly columns!: any[];
   data!: any[];
-  filter = "";
 }
 
 @Options({
@@ -144,6 +140,7 @@ class Props {
   },
 })
 export default class Table extends Vue.with(Props) {
+  filter = "";
   dialog = false;
   loading = false;
   newData: any[] = [];
@@ -199,16 +196,16 @@ export default class Table extends Vue.with(Props) {
         const payload = { ...data, userType: "officer" };
         this.updateID(payload);
         this.$q.notify({
-        type: "positive",
-        message: "Successfully Added as Officer",
-      });
+          type: "positive",
+          message: "Successfully Added as Officer",
+        });
       } else if (res == "officer") {
         const payload = { ...data, disabled: true };
         this.updateID(payload);
         this.$q.notify({
-        type: "negative",
-        message: "The Account has successfully DISABLED",
-      });
+          type: "negative",
+          message: "The Account has successfully DISABLED",
+        });
       }
     } else if (this.$route.name == "admin-records") {
       this.showMediaDialog(true);
@@ -228,7 +225,78 @@ export default class Table extends Vue.with(Props) {
       this.showEditStudentDialog(true);
     }
   }
+
+  wrapCsvValue(val: any, formatFn?: any) {
+    let formatted = formatFn !== void 0 ? formatFn(val) : val;
+
+    formatted =
+      formatted === void 0 || formatted === null ? "" : String(formatted);
+
+    formatted = formatted.split('"').join('""');
+    /**
+     * Excel accepts \n and \r in strings, but some other CSV parsers do not
+     * Uncomment the next two lines to escape new lines
+     */
+    // .split('\n').join('\\n')
+    // .split('\r').join('\\r')
+
+    return `"${formatted}"`;
+  }
+
+  exportTable() {
+    const content = [this.columns.map((col) => this.wrapCsvValue(col.label))]
+      .concat(
+        this.data.map((row) =>
+          this.columns
+            .map((col) =>
+              this.wrapCsvValue(
+                typeof col.field === "function"
+                  ? col.field(row)
+                  : row[col.field === void 0 ? col.name : col.field],
+                col.format
+              )
+            )
+            .join(",")
+        )
+      )
+      .join("\r\n");
+
+    const status = exportFile(
+      `table-${this.$route.name as string}.csv`,
+      content,
+      "text/csv"
+    );
+
+    if (status !== true) {
+      this.$q.notify({
+        message: "Browser denied file download...",
+        color: "negative",
+        icon: "warning",
+      });
+    }
+  }
 }
 </script>
 
-<style></style>
+<style lang="sass">
+.my-sticky-header-table
+  /* height or max-height is important */
+  height: 310px
+
+  .q-table__top,
+  .q-table__bottom,
+  thead tr:first-child th
+    /* bg color is important for th; just specify one */
+    background-color: white
+
+  thead tr th
+    position: sticky
+    z-index: 1
+  thead tr:first-child th
+    top: 0
+
+  /* this is when the loading indicator appears */
+  &.q-table--loading thead tr:last-child th
+    /* height of all previous header rows */
+    top: 48px
+</style>

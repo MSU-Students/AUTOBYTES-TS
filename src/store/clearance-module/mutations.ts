@@ -9,6 +9,12 @@ const mutation: MutationTree<ClearanceStateInterface> = {
   getClearance(state, result) {
     state.clearance = [];
     state.clearance.push(...result);
+  },
+  findById(state, result) {
+    state.clearance.push(result.data)
+  },
+  findOne(state, result) {
+    state.clearance.push(result)
   }
 };
 

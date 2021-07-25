@@ -62,7 +62,6 @@
           <q-file
             filled
             v-model="file"
-            multiple
             label="Attach Image"
             :style="$q.screen.lt.md ? 'width: 295px' : 'width: 470px'"
             @update:model-value="fileChoose($event)"
@@ -115,7 +114,7 @@ export default class addRecordsDialog extends Vue {
   sem = ["1st Semester", "2nd Semester"];
   types = ["Minutes of Meetings", "Bills", "Receipt"];
 
-  records: IRecords = {
+  records: any = {
     title: "",
     date: "",
     recordsFrom: "",
@@ -139,12 +138,6 @@ export default class addRecordsDialog extends Vue {
   showRecordsDialog!: (show: boolean) => void;
   addRecords!: (payload: any) => Promise<void>;
   getRecordType!: () => void;
-
-  // showDialog() {
-  //   //
-  //   this.getRecordType();
-  //   console.log("ui", this.types);
-  // }
 
   fileChoose(val: any) {
     this.file = val;
@@ -180,9 +173,7 @@ export default class addRecordsDialog extends Vue {
     ) {
       this.formHasError = true;
     } else {
-      console.log(this.records, this.file);
       const media = await mediaService.uploadMedia(this.file);
-      console.log("media: ", media);
       const res: any = await this.addRecords({
         ...this.records,
         url: media.id,
@@ -191,19 +182,6 @@ export default class addRecordsDialog extends Vue {
       this.showRecordsDialog(false);
     }
   }
-
-  // createValue(val: any, done: any) {
-  //   // specific logic to eventually call done(...) -- or not
-  //   this.records.recordsType = val;
-  //   done(val);
-  //   // done callback has two optional parameters:
-  //   //  - the value to be added
-  //   //  - the behavior (same values of new-value-mode prop,
-  //   //    and when it is specified it overrides that prop –
-  //   //    if it is used); default behavior (if not using
-  //   //    new-value-mode) is to add the value even if it would
-  //   //    be a duplicate
-  // }
 }
 </script>
 

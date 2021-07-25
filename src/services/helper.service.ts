@@ -2,6 +2,8 @@ import Papa from 'papaparse';
 import { Students } from './rest-api';
 import attendanceService from './attendance.service'
 import studentsService from './students.service';
+import IClearance from 'src/interfaces/clearance.interface';
+import IAttendance from 'src/interfaces/attendance.interface';
 
 
 class HelperService {
@@ -10,7 +12,6 @@ class HelperService {
     const type = typeof name === 'string' ? name : '';
     if (type.toLowerCase() == 'csv') {
       return new Promise(resolve => {
-        console.log(file);
         Papa.parse(file, {
           header: true,
           skipEmptyLines: true,
@@ -47,26 +48,27 @@ class HelperService {
           header: true,
           skipEmptyLines: true,
           complete: async function (results) {
-            const newStructure: any = results.data
+            const newStructure: IAttendance[] = results.data
               .filter((i: any) => (i.lastName && i.firstName)).map((i: any) => {
                 return {
                   lastName: String(i.lastName),
                   firstName: String(i.firstName),
                   date: String(payload.date),
                   eventName: String(payload.eventName),
-                  amount: String(payload.amount)
+                  amount: String(payload.amount),
+                  semester: String(payload.semester)
                 }
               })
-            const res = await attendanceService.addAttendance(
+            console.log(newStructure)
+            await attendanceService.addAttendance(
               newStructure
             );
-
             resolve(newStructure);
           }
         });
       });
     } else if (type.toLowerCase() == 'json') {
-      console.log('this is ', type);
+
     } else {
       return [];
     }

@@ -6,7 +6,6 @@ const mutation: MutationTree<AttendanceStateInterface> = {
     state.attendances.push(...attendace);
   },
   getAttendance(state, result) {
-    state.attendances = [],
     state.attendances.push(...result);
   }
 };

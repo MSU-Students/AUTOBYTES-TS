@@ -65,7 +65,7 @@ export default class clearance extends Vue {
     },
     {
       name: "semester",
-      label: "semester",
+      label: "SEMESTER",
       field: "semester",
       align: "center",
     },

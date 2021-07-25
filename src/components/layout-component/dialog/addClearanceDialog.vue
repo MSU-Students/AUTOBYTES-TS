@@ -97,6 +97,7 @@ export default class addClearanceDialog extends Vue {
     eventName: "",
     amount: "",
     semester: "",
+    idNumber: "",
   };
 
   studentsItem: IStudents[] = [];
@@ -114,6 +115,7 @@ export default class addClearanceDialog extends Vue {
       eventName: "",
       amount: "",
       semester: "",
+      idNumber: "",
     };
     this.showClearanceDialog(false);
   }
@@ -132,6 +134,7 @@ export default class addClearanceDialog extends Vue {
         name: s.studentName,
         amount: this.clearanceItem.amount,
         semester: this.clearanceItem.semester,
+        idNumber: s.idNumber
       });
     });
     this.showClearanceDialog(false);

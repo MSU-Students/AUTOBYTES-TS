@@ -12,6 +12,14 @@ const mutation: MutationTree<UserStateInterface> = {
   },
   updateID(state, result) {
     state.users.push(result.data);
+  },
+  getProfile(state, result) {
+    if (result instanceof Array) {
+      state.users.push(...result)
+    } else {
+      state.users.push(result)
+
+    }
   }
 };
 
