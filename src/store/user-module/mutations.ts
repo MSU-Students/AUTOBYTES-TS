@@ -14,6 +14,7 @@ const mutation: MutationTree<UserStateInterface> = {
     state.users.push(result.data);
   },
   getProfile(state, result) {
+    state.users = []
     if (result instanceof Array) {
       state.users.push(...result)
     } else {

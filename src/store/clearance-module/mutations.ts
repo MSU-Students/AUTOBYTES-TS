@@ -3,7 +3,6 @@ import { ClearanceStateInterface } from './state';
 
 const mutation: MutationTree<ClearanceStateInterface> = {
   addClearance(state, result) {
-    console.log(result);
     state.clearance.push(result.data);
   },
   getClearance(state, result) {
@@ -15,6 +14,9 @@ const mutation: MutationTree<ClearanceStateInterface> = {
   },
   findOne(state, result) {
     state.clearance.push(result)
+  },
+  updateClearance(state, result) {
+    state.clearance.push(result.data);
   }
 };
 

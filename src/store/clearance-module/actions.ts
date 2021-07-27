@@ -19,6 +19,10 @@ const actions: ActionTree<ClearanceStateInterface, StateInterface> = {
   async findOne(context, payload): Promise<any> {
     const result = await clearanceService.findOne(payload.idNumber);
     context.commit('findOne', result)
+  },
+  async updateClearance(context, payload: any): Promise<any> { // { id: id, payload: payload }
+    const result = await clearanceService.updateClearance(payload._id, payload);
+    context.commit('updateClearance', result);
   }
 };
 

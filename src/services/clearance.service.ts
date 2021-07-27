@@ -1,3 +1,4 @@
+import IClearance from "src/interfaces/clearance.interface";
 import { Clearance } from "./rest-api";
 import { restApi } from "./rest-api.service";
 class ClearanceService {
@@ -18,7 +19,11 @@ class ClearanceService {
 
   async findOne(idNumber: string): Promise<Clearance> {
     const response = await restApi.getLiability(idNumber);
-    console.log(response);
+    return response.data
+  }
+
+  async updateClearance(id: string, payload: Clearance): Promise<Clearance> {
+    const response = await restApi.updateClearance(id,payload)
     return response.data
   }
 }

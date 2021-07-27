@@ -13,7 +13,6 @@ class BulletinService {
   }
 
   async getBulletin(id: string): Promise<Bulletin> {
-    console.log(id);
     const response = await restApi.getBulletin(id);
     return response.data;
   }

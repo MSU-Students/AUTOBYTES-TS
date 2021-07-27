@@ -18,7 +18,6 @@ const actions: ActionTree<BulletinStateInterface, StateInterface> = {
     context.commit('getBulletin', result);
   },
   async updateBulletin(context, payload: any): Promise<any> { // { id: id, payload: payload }
-    console.log("payload: ", payload)
     const result = await bulletinService.updateBulletin(payload._id, payload);
     context.commit('updateBulletin', result);
   }

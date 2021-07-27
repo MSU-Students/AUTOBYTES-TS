@@ -1,3 +1,4 @@
+import { stat } from 'fs';
 import { MutationTree } from 'vuex';
 import { AttendanceStateInterface } from './state';
 
@@ -6,6 +7,7 @@ const mutation: MutationTree<AttendanceStateInterface> = {
     state.attendances.push(...attendace);
   },
   getAttendance(state, result) {
+    state.attendances = []
     state.attendances.push(...result);
   }
 };

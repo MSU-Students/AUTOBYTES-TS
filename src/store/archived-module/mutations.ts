@@ -3,7 +3,6 @@ import { ArchivedStateInterface } from './state';
 
 const mutation: MutationTree<ArchivedStateInterface> = {
   addArchived(state, result) {
-    console.log(result);
     state.archived.push(result.data);
   },
   getArchived(state, result) {

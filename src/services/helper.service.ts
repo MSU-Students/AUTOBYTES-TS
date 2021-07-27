@@ -32,7 +32,6 @@ class HelperService {
         });
       });
     } else if (type.toLowerCase() == 'json') {
-      console.log('this is ', type);
     } else {
       return [];
     }
@@ -59,7 +58,6 @@ class HelperService {
                   semester: String(payload.semester)
                 }
               })
-            console.log(newStructure)
             await attendanceService.addAttendance(
               newStructure
             );

@@ -83,7 +83,6 @@ export default route<StateInterface>(function ({ store }) {
       } else {
         store.dispatch('auth/authUser').then(() => {
           const isAuth = store.state.auth.currentUser;
-          console.log(isAuth?.userType);
           if (isAuth?.userType == 'admin' || isAuth?.userType == 'officer') {
             next({
               path: '/a/bulletin',

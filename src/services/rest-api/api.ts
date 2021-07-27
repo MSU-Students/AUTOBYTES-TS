@@ -156,12 +156,6 @@ export interface Clearance {
      * @type {string}
      * @memberof Clearance
      */
-    id: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Clearance
-     */
     name: string;
     /**
      * 
@@ -193,6 +187,12 @@ export interface Clearance {
      * @memberof Clearance
      */
     idNumber: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Clearance
+     */
+    clear: string;
 }
 /**
  * 
@@ -378,6 +378,12 @@ export interface User {
      * @memberof User
      */
     disabled?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    status?: string;
 }
 
 /**
@@ -697,6 +703,176 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary Delete All Attendance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllAttendances: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/attendance/deleteAll`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete All Bulletin
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllBulletins: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/bulletin/deleteAll`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete All clearance by id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllClearances: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/clearance/deleteAll`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete All records
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllRecords: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/records/deleteAll`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete All Student
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllStudents: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/students/deleteAll`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Delete Archived by id
          * @param {string} id 
          * @param {*} [options] Override http request option.
@@ -911,6 +1087,47 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             // verify required parameter 'id' is not null or undefined
             assertParamExists('deleteStudent', 'id', id)
             const localVarPath = `/students/delete`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete user by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUserById: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteUserById', 'id', id)
+            const localVarPath = `/user/deleteByID`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2202,6 +2419,56 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Delete All Attendance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAllAttendances(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Attendance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAllAttendances(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete All Bulletin
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAllBulletins(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Bulletin>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAllBulletins(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete All clearance by id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAllClearances(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Clearance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAllClearances(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete All records
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAllRecords(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Records>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAllRecords(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete All Student
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAllStudents(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Students>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAllStudents(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Delete Archived by id
          * @param {string} id 
          * @param {*} [options] Override http request option.
@@ -2264,6 +2531,17 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          */
         async deleteStudent(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Students>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteStudent(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete user by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteUserById(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<User>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUserById(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2674,6 +2952,51 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary Delete All Attendance
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllAttendances(options?: any): AxiosPromise<Attendance> {
+            return localVarFp.deleteAllAttendances(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete All Bulletin
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllBulletins(options?: any): AxiosPromise<Bulletin> {
+            return localVarFp.deleteAllBulletins(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete All clearance by id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllClearances(options?: any): AxiosPromise<Clearance> {
+            return localVarFp.deleteAllClearances(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete All records
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllRecords(options?: any): AxiosPromise<Records> {
+            return localVarFp.deleteAllRecords(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete All Student
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAllStudents(options?: any): AxiosPromise<Students> {
+            return localVarFp.deleteAllStudents(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Delete Archived by id
          * @param {string} id 
          * @param {*} [options] Override http request option.
@@ -2731,6 +3054,16 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          */
         deleteStudent(id: string, options?: any): AxiosPromise<Students> {
             return localVarFp.deleteStudent(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete user by id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteUserById(id: string, options?: any): AxiosPromise<User> {
+            return localVarFp.deleteUserById(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3127,6 +3460,61 @@ export class DefaultApi extends BaseAPI {
 
     /**
      * 
+     * @summary Delete All Attendance
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteAllAttendances(options?: any) {
+        return DefaultApiFp(this.configuration).deleteAllAttendances(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete All Bulletin
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteAllBulletins(options?: any) {
+        return DefaultApiFp(this.configuration).deleteAllBulletins(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete All clearance by id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteAllClearances(options?: any) {
+        return DefaultApiFp(this.configuration).deleteAllClearances(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete All records
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteAllRecords(options?: any) {
+        return DefaultApiFp(this.configuration).deleteAllRecords(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete All Student
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteAllStudents(options?: any) {
+        return DefaultApiFp(this.configuration).deleteAllStudents(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Delete Archived by id
      * @param {string} id 
      * @param {*} [options] Override http request option.
@@ -3195,6 +3583,18 @@ export class DefaultApi extends BaseAPI {
      */
     public deleteStudent(id: string, options?: any) {
         return DefaultApiFp(this.configuration).deleteStudent(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete user by id
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DefaultApi
+     */
+    public deleteUserById(id: string, options?: any) {
+        return DefaultApiFp(this.configuration).deleteUserById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
