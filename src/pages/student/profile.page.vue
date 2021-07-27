@@ -39,53 +39,59 @@
                   Personal Information
                 </div>
                 <q-separator spaced inset />
-                <q-list dense>
-                  <q-item v-ripple>
-                    <q-item-section class="text-h6">
-                      Name: Atiya Mama Usman asdasdasdsa asdasdasd sdaasdasd
-                    </q-item-section>
-                  </q-item>
-                  <q-separator spaced inset />
-                  <q-item v-ripple>
-                    <q-item-section class="text-h6">
-                      ID Number: 201249908
-                    </q-item-section>
-                  </q-item>
-                  <q-separator spaced inset />
-                  <q-item v-ripple>
-                    <q-item-section class="text-h6">
-                      Address: 0634 Purok 5, Bo. Marawi Marawi City
-                    </q-item-section>
-                  </q-item>
-                  <q-separator spaced inset />
-                  <q-item v-ripple>
-                    <q-item-section class="text-h6">
-                      Course: Atiya Mama Usman asdasdasdsa asdasdasd sdaasdasd
-                    </q-item-section>
-                  </q-item>
-                  <q-separator spaced inset />
-                  <q-item v-ripple>
-                    <q-item-section class="text-h6">
-                      Year Level:
-                    </q-item-section>
-                  </q-item>
-                  <q-separator spaced inset />
-                  <q-item v-ripple>
-                    <q-item-section class="text-h6">
-                      Academic Adviser: Atiya Mama Usman asdasdasdsa asdasdasd
-                      sdaasdasd
-                    </q-item-section>
-                  </q-item>
-                  <q-separator spaced inset />
-                </q-list>
+                <q-scroll-area
+                  :thumb-style="thumbStyle"
+                  :content-style="contentStyle"
+                  :content-active-style="contentActiveStyle"
+                  style="height: 400px; max-width: 800px"
+                >
+                  <q-list dense v-for="(profile, index) in item" :key="index">
+                    <q-item v-ripple>
+                      <q-item-section class="text-h6">
+                        Name: {{ profile.studentName }}
+                      </q-item-section>
+                    </q-item>
+                    <q-separator spaced inset />
+                    <q-item v-ripple>
+                      <q-item-section class="text-h6">
+                        ID Number: {{ profile.idNumber }}
+                      </q-item-section>
+                    </q-item>
+                    <q-separator spaced inset />
+                    <q-item v-ripple>
+                      <q-item-section class="text-h6">
+                        Address: {{ profile.address }}
+                      </q-item-section>
+                    </q-item>
+                    <q-separator spaced inset />
+                    <q-item v-ripple>
+                      <q-item-section class="text-h6">
+                        Course: {{ profile.course }}
+                      </q-item-section>
+                    </q-item>
+                    <q-separator spaced inset />
+                    <q-item v-ripple>
+                      <q-item-section class="text-h6">
+                        Year Level: {{profile.level}}
+                      </q-item-section>
+                    </q-item>
+                    <q-separator spaced inset />
+                    <q-item v-ripple>
+                      <q-item-section class="text-h6">
+                        Academic Adviser: {{profile.acadAdviser}}
+                      </q-item-section>
+                    </q-item>
+                    <q-separator spaced inset />
+                  </q-list>
+                </q-scroll-area>
               </q-tab-panel>
 
               <q-tab-panel name="prospectus">
                 <div class="text-h6 text-center">Prospectus</div>
                 <q-separator spaced inset />
-                <div>
+                <div itemid="pros">
                   <q-img
-                    src="https://placeimg.com/500/300/nature"
+                    src="../../assets/pros.jpg"
                     :ratio="16 / 9"
                     spinner-color="primary"
                     spinner-size="82px"
@@ -97,6 +103,9 @@
                     color="primary"
                     icon="file_download"
                     label="Download"
+                    :loading="loading"
+                    :disable="loading"
+                    @click="download('../../assets/pros.jpg')"
                   />
                 </div>
               </q-tab-panel>
@@ -126,22 +135,15 @@
 <script>
 import { Vue, prop, Options } from "vue-class-component";
 import QrCodeWithLogo from "qrcode-with-logos";
+import getProfile from "src/services/user.service";
+import getStudents from "src/services/students.service";
 import { mapActions, mapState } from "vuex";
-import IStudents from "src/interfaces/students.interface"
-import IUser from "src/interfaces/users.interface"
+import IStudents from "src/interfaces/students.interface";
+import IUser from "src/interfaces/users.interface";
 
-@Options({
-  computed: {
-    ...mapState("users",["users"]),
-    ...mapState("students",["students"])
-  },
-  methods: {
-    ...mapActions("users", ["getUsers"]),
-    ...mapActions("students", ["getStudents"]),
-  },
-})
 export default class profile extends Vue {
   tab = "info";
+  loading = false;
   studentInfo = {
     firstName: "",
     lastName: "",
@@ -174,6 +176,44 @@ export default class profile extends Vue {
     img.src = require("../../assets/citlogo.png");
     const qrCode = await this.generatedQrCode();
     const res = await qrCode.downloadImage("Student QR Code");
+  }
+
+  toDataURL(url) {
+    return fetch(url)
+      .then((response) => {
+        return response.blob();
+      })
+      .then((blob) => {
+        return URL.createObjectURL(blob);
+      })
+      .catch(() => {
+        this.loading = false;
+      });
+  }
+
+  async download(url) {
+    this.loading = true;
+    const a = document.createElement("a");
+    a.href = await this.toDataURL(require("../../assets/pros.jpg"));
+    a.download = "prospectus.jpg";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    this.loading = false;
+  }
+  item = [];
+  async created() {
+    const showProfile = await getProfile.getProfile();
+    const showStudent = await getStudents.getStudents();
+    if (showProfile instanceof Array) {
+      this.item = showStudent.filter(
+        (student) => student.idNumber == showProfile[0].idNumber
+      );
+    } else {
+      this.item = showStudent.filter(
+        (student) => student.idNumber == showProfile.idNumber
+      );
+    }
   }
 }
 </script>

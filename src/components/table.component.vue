@@ -7,7 +7,12 @@
     :columns="columns"
     row-key="id"
     :filter="filter"
+    :loading="loading"
+    :disable="loading"
   >
+    <template v-slot:loading>
+      <q-inner-loading showing color="primary" />
+    </template>
     <template v-slot:header="props">
       <q-tr :props="props">
         <q-th v-for="col in props.cols" :key="col.name" :props="props">
@@ -18,18 +23,8 @@
     </template>
 
     <template v-slot:top="props">
-      <div class="col q-table__title q-mr-lg">{{ title }}</div>
+      <div class="col q-table__title q-mr-lg text-weight-bold">{{ title }}</div>
       <div class="row q-gutter-sm q-mb-md">
-        <div>
-          <q-select
-            class="q-mr-md"
-            v-model="multiple"
-            multiple
-            :options="options"
-            style="width: 200px"
-          />
-        </div>
-
         <div class="q-search">
           <q-input
             outlined
@@ -69,7 +64,7 @@
     <template v-slot:body="props">
       <q-tr :props="props">
         <q-td v-for="col in props.cols" :key="col.name" :props="props">
-          {{ col.value }}
+          {{col.value}}
         </q-td>
         <q-td class="q-gutter-x-sm" auto-width>
           <q-btn
@@ -78,14 +73,24 @@
             color="orange"
             round
             @click="editItem(props.row)"
-          />
+          >
+            <q-tooltip transition-show="flip-right" transition-hide="flip-left">
+              {{ tooltip }}
+            </q-tooltip>
+          </q-btn>
           <q-btn
             v-if="officerBtn"
             color="green"
             round
             :icon="`${iconBtn}`"
             @click="activeOfficer(props.row)"
-          />
+            :loading="loading"
+            :disable="loading"
+          >
+            <q-tooltip transition-show="flip-right" transition-hide="flip-left">
+              {{ tooltip2 }}
+            </q-tooltip>
+          </q-btn>
         </q-td>
       </q-tr>
     </template>
@@ -104,6 +109,8 @@ class Props {
   readonly iconBtn!: string;
   readonly title!: string;
   rowKey!: string;
+  readonly tooltip!: string;
+  readonly tooltip2!: string;
   readonly buttonName!: string;
   readonly buttonName2!: string;
   readonly options!: string[];
@@ -123,6 +130,7 @@ class Props {
       "showEditStudent",
     ]),
     ...mapState("users", ["users"]),
+    ...mapState("clearance", ["clearance"]),
   },
   methods: {
     ...mapActions("ui", [
@@ -137,6 +145,7 @@ class Props {
     ]),
     ...mapActions("bulletin", ["getBulletin"]),
     ...mapActions("users", ["updateID"]),
+    ...mapActions("clearance", ["updateClearance"]),
   },
 })
 export default class Table extends Vue.with(Props) {
@@ -170,7 +179,7 @@ export default class Table extends Vue.with(Props) {
   updateID!: (payload: any) => Promise<void>;
   showMediaDialog!: (isShow: boolean) => void;
   showEditStudentDialog!: (isShow: boolean) => void;
-
+  updateClearance!: (payload: any) => Promise<void>;
   showDialog() {
     if (this.$route.name == "admin-bulletin") {
       this.showBulletinDialog(true);
@@ -190,29 +199,52 @@ export default class Table extends Vue.with(Props) {
 
   activeOfficer(data: any) {
     const res = data.userType;
+    const clear = data.clear;
 
     if (this.$route.name == "admin-accounts") {
+      this.loading = true;
       if (res == "student") {
-        const payload = { ...data, userType: "officer" };
+        const payload = { ...data, userType: "officer" ,status: "enable"};
         this.updateID(payload);
         this.$q.notify({
           type: "positive",
           message: "Successfully Added as Officer",
         });
       } else if (res == "officer") {
-        const payload = { ...data, disabled: true };
+        const payload = { ...data, disabled: true, status: "disabled" };
         this.updateID(payload);
         this.$q.notify({
           type: "negative",
           message: "The Account has successfully DISABLED",
         });
       }
+      this.loading = false;
     } else if (this.$route.name == "admin-records") {
+      this.loading = true;
       this.showMediaDialog(true);
       this.$emit("view", { data: data });
+      this.loading = false;
     } else if (this.$route.name == "admin-bulletin") {
+      this.loading = true;
       this.showMediaDialog(true);
       this.$emit("view", { data: data });
+      this.loading = false;
+    } else if (this.$route.name == "admin-clearance") {
+      this.loading = true;
+      if (clear == "pending") {
+        const payload = { ...data, clear: "cleared" };
+        this.updateClearance(payload);
+        this.$q.notify({
+          type: "positive",
+          message: "Successfully Cleared",
+        });
+      } else if (clear == "cleared") {
+        this.$q.notify({
+          type: "negative",
+          message: "Account has already been cleared",
+        });
+      }
+      this.loading = false;
     }
   }
 
@@ -271,7 +303,7 @@ export default class Table extends Vue.with(Props) {
       this.$q.notify({
         message: "Browser denied file download...",
         color: "negative",
-        icon: "warning",
+        icon: "warning can't download",
       });
     }
   }

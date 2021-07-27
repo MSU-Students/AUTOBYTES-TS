@@ -6,7 +6,6 @@ import userService from 'src/services/user.service';
 
 const actions: ActionTree<UserStateInterface, StateInterface> = {
   async addUsers(context, payload: any) {
-    console.log(payload)
     const result = await userService.addUsers(payload);
     context.commit('addUsers', result);
   },

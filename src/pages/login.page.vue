@@ -88,7 +88,7 @@ export default class Login extends Vue {
       });
       if (res.userType == "admin" || res.userType == "officer") {
         await this.$router.replace("/a/bulletin");
-      } else {
+      } else if (res.userType == "student") {
         await this.$router.replace("/s/bulletin");
       }
     } catch (error) {

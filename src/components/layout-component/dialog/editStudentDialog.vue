@@ -142,7 +142,6 @@ export default class StudentDialog extends Vue.with(Props) {
     course: RefsVue;
   };
   showDialog() {
-    console.log(this.payload);
     this.student = { ...this.payload.data };
   }
   hideDialog() {

@@ -11,6 +11,7 @@
         :buttonName="buttonName"
         :iconBtn="iconBtn"
         :officerBtn="officerBtn"
+        :tooltip2="tooltip"
         @view="view"
       />
     </div>
@@ -45,6 +46,7 @@ import { mapActions, mapState } from "vuex";
 export default class records extends Vue {
   isBtnShow = true;
   officerBtn = true;
+  tooltip="VIEW IMAGE"
   iconBtn = "image";
   title = "RECORDS";
   rowKey = "title";
@@ -105,7 +107,6 @@ export default class records extends Vue {
   }
 
   view(val: any) {
-    console.log(val);
     this.payload = val;
   }
 }

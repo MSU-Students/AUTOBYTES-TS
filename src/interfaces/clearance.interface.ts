@@ -5,4 +5,5 @@ export default interface IClearance {
   eventName: string;
   semester: string;
   idNumber: string
+  clear: string
 }

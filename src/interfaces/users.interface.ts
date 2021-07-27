@@ -4,6 +4,7 @@ export default interface IUser {
     firstName: string;
     lastName: string;
     idNumber: string;
+    status: string;
     disabled?: boolean;
     refreshToken?: string;
     userType: string;

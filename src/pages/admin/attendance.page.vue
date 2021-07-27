@@ -39,7 +39,7 @@ import IAttendance from "src/interfaces/attendance.interface";
 })
 export default class attendace extends Vue {
   isBtnShow = true;
-  title = "Attendace";
+  title = "ATTENDANCE";
   rowKey = "eventName";
   buttonName = "Attendance";
 
@@ -90,14 +90,7 @@ export default class attendace extends Vue {
       label: "SEMESTER",
       field: "semester",
       align: "center",
-    },
-    {
-      name: "amount",
-      label: "AMOUNT",
-      align: "center",
-      field: "amount",
-      sortable: true,
-    },
+    }
   ];
   attendances!: IAttendance[];
   getAttendance!: () => Promise<void>;

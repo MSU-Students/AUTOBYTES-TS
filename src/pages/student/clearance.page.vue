@@ -33,6 +33,7 @@
 </template>
 
 <script lang="ts">
+import { clear } from "console";
 import IClearance from "src/interfaces/clearance.interface";
 import IUser from "src/interfaces/users.interface";
 import { Vue, prop, Options } from "vue-class-component";
@@ -52,22 +53,22 @@ export default class clearance extends Vue {
   showUser: IUser[] = [];
   clearance!: IClearance[];
   data: any = [];
+  datas: any = []
   getProfile!: () => Promise<void>;
   getClearance!: () => Promise<void>;
 
   async created() {
     await this.getProfile();
-    await this.getClearance();
+    const item = await this.getClearance();
     if (this.users instanceof Array) {
       this.data = this.clearance.filter(
-        (i) => i.idNumber == this.users[0].idNumber
+        (i) => i.idNumber == this.users[0].idNumber && i.clear == "pending"
       );
     } else {
       this.data = this.clearance.filter(
-        (i) => i.idNumber == this.users.idNumber
+        (i) => i.idNumber == this.users.idNumber && i.clear == "pending"
       );
     }
-    console.log("this.data: ", this.data);
   }
 }
 </script>

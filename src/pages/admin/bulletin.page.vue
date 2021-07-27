@@ -12,6 +12,8 @@
         :officerBtn="officerBtn"
         :editBtn="editBtn"
         :iconBtn="iconBtn"
+        :tooltip="tooltip"
+        :tooltip2="tooltip2"
         @view="view"
       />
     </div>
@@ -45,6 +47,8 @@ import Table from "src/components/table.component.vue";
 })
 export default class Bulletin extends Vue {
   isBtnShow = true;
+  tooltip="EDIT";
+  tooltip2="VIEW IMAGE"
   filters = "";
   officerBtn = true;
   editBtn = true;
@@ -107,7 +111,6 @@ export default class Bulletin extends Vue {
   }
 
   view(val: any) {
-    console.log(val);
     this.payload = val;
   }
 }

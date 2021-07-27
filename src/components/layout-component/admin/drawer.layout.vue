@@ -56,15 +56,12 @@
     </q-list>
     <!-- PROFILE PIC -->
     <div class="text-center q-pt-md">
-      <q-btn round style="border-radius: 10px 10px 10px 10px">
-        <q-avatar size="80px" style="border-radius: 10px 10px 10px 10px">
-          <img src="~assets/Yass.jpg" />
-        </q-avatar>
-      </q-btn>
       <div
         class="q-pt-lg text-subtitle2 text-grey-8 text-weight-bolder q-mx-sm"
+        v-for="(profile,index) in showProfile"
+        :key="index"
       >
-        Mohammad Yassier Bashier
+        {{profile.lastName}}, {{profile.firstName}}
       </div>
     </div>
     <!-- LOGOUT BUTTON -->
@@ -84,6 +81,7 @@
 import { Vue, Options } from "vue-class-component";
 import { mapActions, mapState } from "vuex";
 import loginService from "src/services/login.services";
+import IUser from "src/interfaces/users.interface";
 
 const itemList = [
   {
@@ -121,18 +119,33 @@ const itemList = [
 @Options({
   computed: {
     ...mapState("ui", ["leftDrawerState"]),
+    ...mapState("users",["users"])
   },
   methods: {
     ...mapActions("ui", ["leftDrawer"]),
+    ...mapActions("users",["getProfile"])
   },
 })
 export default class StudentDrawerLayout extends Vue {
   leftDrawerState!: boolean;
   leftDrawer!: (isShow: boolean) => void;
   menus = itemList;
+  showProfile: any = []
+  users!: IUser[];
+  getProfile!: () => Promise<void>
 
   hideDrawer(val: boolean) {
     this.leftDrawer(val);
+  }
+
+  async created (){
+    await this.getProfile();
+    this.showProfile = this.users.map((s) => {
+      return {
+        firstName: s.firstName.toUpperCase(),
+        lastName: s.lastName.toUpperCase()
+      }
+    })
   }
 
   async logout() {

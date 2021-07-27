@@ -11,6 +11,7 @@
         :buttonName="buttonName"
         :editBtn="editBtn"
         :iconBtn="iconBtn"
+        :tooltip="tooltip"
         @view="view"
       />
     </div>
@@ -48,6 +49,7 @@ export default class Bulletin extends Vue {
   title = "MASTERLIST";
   rowKey = "title";
   buttonName = "STUDENT";
+  tooltip="EDIT"
 
   file = [];
   semester = ["1st Semester", "2nd Semester"];
@@ -131,7 +133,6 @@ export default class Bulletin extends Vue {
 
   payload = {};
   view(val: any) {
-    console.log(val);
     this.payload = val;
   }
 }

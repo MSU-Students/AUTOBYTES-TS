@@ -9,6 +9,9 @@
         :rowKey="rowKey"
         :isBtnShow="isBtnShow"
         :buttonName="buttonName"
+        :officerBtn="officerBtn"
+        :iconBtn="iconBtn"
+        :tooltip2="tooltip2"
       />
     </div>
     <addClearanceDialog />
@@ -36,11 +39,14 @@ import addClearanceDialog from "src/components/layout-component/dialog/addCleara
   },
 })
 export default class clearance extends Vue {
-  isBtnShow=true;
-  title="LIABILITIES";
-  rowKey="name";
-  buttonName="CLEARANCE";
-  options=["1st Semester", "2nd Semester"];
+  isBtnShow = true;
+  title = "LIABILITIES";
+  officerBtn = true;
+  rowKey = "name";
+  tooltip2 = "CLEAR";
+  iconBtn = "done_outline";
+  buttonName = "CLEARANCE";
+  options = ["1st Semester", "2nd Semester"];
   columns = [
     {
       name: "name",
@@ -56,24 +62,35 @@ export default class clearance extends Vue {
       label: "EVENT NAME",
       field: "eventName",
       align: "center",
+      sortable: true,
     },
     {
       name: "date",
       label: "DATE",
       field: "date",
       align: "center",
+      sortable: true,
     },
     {
       name: "semester",
       label: "SEMESTER",
       field: "semester",
       align: "center",
+      sortable: true,
     },
     {
       name: "amount",
       label: "AMOUNT",
       field: "amount",
       align: "center",
+      sortable: true,
+    },
+    {
+      name: "clear",
+      label: "STATUS",
+      field: "clear",
+      align: "center",
+      sortable: true,
     },
   ];
 

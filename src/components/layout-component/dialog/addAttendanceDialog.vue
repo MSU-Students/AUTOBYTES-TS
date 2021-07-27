@@ -178,7 +178,9 @@ export default class addAttendanceDialog extends Vue {
         date: this.attendanceItem.date,
         eventName: this.attendanceItem.eventName,
         amount: this.attendanceItem.amount,
-        semester: this.attendanceItem.semester
+        semester: this.attendanceItem.semester,
+        idNumber: s.idNumber,
+        clear: "pending"
       });
     });
     this.showAttendanceDialog(false);

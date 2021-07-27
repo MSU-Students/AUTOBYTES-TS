@@ -33,8 +33,9 @@
             ref="date"
             v-model="bulletin.date"
             mask="date"
-            :rules="['date']"
             label="Date"
+            lazy-rules
+            :rules="[(val) => !!val || 'Field is required']"
           >
             <template v-slot:append>
               <q-icon name="event" class="cursor-pointer">
@@ -75,6 +76,7 @@
             v-model="bulletin.bulletinType"
             :options="option"
             label="Bulletin Type"
+            lazy-rules
             :rules="[(val) => !!val || 'Field is required']"
           />
           <q-file
@@ -165,7 +167,6 @@ export default class addBulletinDialog extends Vue.with(Props) {
   updateBulletin!: (payload: any) => Promise<void>;
 
   showDialog() {
-    console.log(this.payload);
     this.bulletin = { ...this.payload.data };
   }
 
@@ -195,7 +196,6 @@ export default class addBulletinDialog extends Vue.with(Props) {
 
     if (
       this.$refs.title.hasError ||
-      this.$refs.date.hasError ||
       this.$refs.date.hasError ||
       this.$refs.bulletinFrom.hasError ||
       this.$refs.bulletinSemester.hasError ||

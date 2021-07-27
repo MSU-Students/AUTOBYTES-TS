@@ -15,16 +15,21 @@
       <q-card-section>
         <div class="q-gutter-md" style="max-width: 500px">
           <q-input
+            ref="eventName"
             filled
             v-model="clearanceItem.eventName"
             label="Event Name"
+            lazy-rules
+            :rules="[(val) => !!val || 'Field is required']"
           />
           <q-input
+            ref="date"
             filled
             v-model="clearanceItem.date"
             mask="date"
-            :rules="['date']"
             label="Date"
+            lazy-rules
+            :rules="[(val) => !!val || 'Field is required']"
           >
             <template v-slot:append>
               <q-icon name="event" class="cursor-pointer">
@@ -43,16 +48,22 @@
             </template>
           </q-input>
           <q-select
+            ref="semester"
             filled
             v-model="clearanceItem.semester"
-            :options="semester"
+            :options="sem"
             label="Semester"
+            lazy-rules
+            :rules="[(val) => !!val || 'Field is required']"
           />
           <q-input
+            ref="amount"
             v-model="clearanceItem.amount"
             filled
             mask="#####"
             label="Amount"
+            lazy-rules
+            :rules="[(val) => !!val || 'Field is required']"
           />
           <!-- <q-input filled v-model="by" label="Added By" /> -->
         </div>
@@ -76,6 +87,12 @@ import IStudents from "src/interfaces/students.interface";
 import { Vue, Options } from "vue-class-component";
 import { mapActions, mapState } from "vuex";
 
+interface RefsVue extends Vue {
+  validate(): void;
+  next(): void;
+  hasError: boolean;
+}
+
 @Options({
   computed: {
     ...mapState("clearance", ["clearance"]),
@@ -89,7 +106,8 @@ import { mapActions, mapState } from "vuex";
   },
 })
 export default class addClearanceDialog extends Vue {
-  semester = ["1st Semester", "2nd Semester"];
+  sem = ["1st Semester", "2nd Semester"];
+  isSubmit = false;
 
   clearanceItem: IClearance = {
     name: "",
@@ -98,6 +116,14 @@ export default class addClearanceDialog extends Vue {
     amount: "",
     semester: "",
     idNumber: "",
+    clear: "",
+  };
+
+  declare $refs: {
+    eventName: RefsVue;
+    date: RefsVue;
+    semester: RefsVue;
+    amount: RefsVue;
   };
 
   studentsItem: IStudents[] = [];
@@ -107,6 +133,7 @@ export default class addClearanceDialog extends Vue {
   getStudents!: () => Promise<void>;
   showClearanceDialog!: (show: boolean) => void;
   addClearance!: (payload: IClearance) => Promise<IClearance>;
+  formHasError!: boolean;
 
   hideDialog() {
     this.clearanceItem = {
@@ -116,6 +143,7 @@ export default class addClearanceDialog extends Vue {
       amount: "",
       semester: "",
       idNumber: "",
+      clear: "",
     };
     this.showClearanceDialog(false);
   }
@@ -126,17 +154,32 @@ export default class addClearanceDialog extends Vue {
   }
 
   async saveEvent() {
-    this.studentsItem.map((s) => {
-      console.log("Result: ", s.studentName);
-      this.addClearance({
-        eventName: this.clearanceItem.eventName,
-        date: this.clearanceItem.date,
-        name: s.studentName,
-        amount: this.clearanceItem.amount,
-        semester: this.clearanceItem.semester,
-        idNumber: s.idNumber
+    this.isSubmit = true;
+    this.$refs.eventName.validate();
+    this.$refs.date.validate();
+    this.$refs.semester.validate();
+    this.$refs.amount.validate();
+    if (
+      this.$refs.date.hasError ||
+      this.$refs.eventName.hasError ||
+      this.$refs.amount.hasError ||
+      this.$refs.semester.hasError 
+    ) {
+      this.formHasError = true;
+    } else {
+      this.studentsItem.map((s) => {
+        this.addClearance({
+          eventName: this.clearanceItem.eventName,
+          date: this.clearanceItem.date,
+          name: s.studentName,
+          amount: this.clearanceItem.amount,
+          semester: this.clearanceItem.semester,
+          idNumber: s.idNumber,
+          clear: "pending",
+        });
       });
-    });
+    }
+    this.isSubmit = false;
     this.showClearanceDialog(false);
   }
 }

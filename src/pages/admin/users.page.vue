@@ -26,7 +26,8 @@
             :officerBtn="officerBtn"
             :buttonName="officerBtnName"
             :isBtnShow="isBtnShow1"
-            :iconBtn="iconBtn"
+            :iconBtn="iconBtn1"
+            :tooltip2="tooltip1"
           />
         </q-tab-panel>
 
@@ -40,6 +41,7 @@
             :buttonName="buttonName2"
             :officerBtn="officerBtn2"
             :iconBtn="iconBtn"
+            :tooltip2="tooltip2"
           />
         </q-tab-panel>
       </q-tab-panels>
@@ -68,10 +70,10 @@ import IUser from "src/interfaces/users.interface";
 })
 export default class userPage extends Vue {
   tab = "officers";
-  title1 = "Officers";
-  iconBtn = "person";
+  tooltip1 = "DISABLED ACCOUNT";
+  iconBtn1 = "lock";
+  iconBtn = "person_add";
   officerBtn = true;
-  isBtnShow1 = true;
   columns1 = [
     {
       name: "lastName",
@@ -88,13 +90,17 @@ export default class userPage extends Vue {
       align: "center",
     },
     { name: "username", label: "USERNAME", field: "userName", align: "center" },
+    {
+      name: "disabled",
+      label: "USER TYPE",
+      field: "userType",
+      align: "center",
+    },
+    { name: "status", label: "STATUS", field: "status", align: "center" },
   ];
 
-  title2 = "Students";
-  isBtnShow2 = true;
-  buttonName2 = "RECORD";
+  tooltip2 = "ADD as OFFICER";
   officerBtn2 = true;
-  officerBtnName2 = "RECORD";
   columns2 = [
     {
       name: "lastName",
@@ -111,6 +117,12 @@ export default class userPage extends Vue {
       align: "center",
     },
     { name: "username", label: "USERNAME", field: "userName", align: "center" },
+    {
+      name: "disabled",
+      label: "USER TYPE",
+      field: "userType",
+      align: "center",
+    },
   ];
 
   users!: IUser[];
@@ -121,13 +133,10 @@ export default class userPage extends Vue {
   getUsers!: () => Promise<IUser>;
 
   async created() {
-    await this.getUsers()
-    
+    await this.getUsers();
+
     this.students = this.users.filter((user) => user.userType == "student");
-    this.officers = this.users.filter(
-      (user) => user.userType == "officer"
-    );
-    console.log("officers:",this.officers)
+    this.officers = this.users.filter((user) => user.userType == "officer");
   }
 }
 </script>

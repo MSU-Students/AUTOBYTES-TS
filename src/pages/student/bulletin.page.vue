@@ -160,7 +160,6 @@ export default class bulletin extends Vue {
   async getUrl(bulletin: any) {
     const res: any = await this.getMedia(bulletin);
     if (bulletin == res.id) {
-      console.log(res);
       return res.id;
     }
   }
